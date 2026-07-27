@@ -58,14 +58,17 @@ blockquote, horizontal rule.
 Custom blocks:
 
 - **Math** — inline `$…$` and block `$$…$$`, KaTeX-rendered, LaTeX source preserved.
-- **Callouts** — `definition | theorem | example | warning | answer` (answer = collapsed by
-  default).
+- **Callouts** — `definition | theorem | example | warning | answer | ai-explanation`
+  (answer = collapsed by default; ai-explanation = visibly marked as generated, carries its
+  source citations — see AI-9 in [08-ai-features.md](08-ai-features.md)).
 - **Flashcard block** — Q/A (or cloze) authored inline; automatically registered as a `Flashcard`
   entity linked to its position. Deleting the block retires the card (history kept).
 - **Wiki-link** — `[[…]]` autocomplete across the space; renders as chip; creates `Link` edges.
 - **PDF embed** — inline viewer for an attached asset with page-anchored deep links
   (`asset#page=4`) so notes can cite "the question on page 4 of the 2025 midterm".
-- **Mermaid diagram** — fenced source, rendered client-side.
+- **Mermaid diagram** — fenced source, rendered client-side; AI-generated diagrams (AI-10)
+  are ordinary Mermaid blocks with attached source citations, so they stay editable, versioned,
+  and inside the export contract.
 
 Markdown-native input everywhere: typing `## `, `> `, `$$`, `[[` produces the right block.
 Paste-from-markdown and copy-as-markdown are lossless for all core + custom blocks.

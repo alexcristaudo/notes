@@ -63,6 +63,38 @@ source file ──► classify ──► convert ──► normalize ──► c
   beside it. The promise is **"nothing lost, everything findable"**, not "everything pretty".
 - Export→import round-trip of our own format must be lossless — this is a standing CI test.
 
+## The Tidy engine (reorganization beyond import)
+
+The mapping step above — analyze a tree, propose a clean destination structure, human approves,
+background job executes — is not import-only machinery. The same engine powers **Tidy**
+(feature A5 in [03-features.md](03-features.md)): run it against content *already in the app*
+whenever a course or space has grown cluttered.
+
+What a Tidy plan can propose:
+
+- **Reclassify** — notes typed wrong or untyped ("this is clearly tutorial 4, not a lecture"),
+  with week/date stamping inferred from titles, content, and neighbors.
+- **Rename** — consistent titles (`01-limits-and-continuity` style ordering where order matters).
+- **Split** — a giant catch-all note offered as per-heading splits into properly typed notes.
+- **Merge** — duplicate or fragmentary notes on the same topic flagged with a suggested merge
+  (content diff shown; merge is a draft, never automatic).
+- **Attach** — orphan assets (unlinked PDFs/images) matched to the notes that reference or
+  resemble them.
+- **Archive** — anything unclassifiable goes to a visible "misc" archive, never deleted.
+
+Guarantees, identical for import and Tidy:
+
+1. **Plan → approve → execute.** The proposal is a reviewable, editable diff (two-pane
+   before → after). Nothing changes until approved; partial approval is fine.
+2. **Reversible.** Every executed plan is recorded and one-click undoable; version history
+   covers content-level changes (splits/merges).
+3. **Loss-proof.** Originals kept (as assets or archived notes); the promise remains
+   "nothing lost, everything findable".
+
+Classification heuristics are shared with the import pipeline; the AI-assisted layer that makes
+proposals genuinely smart (content-based classification, duplicate detection, split-point
+suggestion) is specced as AI-8 in [08-ai-features.md](08-ai-features.md).
+
 ## Metrics that matter
 
 - Time from signup → first imported course (target: < 10 minutes).

@@ -69,6 +69,40 @@ The "what should I study today?" engine (features C6) enhanced with retrieval: c
 flashcards (low FSRS stability) to their source sections and queues *those sections*, not just
 the cards.
 
+### AI-8. Tidy: smart reorganization — P1
+The intelligence behind the Tidy engine ([04-import-platform.md](04-import-platform.md)) and
+feature A5: given a cluttered course/space (or a fresh import), produce a reorganization *plan* —
+content-based type/week classification (reading the note, not just the filename), consistent
+rename proposals, duplicate detection via embedding similarity, split-point suggestions for
+catch-all notes (heading structure + topic-shift detection), and orphan-asset matching
+(asset text ↔ note content similarity). Strictly plan-generating: the model **proposes, the
+student approves, deterministic code executes** — the model never mutates content directly.
+Runs on Haiku-class models + the existing embedding index; batch API pricing since it's
+non-interactive. Eval metric: % of proposed moves accepted unedited.
+
+### AI-9. Explain this section — P1
+Backs feature C4a: select a section, highlighted passage, or PDF region → grounded explanation
+in a side panel, with a depth selector (*simpler / step-by-step / with an example / why it
+matters*) that maps to prompt variants. Retrieval pulls the selection **plus** related sections
+across the course (prerequisites via wiki-links and embedding neighbors), so explanations connect
+to what the student already has — "this uses the chain rule from lecture 3" with a citation chip.
+Saving inserts an `ai-explanation` callout block into the note: visibly marked as generated,
+citations preserved, editable like any block, included in export (serializes as
+`> [!ai-explanation]`). Sonnet-class by default — explanation quality is where model quality is
+felt most; this is the flagship "feel the magic" interaction.
+
+### AI-10. Generate visuals — P1
+Backs feature C4b: generate **structured, savable diagram blocks** from a section or concept —
+concept maps (week/course level, seeded from the heading index + wiki-link graph), flowcharts
+(algorithms, decision procedures), sequence/timeline diagrams, comparison tables, and annotated
+derivation steps. Output is always a text-based block (Mermaid source or structured table), never
+an opaque image: previewed beside the source section, regenerable with adjustments ("more
+detail", "just weeks 1–6"), editable after saving, versioned, and exportable both in markdown
+(the source) and as SVG/PNG (for slides/cheat sheets). Grounding rule applies — nodes and claims
+in generated diagrams come from the student's materials, and each diagram block stores its source
+citations. Failed/invalid Mermaid is auto-repaired (validate → fix loop) before the student ever
+sees a syntax error. Eval: diagram validity rate + citation coverage of nodes.
+
 ## Cost model & metering
 
 - The **AI gateway** records tokens per call tagged {user, feature, model, tier} → live dashboards

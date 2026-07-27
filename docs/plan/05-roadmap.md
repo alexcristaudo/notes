@@ -49,8 +49,9 @@ restore-from-history works, and a Phase-1 alpha user migrates with zero loss.
 ## Phase 3 — Study loop deepening + AI v1
 
 - Retrieval infra: section embeddings, hybrid search (08).
-- **AI-1 semantic section finder**, **AI-2 flashcard drafting**, **AI-3 digests**, behind the
-  metered gateway with per-tier allowances.
+- **AI-1 semantic section finder**, **AI-2 flashcard drafting**, **AI-3 digests**,
+  **AI-9 explain-this-section**, and **AI-10 visual generation** (savable diagram blocks),
+  behind the metered gateway with per-tier allowances.
 - Past-paper bank + practice mode + mistake log; exam-readiness signals; notifications
   (review reminders, exam nudges).
 - Visual layer v1: activity heatmap, retention curve, countdown/readiness rings.
@@ -65,6 +66,8 @@ practice paper) works end-to-end; AI eval suite green; unit costs within budget 
 - Public read-only sharing pages (the second growth loop).
 - Cloud importers: OneDrive (Graph), Google Drive, Notion export, Obsidian vault — the full
   mapping-UI flow of [04-import-platform.md](04-import-platform.md).
+- **Tidy** (A5 / AI-8): the reorganization engine over existing content — shares the mapping UI
+  and plan→approve→execute machinery built for importers, so it lands here at low extra cost.
 - Ask-your-notes chat (AI-4) — shipped here because shared-space scoping and permissions must
   exist first.
 

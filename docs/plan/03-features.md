@@ -28,6 +28,17 @@ Every PDF (tutorial sheets, past papers, slides) is a first-class asset: viewabl
 page-linkable, searchable by title/course; OCR + text extraction for scanned PDFs (P1) makes
 them full-text searchable.
 
+### A5. Reorganize & declutter — P1
+For the mess that already exists — a chaotic import, a semester of "misc" notes, a course where
+everything landed in one folder. The **Tidy** flow analyzes a course (or a whole space) and
+proposes a clean structure: files classified by type, week-stamped, consistently renamed,
+duplicates flagged, orphan assets attached to the notes that mention them, giant catch-all notes
+offered as splits at their heading boundaries. Presented as a two-pane before → after **plan**
+that the student edits and approves — nothing moves without confirmation, everything is one-click
+undoable, and originals are never deleted (a "misc" archive catches what doesn't classify).
+AI-assisted classification spec: [08-ai-features.md](08-ai-features.md) (AI-8); mapping-UI
+mechanics shared with the import flow ([04-import-platform.md](04-import-platform.md)).
+
 ## B. Find
 
 ### B1. Command palette & full-text search — P0
@@ -72,6 +83,22 @@ Spec & guardrails: [08-ai-features.md](08-ai-features.md).
 ### C4. Ask-your-notes (RAG chat) — P1
 Per-course chat grounded in the student's own materials: *"explain question 3 of tutorial 5 using
 my lecture notes"* — answers cite the exact sections used. See 08.
+
+### C4a. Explain this section — P1
+The zero-friction version of C4: select any section (or highlight any passage, including inside a
+PDF) → **Explain** opens a side panel with a grounded explanation at a chosen depth — *simpler /
+step-by-step / with an example / why it matters* — citing the related sections of the student's
+own notes it drew on. One click saves the explanation into the note as a callout block (marked
+AI-generated, with its citations) so good explanations become part of the notes instead of
+vanishing with the chat. Spec: [08-ai-features.md](08-ai-features.md) (AI-9).
+
+### C4b. Generate visuals — P1
+Turn a section or concept into a **savable diagram**: concept map of a week, flowchart of an
+algorithm, timeline, comparison table, or annotated step diagram of a derivation. Generated as
+editable Mermaid/structured blocks (not opaque images), previewed side-by-side with the source
+section, and saved into the note — or exported as SVG/PNG for slides and cheat sheets. Because
+the output is a text-based block, saved visuals stay editable, versioned, and inside the
+portability contract. Spec: [08-ai-features.md](08-ai-features.md) (AI-10).
 
 ### C5. Past-paper practice — P1
 The past-paper bank across courses; **practice mode** runs a test PDF with a timer, then flips to
