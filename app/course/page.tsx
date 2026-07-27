@@ -1,20 +1,29 @@
 "use client";
 
 import Link from "next/link";
-import { useParams } from "next/navigation";
-import { useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { Suspense, useState } from "react";
 import { useLiveQuery } from "dexie-react-hooks";
 import { db } from "@/lib/db";
 import { NOTE_TYPES, NOTE_TYPE_LABEL, type Note, type NoteType } from "@/lib/types";
 import { NewNoteDialog } from "@/components/dialogs";
 import { extractHeadings } from "@/lib/markdown/extract";
 import { courseHealth, type Issue } from "@/lib/validate";
+import { getRepoAssets } from "@/lib/repoSync";
 import { useEffect } from "react";
 
 const GRID_TYPES: NoteType[] = ["lecture", "tutorial", "test"];
 
 export default function CoursePage() {
-  const { id } = useParams<{ id: string }>();
+  return (
+    <Suspense fallback={null}>
+      <CourseInner />
+    </Suspense>
+  );
+}
+
+function CourseInner() {
+  const id = useSearchParams().get("id") ?? "";
   const course = useLiveQuery(() => db.courses.get(id), [id]);
   const notes = useLiveQuery(() => db.notes.where("courseId").equals(id).toArray(), [id], []);
   const [tab, setTab] = useState<NoteType | "all" | "outline" | "health">("all");
@@ -76,7 +85,7 @@ export default function CoursePage() {
                     <td key={w}>
                       {first ? (
                         <Link
-                          href={`/notes/${first.id}`}
+                          href={`/note?id=${first.id}`}
                           title={ns.map((n) => n.title).join(", ")}
                           className="block h-6 rounded"
                           style={{ background: course.color, opacity: ns.length > 1 ? 1 : 0.75 }}
@@ -118,7 +127,7 @@ export default function CoursePage() {
         <ul className="mt-3 space-y-1.5">
           {sorted.map((n) => (
             <li key={n.id}>
-              <Link href={`/notes/${n.id}`} className="card card-hover flex items-center gap-3 px-4 py-2.5">
+              <Link href={`/note?id=${n.id}`} className="card card-hover flex items-center gap-3 px-4 py-2.5">
                 <span className="chip w-20 justify-center">{NOTE_TYPE_LABEL[n.type]}</span>
                 <span className="w-10 text-xs text-[var(--text-faint)]">{n.week ? `W${n.week}` : ""}</span>
                 <span className="flex-1 truncate text-sm font-medium">{n.title}</span>
@@ -132,6 +141,19 @@ export default function CoursePage() {
         </ul>
       ) : (
         <CourseOutline notes={notes} />
+      )}
+
+      {getRepoAssets(course.id).length > 0 && (
+        <section className="mt-6">
+          <h2 className="label mb-2">Files in the repo</h2>
+          <div className="flex flex-wrap gap-2">
+            {getRepoAssets(course.id).map((a) => (
+              <a key={a.url} href={a.url} target="_blank" rel="noreferrer" className="chip hover:!border-[var(--link)]">
+                📎 {a.name}
+              </a>
+            ))}
+          </div>
+        </section>
       )}
 
       {newNote && <NewNoteDialog courses={courses} defaultCourseId={course.id} onClose={() => setNewNote(false)} />}
@@ -159,7 +181,7 @@ function HealthPanel({ issues }: { issues: Issue[] }) {
           </span>
           <span className="min-w-0 flex-1">{issue.message}</span>
           {issue.noteId && (
-            <Link href={`/notes/${issue.noteId}`} className="text-xs text-[var(--link)] hover:underline">
+            <Link href={`/note?id=${issue.noteId}`} className="text-xs text-[var(--link)] hover:underline">
               open →
             </Link>
           )}
@@ -178,7 +200,7 @@ function CourseOutline({ notes }: { notes: Note[] }) {
         const headings = extractHeadings(n.body);
         return (
           <div key={n.id} className="card p-3">
-            <Link href={`/notes/${n.id}`} className="text-sm font-semibold hover:text-[var(--link)]">
+            <Link href={`/note?id=${n.id}`} className="text-sm font-semibold hover:text-[var(--link)]">
               {n.week ? `Week ${n.week} · ` : ""}
               {n.title}
               <span className="ml-2 text-xs font-normal text-[var(--text-faint)]">{n.type}</span>
@@ -187,7 +209,7 @@ function CourseOutline({ notes }: { notes: Note[] }) {
               {headings.map((h) => (
                 <li key={h.slug} style={{ paddingLeft: `${(h.depth - 1) * 0.9}rem` }}>
                   <Link
-                    href={`/notes/${n.id}#${h.slug}`}
+                    href={`/note?id=${n.id}#${h.slug}`}
                     className="text-xs text-[var(--text-dim)] hover:text-[var(--link)]"
                   >
                     § {h.text}

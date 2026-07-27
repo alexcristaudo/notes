@@ -1,6 +1,8 @@
 node_modules/
 .next/
 out/
+public/content.json
+public/repo-assets/
 *.tsbuildinfo
 next-env.d.ts
 .env*

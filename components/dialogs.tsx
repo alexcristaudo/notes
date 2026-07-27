@@ -34,7 +34,7 @@ export function NewCourseDialog({ onClose }: { onClose: () => void }) {
       status: "active",
     });
     onClose();
-    router.push(`/courses/${course.id}`);
+    router.push(`/course?id=${course.id}`);
   };
 
   return (
@@ -115,7 +115,7 @@ export function NewNoteDialog({ courses, defaultCourseId, onClose }: { courses: 
       week: week ? Number(week) : undefined,
     });
     onClose();
-    router.push(`/notes/${note.id}?edit=1`);
+    router.push(`/note?id=${note.id}&edit=1`);
   };
 
   return (

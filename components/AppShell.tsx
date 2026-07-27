@@ -7,6 +7,7 @@ import { useLiveQuery } from "dexie-react-hooks";
 import { db } from "@/lib/db";
 import { getDueCards } from "@/lib/study";
 import { exportAll, downloadBlob } from "@/lib/export";
+import { syncFromRepo } from "@/lib/repoSync";
 import { CommandPalette } from "./CommandPalette";
 import { NewCourseDialog, NewNoteDialog } from "./dialogs";
 
@@ -22,6 +23,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const saved = localStorage.getItem("theme");
     if (saved === "light" || saved === "dark") setTheme(saved);
+    // Pull the repo's courses/ content (baked into content.json) into IndexedDB.
+    void syncFromRepo().then(() => getDueCards().then((d) => setDueCount(d.length)));
   }, []);
 
   const cycleTheme = () => {
@@ -111,9 +114,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           {(courses ?? []).map((c) => (
             <Link
               key={c.id}
-              href={`/courses/${c.id}`}
+              href={`/course?id=${c.id}`}
               className={`flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm ${
-                pathname === `/courses/${c.id}` ? "bg-[var(--bg-hover)] font-semibold" : "text-[var(--text-dim)] hover:bg-[var(--bg-hover)] hover:text-[var(--text)]"
+                pathname === "/course" ? "bg-[var(--bg-hover)] font-semibold" : "text-[var(--text-dim)] hover:bg-[var(--bg-hover)] hover:text-[var(--text)]"
               }`}
             >
               <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded text-[0.7rem] text-white" style={{ background: c.color }}>

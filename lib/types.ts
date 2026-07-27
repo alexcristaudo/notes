@@ -45,6 +45,8 @@ export interface Note {
   difficulty?: number; // 1–5
   body: string; // canonical markdown
   source?: string; // provenance, e.g. "import"
+  repoPath?: string; // set when the note comes from the repo's courses/ folder
+  repoHash?: string; // hash of the repo body at last sync — divergence detector
   createdAt: number;
   updatedAt: number;
 }

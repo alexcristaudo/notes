@@ -58,7 +58,7 @@ export default function StudyQueuePage() {
               >
                 ★
               </button>
-              <Link href={`/notes/${q.noteId}${q.anchor ? `#${q.anchor}` : ""}`} className="min-w-0 flex-1">
+              <Link href={`/note?id=${q.noteId}${q.anchor ? `#${q.anchor}` : ""}`} className="min-w-0 flex-1">
                 <span className="block truncate text-sm font-medium hover:text-[var(--link)]">
                   {note?.title ?? "(deleted note)"}
                   {q.anchorText && <span className="text-[var(--link)]"> § {q.anchorText}</span>}

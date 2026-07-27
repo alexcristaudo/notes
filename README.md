@@ -1,34 +1,60 @@
-# Notes — The Study Workspace Shaped Like Your Degree
+# Notes — University Study Workspace
 
-A course-native study workspace for university students: lectures, tutorial sheets, past papers,
-and summaries organised the way a degree actually is — courses, weeks, exams — with heading-level
-search ("where is X covered?"), spaced-repetition flashcards that live inside your notes, AI study
-tools grounded in *your own materials* with citations, and shared course spaces for your cohort.
-Full plain-markdown export at any time: no lock-in, ever.
+My university notes, organised by course, living in this repo as plain markdown — with a web app
+on top (hosted on **GitHub Pages**) that turns them into a study workspace: heading-level search,
+coverage grids, collapsed-answer tutorials, and spaced-repetition flashcards extracted straight
+from the notes.
 
-**Status: planning (v2 — industry/product scope).** The full plan lives in [`docs/plan/`](docs/plan/):
+**App:** https://alexcristaudo.github.io/notes/ *(deploys automatically from `main`)*
 
-| # | File | Contents |
-|---|------|----------|
-| 00 | [Vision & overview](docs/plan/00-overview.md) | The wedge, product principles, v1→v2 scope evolution |
-| 01 | [Architecture](docs/plan/01-architecture.md) | SaaS stack, CRDT sync engine, multi-tenancy, environments |
-| 02 | [Content model & editor](docs/plan/02-content-model.md) | Domain model, note types, block editor, portability contract |
-| 03 | [Features](docs/plan/03-features.md) | Complete spec: capture, find, study, collaborate, visualise |
-| 04 | [Import platform](docs/plan/04-import-platform.md) | OneDrive/Drive/Notion/PDF importers as onboarding |
-| 05 | [Roadmap](docs/plan/05-roadmap.md) | Phases 0–6: validation → MVP → cloud → AI → launch → scale |
-| 06 | [Product & market](docs/plan/06-product-market.md) | Personas, competitors, pricing, growth loops, metrics |
-| 07 | [Platform & security](docs/plan/07-platform-security.md) | Auth, GDPR, reliability, observability, unit costs |
-| 08 | [AI features](docs/plan/08-ai-features.md) | RAG over notes, card/quiz generation, guardrails, cost control |
+## How it works
 
-## Positioning in one line
+```
+courses/<term>/<CODE>/          ← the notes live HERE, in git
+├── course.yml                  ← course metadata (name, color, weeks, exam date)
+├── lectures/01-….md            ← markdown notes with YAML frontmatter
+├── tutorials/…  tests/…  summaries/…  references/…
+└── assets/                     ← PDFs, images
+```
 
-> Notion makes you rebuild your degree by hand; Anki divorces cards from their source;
-> we ship the structure and keep everything connected — and your notes export as plain files
-> whenever you want.
+- Every push to `main` rebuilds the site; the build bakes `courses/**` into the app.
+- The app syncs that content into your browser (IndexedDB) on load — so it also works offline.
+- **Study state is personal to the browser**: flashcard history, the study queue, and theme
+  live in the browser only, not the repo.
+- **The repo always wins for content** — with one exception: a note you edited in the app is
+  never overwritten or deleted; the course Health tab flags it as "not committed to GitHub".
 
-## Trust pillars
+## Editing notes
 
-1. **No lock-in** — one-click full export as plain markdown + assets, round-trip tested in CI.
-2. **Offline-first** — your notes are readable and editable without us.
-3. **Never training data** — AI providers used with no-training/no-retention terms.
-4. **Grounded AI** — every AI answer cites the exact sections of your own notes it came from.
+Two ways, both fine:
+
+1. **Edit the markdown directly** (on github.com or locally) and push — the site rebuilds.
+2. **Edit in the app**, then click *Export all (markdown zip)* in the sidebar, replace the
+   `courses/` folder with the zip's contents, and push. The export format is exactly the repo
+   layout, so it's a drop-in replacement.
+
+New material can also be dropped onto the app's **Import** page (markdown, .docx, PDFs) — then
+exported and committed the same way.
+
+## Note format
+
+YAML frontmatter (`title`, `type`, `week`, `tags`, `status`, `difficulty`) + markdown with:
+
+- `$math$` and `$$display math$$` (KaTeX) · fenced ```mermaid diagrams · code highlighting
+- Callouts: `> [!definition]`, `> [!theorem]`, `> [!example]`, `> [!warning]`
+- `> [!answer]` — collapsed by default, for self-quizzing on tutorial sheets
+- `> [!flashcard]` with `Q:` / `A:` lines — automatically becomes a spaced-repetition card
+- `[[Wiki-links]]` between notes (resolve by title; backlinks shown on each note)
+
+## Development
+
+```bash
+npm install
+npm run dev        # app at localhost:3000, content rebuilt from courses/
+npm test           # round-trip + pipeline tests
+npm run build      # static export to out/
+```
+
+The product plan (a bigger multi-user vision this repo may grow into) is in
+[`docs/plan/`](docs/plan/); implementation decisions are logged in
+[`docs/build-log.md`](docs/build-log.md).

@@ -98,7 +98,7 @@ export function remarkWikiLinks() {
         const label = m[3]?.trim() ?? (anchor ? `${target} § ${anchor}` : target);
         out.push({
           type: "link",
-          url: `/wiki/${encodeURIComponent(target)}${anchor ? `?anchor=${encodeURIComponent(anchor)}` : ""}`,
+          url: `/wiki?t=${encodeURIComponent(target)}${anchor ? `&anchor=${encodeURIComponent(anchor)}` : ""}`,
           children: [{ type: "text", value: label }],
           data: { hProperties: { className: ["wikilink"] } },
         });

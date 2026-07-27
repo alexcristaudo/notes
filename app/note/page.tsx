@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useParams, useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useLiveQuery } from "dexie-react-hooks";
 import { db, uid } from "@/lib/db";
 import { saveNoteBody, updateNoteMeta, deleteNote, backlinksTo } from "@/lib/notes";
@@ -13,8 +13,16 @@ import { NOTE_TYPE_LABEL, type Note, type NoteStatus } from "@/lib/types";
 import { useRouter } from "next/navigation";
 
 export default function NotePage() {
-  const { id } = useParams<{ id: string }>();
+  return (
+    <Suspense fallback={null}>
+      <NoteInner />
+    </Suspense>
+  );
+}
+
+function NoteInner() {
   const params = useSearchParams();
+  const id = params.get("id") ?? "";
   const router = useRouter();
   const note = useLiveQuery(() => db.notes.get(id), [id]);
   const course = useLiveQuery(() => (note ? db.courses.get(note.courseId) : undefined), [note?.courseId]);
@@ -31,6 +39,15 @@ export default function NotePage() {
   useEffect(() => {
     if (note) backlinksTo(note).then(setBacklinks);
   }, [note?.id, note?.updatedAt]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Content renders async, so honor #heading anchors once the note is in.
+  useEffect(() => {
+    if (!note) return;
+    const hash = decodeURIComponent(window.location.hash.slice(1));
+    if (!hash) return;
+    const t = setTimeout(() => document.getElementById(hash)?.scrollIntoView({ block: "start" }), 400);
+    return () => clearTimeout(t);
+  }, [note?.id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const flash = (msg: string) => {
     setToast(msg);
@@ -73,7 +90,7 @@ export default function NotePage() {
       <article className="min-w-0 flex-1">
         {/* Header */}
         <div className="mb-1 flex items-center gap-2 text-xs text-[var(--text-faint)]">
-          <Link href={`/courses/${course.id}`} className="hover:text-[var(--link)]">
+          <Link href={`/course?id=${course.id}`} className="hover:text-[var(--link)]">
             {course.code}
           </Link>
           <span>›</span>
@@ -136,7 +153,7 @@ export default function NotePage() {
             onClick={async () => {
               if (confirm(`Delete "${note.title}"? Its flashcards keep their history but stop appearing.`)) {
                 await deleteNote(note.id);
-                router.push(`/courses/${course.id}`);
+                router.push(`/course?id=${course.id}`);
               }
             }}
           >
@@ -185,7 +202,7 @@ export default function NotePage() {
             <ul className="space-y-1">
               {backlinks.map((b) => (
                 <li key={b.id}>
-                  <Link href={`/notes/${b.id}`} className="text-sm text-[var(--link)] hover:underline">
+                  <Link href={`/note?id=${b.id}`} className="text-sm text-[var(--link)] hover:underline">
                     {b.title}
                   </Link>
                 </li>

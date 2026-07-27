@@ -21,7 +21,7 @@ function CourseCard({ course, notes }: { course: Course; notes: Note[] }) {
   const exam = course.examDate ? daysUntil(course.examDate) : undefined;
 
   return (
-    <Link href={`/courses/${course.id}`} className="card card-hover block p-4">
+    <Link href={`/course?id=${course.id}`} className="card card-hover block p-4">
       <div className="flex items-start justify-between gap-2">
         <div className="flex items-center gap-2.5">
           <span className="flex h-9 w-9 items-center justify-center rounded-lg text-lg text-white" style={{ background: course.color }}>
@@ -116,7 +116,7 @@ export default function Dashboard() {
             {queue.map((q) => (
               <li key={q.id}>
                 <Link
-                  href={`/notes/${q.noteId}${q.anchor ? `#${q.anchor}` : ""}`}
+                  href={`/note?id=${q.noteId}${q.anchor ? `#${q.anchor}` : ""}`}
                   className="block truncate rounded-md px-2 py-1 text-sm text-[var(--text-dim)] hover:bg-[var(--bg-hover)] hover:text-[var(--text)]"
                 >
                   {q.priority === 1 && "★ "}
@@ -134,7 +134,7 @@ export default function Dashboard() {
             {recent.map((n) => (
               <li key={n.id}>
                 <Link
-                  href={`/notes/${n.id}`}
+                  href={`/note?id=${n.id}`}
                   className="block truncate rounded-md px-2 py-1 text-sm text-[var(--text-dim)] hover:bg-[var(--bg-hover)] hover:text-[var(--text)]"
                 >
                   {n.title}

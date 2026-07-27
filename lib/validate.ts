@@ -1,5 +1,6 @@
 import { db } from "./db";
 import { extractFlashcards } from "./markdown/extract";
+import { stableHash } from "./slug";
 import type { Note } from "./types";
 
 export interface Issue {
@@ -87,6 +88,25 @@ export async function courseHealth(courseId: string): Promise<Issue[]> {
         severity: "info",
         kind: "no-week",
         message: `“${n.title}” (${n.type}) has no week — it won't appear on the coverage grid`,
+        noteId: n.id,
+      });
+    }
+  }
+
+  // Where the browser copy and the GitHub repo disagree (notes live on GitHub)
+  for (const n of notes) {
+    if (n.repoPath && stableHash(n.body) !== n.repoHash) {
+      issues.push({
+        severity: "warn",
+        kind: "not-committed",
+        message: `“${n.title}” was edited in the app — export and commit to courses/${n.repoPath} to keep it on GitHub`,
+        noteId: n.id,
+      });
+    } else if (!n.repoPath) {
+      issues.push({
+        severity: "info",
+        kind: "local-only",
+        message: `“${n.title}” only exists in this browser — export and commit it to the repo to keep it`,
         noteId: n.id,
       });
     }

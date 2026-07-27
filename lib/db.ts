@@ -1,6 +1,5 @@
 import Dexie, { type EntityTable } from "dexie";
 import type { Asset, Card, Course, Note, NoteLink, QueueItem, Review } from "./types";
-import { seed } from "./seed";
 
 class NotesDB extends Dexie {
   courses!: EntityTable<Course, "id">;
@@ -21,11 +20,6 @@ class NotesDB extends Dexie {
       reviews: "++id, cardId, ts",
       queue: "id, noteId, order, done",
       links: "++id, fromNoteId, target",
-    });
-    this.on("populate", () => {
-      // Runs only on first-ever open: seed the sample course so the app
-      // demonstrates every feature before the user has any content.
-      void seed(this);
     });
   }
 }

@@ -42,7 +42,7 @@ export function CommandPalette({ onClose }: { onClose: () => void }) {
 
   const open = (hit: SearchHit) => {
     onClose();
-    router.push(`/notes/${hit.noteId}${hit.anchor ? `#${hit.anchor}` : ""}`);
+    router.push(`/note?id=${hit.noteId}${hit.anchor ? `#${hit.anchor}` : ""}`);
   };
 
   const onKey = (e: React.KeyboardEvent) => {

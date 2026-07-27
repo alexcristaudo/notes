@@ -58,3 +58,26 @@ All three gaps from the entry above are done:
    sidebar toggle cycling system → light → dark persisted in localStorage, pre-paint script to
    avoid theme flash, theme-aware Mermaid rendering, and the link accent moved to a `--link`
    variable for contrast in both themes.
+
+## 2026-07-27 — GitHub-hosted: static export + repo-based notes
+
+Pivot on where things live: the app deploys to **GitHub Pages** and the **notes live in the
+repo** under `courses/` (the plan-v1 layout, which was already the export format).
+
+- **Static export**: `output: "export"` with `BASE_PATH=/notes` on Pages. Dynamic routes
+  can't be statically exported for unknown ids, so `/notes/[id]` → `/note?id=`,
+  `/courses/[id]` → `/course?id=`, `/wiki/[target]` → `/wiki?t=` (query-param routes,
+  `useSearchParams` behind Suspense). Anchor scrolling handled manually post-render.
+- **Content pipeline**: `scripts/build-content.ts` (runs before dev/build) bakes `courses/**`
+  into `public/content.json` and copies course assets to `public/repo-assets/`.
+- **Repo→browser sync** (`lib/repoSync.ts`, runs on every app load): repo notes get stable
+  `repo:` ids with `repoPath`/`repoHash`; repo changes overwrite un-edited local copies;
+  locally-edited notes are never overwritten or deleted and are flagged by Health as
+  "not committed to GitHub"; app-created notes flagged as local-only. Review log, queue,
+  and settings are personal browser state and never touched by sync.
+- **Seed removed**: the sample course now lives as real files in `courses/2026-S2/MATH2001/`,
+  demonstrating the format and feeding the first deploy.
+- **Deploy workflow**: `.github/workflows/pages.yml` builds and deploys on push to `main`.
+- **The loop**: edit markdown on GitHub → push → site rebuilds; or edit in-app → Export zip →
+  replace `courses/` → push. Export format == repo layout, so it's drop-in (and round-trip
+  tested in CI).
