@@ -79,7 +79,7 @@ export function CommandPalette({ onClose }: { onClose: () => void }) {
             ))}
           </select>
           <button
-            className={`chip cursor-pointer ${sectionsOnly ? "!border-[#4c6ef5] !text-[#7aa2ff]" : ""}`}
+            className={`chip cursor-pointer ${sectionsOnly ? "!border-[#4c6ef5] !text-[var(--link)]" : ""}`}
             onClick={() => setSectionsOnly((v) => !v)}
             title="Answer “where is X covered?” — match section headings only"
           >
@@ -109,7 +109,7 @@ export function CommandPalette({ onClose }: { onClose: () => void }) {
                   {hit.kind === "section" ? (
                     <>
                       <span className="text-[var(--text-dim)]">{hit.noteTitle} › </span>
-                      <span className="text-[#7aa2ff]">§ {hit.title}</span>
+                      <span className="text-[var(--link)]">§ {hit.title}</span>
                     </>
                   ) : (
                     hit.title

@@ -176,7 +176,7 @@ function ReviewSession({ cards, onDone }: { cards: CardState[]; onDone: () => vo
 
       <p className="mt-4 text-center text-xs text-[var(--text-faint)]">
         From{" "}
-        <Link href={`/notes/${current.card.noteId}`} className="text-[#7aa2ff] hover:underline">
+        <Link href={`/notes/${current.card.noteId}`} className="text-[var(--link)] hover:underline">
           the source note
         </Link>
         {" · "}interval {current.intervalDays}d · {current.reps} reps

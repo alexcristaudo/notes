@@ -17,6 +17,24 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const [newNote, setNewNote] = useState(false);
   const [dueCount, setDueCount] = useState(0);
   const [exporting, setExporting] = useState(false);
+  const [theme, setTheme] = useState<"system" | "light" | "dark">("system");
+
+  useEffect(() => {
+    const saved = localStorage.getItem("theme");
+    if (saved === "light" || saved === "dark") setTheme(saved);
+  }, []);
+
+  const cycleTheme = () => {
+    const next = theme === "system" ? "light" : theme === "light" ? "dark" : "system";
+    setTheme(next);
+    if (next === "system") {
+      localStorage.removeItem("theme");
+      delete document.documentElement.dataset.theme;
+    } else {
+      localStorage.setItem("theme", next);
+      document.documentElement.dataset.theme = next;
+    }
+  };
 
   const courses = useLiveQuery(() => db.courses.where("status").equals("active").toArray(), [], []);
   const queueCount = useLiveQuery(() => db.queue.where("done").equals(0).count(), [], 0);
@@ -112,6 +130,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           </button>
           <button className="btn btn-ghost w-full justify-center text-xs" onClick={doExport} disabled={exporting}>
             {exporting ? "Exporting…" : "Export all (markdown zip)"}
+          </button>
+          <button className="btn btn-ghost w-full justify-center text-xs" onClick={cycleTheme} title="Cycle theme">
+            {theme === "system" ? "◐ Theme: system" : theme === "light" ? "☀ Theme: light" : "☾ Theme: dark"}
           </button>
         </div>
       </aside>

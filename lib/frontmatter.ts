@@ -23,8 +23,10 @@ export function parseFrontmatter(raw: string): { data: Frontmatter; body: string
         .split(",")
         .map((s) => s.trim().replace(/^["']|["']$/g, ""))
         .filter(Boolean);
+    } else if (value.length >= 2 && ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'")))) {
+      const quote = value[0];
+      data[key] = value.slice(1, -1).replaceAll(`\\${quote}`, quote);
     } else {
-      value = value.replace(/^["']|["']$/g, "");
       if (value === "") continue;
       data[key] = /^-?\d+(\.\d+)?$/.test(value) ? Number(value) : value;
     }

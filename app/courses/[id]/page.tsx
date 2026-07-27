@@ -8,6 +8,8 @@ import { db } from "@/lib/db";
 import { NOTE_TYPES, NOTE_TYPE_LABEL, type Note, type NoteType } from "@/lib/types";
 import { NewNoteDialog } from "@/components/dialogs";
 import { extractHeadings } from "@/lib/markdown/extract";
+import { courseHealth, type Issue } from "@/lib/validate";
+import { useEffect } from "react";
 
 const GRID_TYPES: NoteType[] = ["lecture", "tutorial", "test"];
 
@@ -15,7 +17,12 @@ export default function CoursePage() {
   const { id } = useParams<{ id: string }>();
   const course = useLiveQuery(() => db.courses.get(id), [id]);
   const notes = useLiveQuery(() => db.notes.where("courseId").equals(id).toArray(), [id], []);
-  const [tab, setTab] = useState<NoteType | "all" | "outline">("all");
+  const [tab, setTab] = useState<NoteType | "all" | "outline" | "health">("all");
+  const [issues, setIssues] = useState<Issue[]>([]);
+
+  useEffect(() => {
+    courseHealth(id).then(setIssues);
+  }, [id, notes]);
   const [newNote, setNewNote] = useState(false);
   const courses = useLiveQuery(() => db.courses.toArray(), [], []);
 
@@ -88,18 +95,26 @@ export default function CoursePage() {
 
       {/* Tabs */}
       <div className="mt-5 flex flex-wrap gap-1 border-b border-[var(--border)] pb-2">
-        {(["all", ...NOTE_TYPES, "outline"] as const).map((t) => (
+        {(["all", ...NOTE_TYPES, "outline", "health"] as const).map((t) => (
           <button
             key={t}
             className={`btn btn-sm ${tab === t ? "btn-primary" : "btn-ghost"}`}
             onClick={() => setTab(t)}
           >
-            {t === "all" ? `All (${notes.length})` : t === "outline" ? "Course outline" : `${NOTE_TYPE_LABEL[t]}s (${notes.filter((n) => n.type === t).length})`}
+            {t === "all"
+              ? `All (${notes.length})`
+              : t === "outline"
+                ? "Course outline"
+                : t === "health"
+                  ? `Health${issues.length > 0 ? ` (${issues.length})` : " ✓"}`
+                  : `${NOTE_TYPE_LABEL[t]}s (${notes.filter((n) => n.type === t).length})`}
           </button>
         ))}
       </div>
 
-      {tab !== "outline" ? (
+      {tab === "health" ? (
+        <HealthPanel issues={issues} />
+      ) : tab !== "outline" ? (
         <ul className="mt-3 space-y-1.5">
           {sorted.map((n) => (
             <li key={n.id}>
@@ -124,6 +139,36 @@ export default function CoursePage() {
   );
 }
 
+/** Everything silently degrading the course: broken links, gaps, cards that never parsed. */
+function HealthPanel({ issues }: { issues: Issue[] }) {
+  if (issues.length === 0) {
+    return (
+      <p className="card mt-3 p-6 text-center text-sm text-[var(--text-dim)]">
+        ✓ No issues — links resolve, flashcards parse, and the coverage grid is honest.
+      </p>
+    );
+  }
+  return (
+    <ul className="mt-3 space-y-1.5">
+      {issues.map((issue, i) => (
+        <li key={i} className="card flex items-center gap-3 px-4 py-2.5 text-sm">
+          <span
+            className={`chip w-16 justify-center ${issue.severity === "warn" ? "!border-[#ffb454] !text-[#ffb454]" : ""}`}
+          >
+            {issue.severity}
+          </span>
+          <span className="min-w-0 flex-1">{issue.message}</span>
+          {issue.noteId && (
+            <Link href={`/notes/${issue.noteId}`} className="text-xs text-[var(--link)] hover:underline">
+              open →
+            </Link>
+          )}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 /** The syllabus as actually written: every heading of every note, grouped by week. */
 function CourseOutline({ notes }: { notes: Note[] }) {
   const sorted = [...notes].sort((a, b) => (a.week ?? 99) - (b.week ?? 99));
@@ -133,7 +178,7 @@ function CourseOutline({ notes }: { notes: Note[] }) {
         const headings = extractHeadings(n.body);
         return (
           <div key={n.id} className="card p-3">
-            <Link href={`/notes/${n.id}`} className="text-sm font-semibold hover:text-[#7aa2ff]">
+            <Link href={`/notes/${n.id}`} className="text-sm font-semibold hover:text-[var(--link)]">
               {n.week ? `Week ${n.week} · ` : ""}
               {n.title}
               <span className="ml-2 text-xs font-normal text-[var(--text-faint)]">{n.type}</span>
@@ -143,7 +188,7 @@ function CourseOutline({ notes }: { notes: Note[] }) {
                 <li key={h.slug} style={{ paddingLeft: `${(h.depth - 1) * 0.9}rem` }}>
                   <Link
                     href={`/notes/${n.id}#${h.slug}`}
-                    className="text-xs text-[var(--text-dim)] hover:text-[#7aa2ff]"
+                    className="text-xs text-[var(--text-dim)] hover:text-[var(--link)]"
                   >
                     § {h.text}
                   </Link>

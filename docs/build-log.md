@@ -37,3 +37,24 @@ smoke test against the production build.
 
 **Known gaps for the Phase-1 "done when":** validation lint panel not built yet; no
 export→import round-trip CI test yet (manual only); light theme not offered (dark only).
+
+## 2026-07-27 — Phase 1 gaps closed
+
+All three gaps from the entry above are done:
+
+1. **Course Health panel** (`lib/validate.ts` + a Health tab on the course page): broken
+   wiki-links, duplicate titles (ambiguous link targets), flashcard blocks that never parsed
+   into cards, lecture week gaps, dated notes missing a week, the needs-review backlog, and
+   orphan assets — each linking to the offending note. The v1 `validate` script reborn as UI,
+   per the plan.
+2. **Round-trip CI test** (`npm test`, wired into the workflow): runs the *real* import/export
+   code against an in-memory IndexedDB (fake-indexeddb) — imports a frontmattered markdown file,
+   exports the zip, and asserts frontmatter and body survive byte-for-byte — plus unit checks on
+   frontmatter, extraction, rendering, and import heuristics. The test immediately caught three
+   real bugs (quote unescaping in the frontmatter parser; `exam-cheatsheet` misclassified as a
+   test; the importer dropping `difficulty`/`date` and clobbering declared `source` provenance),
+   all fixed.
+3. **Light theme**: full light palette via CSS variables, system-preference default, a
+   sidebar toggle cycling system → light → dark persisted in localStorage, pre-paint script to
+   avoid theme flash, theme-aware Mermaid rendering, and the link accent moved to a `--link`
+   variable for contrast in both themes.

@@ -15,9 +15,11 @@ export async function createNote(input: {
   type: NoteType;
   title: string;
   week?: number;
+  date?: string;
   body?: string;
   tags?: string[];
   status?: Note["status"];
+  difficulty?: number;
   source?: string;
 }): Promise<Note> {
   const now = Date.now();
@@ -27,8 +29,10 @@ export async function createNote(input: {
     type: input.type,
     title: input.title,
     week: input.week,
+    date: input.date,
     tags: input.tags ?? [],
     status: input.status ?? "draft",
+    difficulty: input.difficulty,
     body: input.body ?? noteTemplate(input.type, input.title),
     source: input.source,
     createdAt: now,

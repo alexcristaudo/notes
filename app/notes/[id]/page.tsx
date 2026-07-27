@@ -73,7 +73,7 @@ export default function NotePage() {
       <article className="min-w-0 flex-1">
         {/* Header */}
         <div className="mb-1 flex items-center gap-2 text-xs text-[var(--text-faint)]">
-          <Link href={`/courses/${course.id}`} className="hover:text-[#7aa2ff]">
+          <Link href={`/courses/${course.id}`} className="hover:text-[var(--link)]">
             {course.code}
           </Link>
           <span>›</span>
@@ -185,7 +185,7 @@ export default function NotePage() {
             <ul className="space-y-1">
               {backlinks.map((b) => (
                 <li key={b.id}>
-                  <Link href={`/notes/${b.id}`} className="text-sm text-[#7aa2ff] hover:underline">
+                  <Link href={`/notes/${b.id}`} className="text-sm text-[var(--link)] hover:underline">
                     {b.title}
                   </Link>
                 </li>
@@ -209,7 +209,7 @@ export default function NotePage() {
                   {h.text}
                 </a>
                 <button
-                  className="hidden pr-1 text-xs text-[var(--text-faint)] hover:text-[#7aa2ff] group-hover:block"
+                  className="hidden pr-1 text-xs text-[var(--text-faint)] hover:text-[var(--link)] group-hover:block"
                   title="Add this section to the study queue"
                   onClick={async () => {
                     await addToQueue(note.id, h.slug, h.text);

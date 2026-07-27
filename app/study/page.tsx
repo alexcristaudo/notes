@@ -59,9 +59,9 @@ export default function StudyQueuePage() {
                 ★
               </button>
               <Link href={`/notes/${q.noteId}${q.anchor ? `#${q.anchor}` : ""}`} className="min-w-0 flex-1">
-                <span className="block truncate text-sm font-medium hover:text-[#7aa2ff]">
+                <span className="block truncate text-sm font-medium hover:text-[var(--link)]">
                   {note?.title ?? "(deleted note)"}
-                  {q.anchorText && <span className="text-[#7aa2ff]"> § {q.anchorText}</span>}
+                  {q.anchorText && <span className="text-[var(--link)]"> § {q.anchorText}</span>}
                 </span>
               </Link>
               <div className="flex items-center gap-0.5">
@@ -142,7 +142,7 @@ function FocusMode({
         <>
           <h1 className="mb-4 text-2xl font-bold tracking-tight">
             {note.title}
-            {item.anchorText && <span className="text-[#7aa2ff]"> § {item.anchorText}</span>}
+            {item.anchorText && <span className="text-[var(--link)]"> § {item.anchorText}</span>}
           </h1>
           <Markdown md={note.body} />
         </>

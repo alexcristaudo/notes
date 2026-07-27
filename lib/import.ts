@@ -13,8 +13,9 @@ export interface ImportResult {
 export function guessType(filename: string): NoteType {
   const f = filename.toLowerCase();
   if (/\btut(orial)?s?\b|\btut[-_ ]?\d/.test(f)) return "tutorial";
-  if (/midterm|final|exam|\btest\b|past[-_ ]?paper|quiz/.test(f)) return "test";
+  // summary keywords outrank test keywords: "exam-cheatsheet" is a summary about the exam
   if (/summary|cheat[-_ ]?sheet|revision/.test(f)) return "summary";
+  if (/midterm|final|exam|\btest\b|past[-_ ]?paper|quiz/.test(f)) return "test";
   if (/formula|glossary|reference/.test(f)) return "reference";
   return "lecture";
 }
@@ -70,10 +71,13 @@ export async function importFile(courseId: string, file: File): Promise<ImportRe
         type,
         title: typeof data.title === "string" ? data.title : titleFrom(name),
         week: typeof data.week === "number" ? data.week : guessWeek(name),
+        date: typeof data.date === "string" ? data.date : undefined,
         tags: Array.isArray(data.tags) ? data.tags : [],
         status: (typeof data.status === "string" ? (data.status as NoteStatus) : "needs-review"),
+        difficulty: typeof data.difficulty === "number" ? data.difficulty : undefined,
         body,
-        source: "import",
+        // declared provenance survives the round-trip; stamp only when absent
+        source: typeof data.source === "string" ? data.source : "import",
       });
       return { file: name, outcome: "note", detail: "imported as markdown" };
     }

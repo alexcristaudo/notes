@@ -27,7 +27,9 @@ export function Markdown({ md, className }: { md: string; className?: string }) 
     if (blocks.length === 0) return;
     let alive = true;
     import("mermaid").then(async ({ default: mermaid }) => {
-      mermaid.initialize({ startOnLoad: false, theme: "dark", securityLevel: "strict" });
+      const explicit = document.documentElement.dataset.theme;
+      const dark = explicit ? explicit === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+      mermaid.initialize({ startOnLoad: false, theme: dark ? "dark" : "default", securityLevel: "strict" });
       for (const code of blocks) {
         const src = code.textContent ?? "";
         try {

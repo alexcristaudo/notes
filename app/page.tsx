@@ -107,7 +107,7 @@ export default function Dashboard() {
         <section className="card p-4">
           <div className="mb-2 flex items-center justify-between">
             <h2 className="text-sm font-bold">Study queue</h2>
-            <Link href="/study" className="text-xs text-[#7aa2ff] hover:underline">
+            <Link href="/study" className="text-xs text-[var(--link)] hover:underline">
               open queue →
             </Link>
           </div>
@@ -121,7 +121,7 @@ export default function Dashboard() {
                 >
                   {q.priority === 1 && "★ "}
                   {noteTitle(q.noteId)}
-                  {q.anchorText && <span className="text-[#7aa2ff]"> § {q.anchorText}</span>}
+                  {q.anchorText && <span className="text-[var(--link)]"> § {q.anchorText}</span>}
                 </Link>
               </li>
             ))}
