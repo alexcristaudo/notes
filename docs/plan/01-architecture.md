@@ -1,91 +1,91 @@
-# 01 — Architecture & Tech Stack
+# 01 — Architecture
 
-## Shape of the system
+Industry-grade but deliberately boring: a well-factored monolith on managed infrastructure,
+with the two genuinely hard subsystems (realtime sync, AI pipeline) isolated behind interfaces
+so they can evolve without dragging the rest along.
 
-```
-┌────────────────────────────────────────────────────────┐
-│  Repository (source of truth, all plain text)          │
-│                                                        │
-│  courses/**/*.md      notes, tutorials, tests          │
-│  courses/**/course.yml  course metadata                │
-│  data/*.json          study queue, review log, prefs   │
-│  assets/**            images, PDFs, diagrams           │
-└──────────────┬─────────────────────────────────────────┘
-               │ read (build index)   ▲ write (API routes)
-               ▼                      │
-┌────────────────────────────────────────────────────────┐
-│  Web app (Next.js, runs locally via `npm run dev`)     │
-│                                                        │
-│  Content layer   — parse frontmatter + markdown,       │
-│                    build search index & graph edges    │
-│  Pages           — dashboard, course, note, search,    │
-│                    study queue, flashcards, graph      │
-│  API routes      — create course/note, update queue,   │
-│                    record reviews (writes files+JSON)  │
-└────────────────────────────────────────────────────────┘
-```
-
-## Stack (recommended)
-
-| Layer | Choice | Why |
-|-------|--------|-----|
-| Framework | **Next.js (App Router, TypeScript)** | One codebase for reading pages *and* API routes that write files back to the repo; huge ecosystem; static-export escape hatch. |
-| Markdown pipeline | `unified` / `remark` / `rehype` + `gray-matter` | Standard, extensible: math, code highlighting, callouts, wiki-links all exist as plugins. |
-| Math | `remark-math` + `rehype-katex` (KaTeX) | University notes are full of LaTeX; KaTeX is fast and offline. |
-| Code highlighting | `shiki` | Best-quality highlighting, works at build time. |
-| Diagrams in notes | `mermaid` (client-rendered fenced blocks) | Flowcharts/sequence diagrams typed as text, versioned in git. |
-| Search | `minisearch` (client-side index built from content) | No server, no external service; fuzzy + prefix search over titles, headings, tags, body. |
-| Graph view | `d3-force` (or `react-force-graph`) | Interactive knowledge graph of note links. |
-| Charts | `recharts` | Progress rings, heatmaps, activity charts. |
-| State that must persist | JSON files under `data/` written via API routes | Stays in git, diffable, no database. |
-| Styling | Tailwind CSS + a dark/light theme | Fast iteration, consistent look. |
-
-**Alternative considered:** Astro (excellent for content sites) — rejected because the interactive
-features (study queue mutations, flashcard reviews, in-app creation) want first-class API routes
-and client state, which is more natural in Next.js.
-
-## Two run modes
-
-1. **Full mode — `npm run dev` (or `npm start`) locally.** Everything works: creating courses and
-   notes, editing the study queue, recording flashcard reviews. API routes write directly to the
-   working tree; you review the diff and commit like any other change.
-2. **Read-only static export (stretch goal).** `next build` with static export produces a browsable
-   site (GitHub Pages) — search, overviews, and graphs work; mutations are hidden. Useful for
-   reading notes from a phone.
-
-## How writes work (no database, ever)
-
-- **Create course** → API route scaffolds `courses/<term>/<code>/` with `course.yml` and starter
-  folders from a template.
-- **Create note** → API route writes `<type>/<slug>.md` with frontmatter pre-filled (course, type,
-  week, date, tags).
-- **Study queue add/remove/reorder** → rewrites `data/study-queue.json`.
-- **Flashcard review** → appends to `data/review-log.jsonl` (append-only log; the SM-2 scheduler
-  state is derived from it, so history is never lost and the file merges trivially).
-
-All derived artifacts — the search index, graph edges, "section finder" heading index — are built
-at startup (and rebuilt on file change in dev via a watcher). Nothing derived is committed.
-
-## Repository layout (app + content side by side)
+## System diagram
 
 ```
-notes/
-├── app/                  # Next.js app (pages, components, api routes)
-├── lib/                  # content parsing, indexing, scheduling logic
-├── scripts/              # CLI: new-course, new-note, import-onedrive, validate
-├── courses/              # THE NOTES (see 02-content-model.md)
-├── data/                 # study-queue.json, review-log.jsonl, settings.json
-├── assets/               # shared images/PDFs (course-specific assets live in the course)
-├── docs/plan/            # this plan
-└── package.json
+        ┌──────────────┐   ┌──────────────┐   ┌──────────────┐
+        │  Web (PWA)   │   │ Mobile (Expo)│   │  Public API  │
+        │  Next.js     │   │  later phase │   │  (partners)  │
+        └──────┬───────┘   └──────┬───────┘   └──────┬───────┘
+               │        HTTPS / WebSocket            │
+        ┌──────┴──────────────────┴──────────────────┴───────┐
+        │                 Application backend                │
+        │   Next.js server + tRPC  ·  auth  ·  billing       │
+        │   ┌───────────────┐  ┌────────────────────────┐    │
+        │   │  Sync service │  │  Job workers (queue)   │    │
+        │   │  (Yjs rooms)  │  │  import · AI · index   │    │
+        │   └───────────────┘  └────────────────────────┘    │
+        └───┬──────────┬───────────┬──────────────┬──────────┘
+            │          │           │              │
+     ┌──────┴───┐ ┌────┴─────┐ ┌───┴────────┐ ┌───┴─────────┐
+     │ Postgres │ │ Object   │ │ Search     │ │ LLM / embed │
+     │ +pgvector│ │ storage  │ │ (Postgres  │ │ providers   │
+     │ (RLS)    │ │ (S3/R2)  │ │ FTS → Meili│ │ (Claude API)│
+     └──────────┘ └──────────┘ └────────────┘ └─────────────┘
 ```
 
-Keeping app and content in one repo is deliberate: one clone, one history, and content-aware
-tooling (validation scripts, CI checks for broken links) lives next to what it checks.
+## Stack decisions
 
-## Validation & CI
+| Layer | Choice | Rationale |
+|-------|--------|-----------|
+| Web app | **Next.js (App Router) + TypeScript + Tailwind + shadcn/ui** | One team, one framework for marketing site + app; mature ecosystem; PWA for offline. |
+| API | **tRPC** inside the Next.js server | End-to-end types with zero API-contract drift at startup speed; a versioned REST layer can be added later for partners. |
+| Editor | **TipTap (ProseMirror)** with markdown serialization | Battle-tested collaborative rich editor; markdown in/out preserves the portability principle. Extensions: KaTeX math, Mermaid, callouts, flashcard blocks, wiki-links. |
+| Realtime & offline sync | **Yjs CRDTs** — documents sync via a websocket sync service; local persistence in IndexedDB | The only credible way to get Google-Docs-style collab *and* offline-first from one mechanism. Isolated as its own service from day one (stateless rooms, Redis pub/sub) so it scales independently. |
+| Database | **Postgres** (managed: Neon/Supabase/RDS) with **row-level security** per space | Relational fits the domain (courses/weeks/notes); RLS gives defense-in-depth multi-tenancy; `pgvector` for embeddings until scale demands a dedicated vector store. |
+| ORM / migrations | **Drizzle** | Typed SQL, sane migrations, no runtime magic. |
+| Object storage | **S3-compatible (Cloudflare R2)** for PDFs, images, exports | Zero egress fees matter for a PDF-heavy student product. Signed URLs, per-space prefixes. |
+| Search | **Postgres FTS first**, swap to **Meilisearch** behind the same interface when relevance/scale demands | Don't run a search cluster before product-market fit. Heading-level index and filters are schema, not engine, decisions. |
+| Background jobs | **Queue + workers** (BullMQ on Redis, or Inngest) | Imports, embedding, card generation, exports, webhooks — nothing slow on the request path. |
+| Auth | **Better Auth** (or Clerk if buying beats building) — email magic link, Google, Apple | Students live in Google/Apple accounts; magic links kill password support tickets. University SSO (SAML) only when a B2B motion appears. |
+| Billing | **Stripe** (subscriptions + student verification hook) | Standard. Regional pricing from day one — students are global. |
+| AI | **Claude API** via an internal gateway module (provider-agnostic interface, metering, caching) | See [08-ai-features.md](08-ai-features.md). Gateway centralizes cost control and model swaps. |
+| Hosting | **Vercel** (app) + **Fly.io/Railway** (sync service, workers, Redis) | Managed everything until unit economics say otherwise. |
+| Email / notifications | Resend (email), web push; mobile push via Expo later | Study reminders are a retention feature, not an afterthought. |
 
-- `scripts/validate.ts` — checks every note's frontmatter against the schema, finds broken
-  wiki-links and missing assets. Run manually and in CI on push.
-- GitHub Actions: typecheck + validate on every push. (No deployment pipeline needed for a
-  local-first app; add Pages deploy only if the static export lands.)
+## The sync model (the hard part, made explicit)
+
+- Each note body is a **Yjs document**; the ProseMirror doc is the CRDT. Metadata (title, week,
+  tags, status) lives in Postgres rows and syncs via ordinary tRPC mutations + optimistic UI.
+- Clients persist Yjs docs + a metadata cache in **IndexedDB**: full offline read/write for
+  everything previously opened; queued mutations reconcile on reconnect (CRDT merge for bodies,
+  last-write-wins + conflict toast for scalar metadata).
+- The sync service is stateless: rooms hydrate from Postgres snapshots + append-only update log;
+  compaction job folds updates into snapshots.
+- **Snapshots double as version history** ("restore note to yesterday") — a marketable feature
+  that falls out of the architecture.
+- Derived artifacts (search index, embeddings, graph edges, review schedules) are **always
+  rebuildable** from canonical data — the v1 principle, kept.
+
+## Multi-tenancy model
+
+```
+User ──< Membership >── Space (personal or shared-course)
+                          └── Course ──< Note, Asset, Deck…
+```
+
+- Every domain row carries `space_id`; **Postgres RLS enforces isolation** at the database layer,
+  application checks enforce roles (owner / editor / viewer) above it.
+- A user's personal space is created at signup; shared course spaces are the collaboration and
+  growth unit (see features + product docs).
+
+## Environments & delivery
+
+- **CI (GitHub Actions):** typecheck, lint, unit tests, integration tests against ephemeral
+  Postgres, Playwright E2E on preview deploys. Trunk-based; every PR gets a preview environment.
+- **Envs:** production, staging (prod-shaped, synthetic data), preview-per-PR.
+- **Migrations:** forward-only, expand→migrate→contract for zero-downtime.
+- Feature flags (simple DB-backed) for gradual rollouts; error tracking and product analytics
+  wired from the first deploy (see [07-platform-security.md](07-platform-security.md)).
+
+## What we deliberately do NOT build yet
+
+- Microservices, Kubernetes, multi-region — a monolith on managed infra serves well past 100k
+  users if the sync service and workers scale horizontally.
+- A dedicated vector DB, search cluster, or data warehouse — interfaces first, infra when metrics
+  demand.
+- Native (non-Expo) mobile apps and desktop apps — PWA first, Expo when retention data justifies.

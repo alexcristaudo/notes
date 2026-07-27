@@ -1,119 +1,100 @@
-# 02 — Content Model
+# 02 — Content Model & Editor
 
-Everything the app knows comes from the folder layout, YAML frontmatter, and links between notes.
-This file is the contract.
+The v1 file/folder model becomes a database-backed domain model — but the *shape* survives,
+because the shape (Course → Week → typed notes) is the product. Markdown remains the interchange
+format: every entity round-trips to plain files for import/export.
 
-## Folder layout
+## Domain model
 
 ```
-courses/
-└── 2026-S2/                          # term (year + semester)
-    └── MATH2001/                     # course code
-        ├── course.yml                # course metadata (below)
-        ├── lectures/
-        │   ├── 01-limits-and-continuity.md
-        │   └── 02-derivatives.md
-        ├── tutorials/
-        │   ├── tut-03.md             # worked tutorial sheet
-        │   └── tut-03-questions.pdf  # original sheet, linked from the note
-        ├── tests/
-        │   ├── 2025-midterm.md       # your worked solutions / post-mortem
-        │   └── 2025-midterm.pdf      # the actual paper
-        ├── summaries/
-        │   └── exam-cheatsheet.md
-        └── assets/                   # images/figures used by this course's notes
+User
+ └─< Membership (role: owner | editor | viewer) >─ Space
+                                                    ├─ kind: personal | course-shared
+                                                    └─< Course
+                                                         ├─ code, name, term, color, icon
+                                                         ├─ weeks, exam_dates[], links[]
+                                                         ├─ status: active|completed|archived
+                                                         └─< Note
+                                                              ├─ type: lecture|tutorial|test|summary|reference
+                                                              ├─ title, week?, date?, tags[]
+                                                              ├─ status: draft|complete|needs-review
+                                                              ├─ difficulty? (1–5)
+                                                              ├─ body: Yjs doc (ProseMirror)
+                                                              └─< Asset (pdf|image|file, S3 key)
+Derived / study entities:
+  Flashcard      — extracted from flashcard blocks in notes; FK to note + block id
+  ReviewLog      — append-only (user, card, ts, grade); scheduler state derived
+  StudyQueueItem — (user, ref: note|section, priority, targetDate?, done)
+  Link           — note→note edges parsed from wiki-links (graph, backlinks)
+  HeadingIndex   — (note, heading, anchor, order) — powers the section finder
+  Embedding      — (note, section, vector) — powers semantic search & RAG
 ```
 
-- **Term folders** sort chronologically (`2026-S1`, `2026-S2`, `2027-S1`).
-- **Note filenames** start with a sortable prefix where order matters (`01-`, `tut-03`).
-- Original PDFs/images sit next to the Markdown note that discusses them.
+Key decisions:
 
-## `course.yml` — course metadata
+- **Notes belong to courses; courses belong to spaces.** In a shared course space, notes are
+  visible to members, but each member's *personal annotations, queue, and review state* are
+  private per-user overlays — shared materials, private studying.
+- **Sections are addressable.** Headings get stable anchors, so queue items, search results,
+  flashcards, and AI citations all point to `note#heading`, not just notes.
+- **`ReviewLog` stays append-only** (v1 principle): SM-2/FSRS scheduler state is a pure function
+  of the log — auditable, re-derivable, algorithm-swappable.
 
-```yaml
-code: MATH2001
-name: Calculus & Linear Algebra II
-term: 2026-S2
-color: "#7c3aed"        # used everywhere the course appears in the UI
-icon: "∫"               # emoji or single char for cards/sidebar
-status: active           # active | completed | archived
-weeks: 13
-exam_date: 2026-11-14    # optional; drives countdowns on the dashboard
-links:                   # optional external resources
-  - { label: "Course site", url: "https://..." }
+## Note types (unchanged in spirit, now enforced by templates + UI)
+
+| Type | Template & special behavior |
+|------|-----------------------------|
+| `lecture` | Key-ideas callout, body, linked-concepts footer; feeds coverage grid |
+| `tutorial` | Original sheet (PDF asset) pinned; per-question sections with collapsed `answer` blocks → instant self-quizzing |
+| `test` | Paper PDF + metadata (date, weight, score); per-question worked solutions; **"Mistakes & lessons"** section aggregated into the course mistake log |
+| `summary` | Exam-oriented; prioritized by study-queue suggestions; print/PDF-ready |
+| `reference` | Freeform (formula sheets, glossaries) |
+
+## Editor (TipTap/ProseMirror) — block inventory
+
+Core: headings, lists, tables, images (drag-drop → asset upload), code (syntax highlighted),
+blockquote, horizontal rule.
+
+Custom blocks:
+
+- **Math** — inline `$…$` and block `$$…$$`, KaTeX-rendered, LaTeX source preserved.
+- **Callouts** — `definition | theorem | example | warning | answer` (answer = collapsed by
+  default).
+- **Flashcard block** — Q/A (or cloze) authored inline; automatically registered as a `Flashcard`
+  entity linked to its position. Deleting the block retires the card (history kept).
+- **Wiki-link** — `[[…]]` autocomplete across the space; renders as chip; creates `Link` edges.
+- **PDF embed** — inline viewer for an attached asset with page-anchored deep links
+  (`asset#page=4`) so notes can cite "the question on page 4 of the 2025 midterm".
+- **Mermaid diagram** — fenced source, rendered client-side.
+
+Markdown-native input everywhere: typing `## `, `> `, `$$`, `[[` produces the right block.
+Paste-from-markdown and copy-as-markdown are lossless for all core + custom blocks.
+
+## Portability contract (marketing-grade, not fine print)
+
+**Export, any time, one click:** a zip laid out exactly like plan-v1's folder structure —
+
+```
+export/
+└── 2026-S2/MATH2001/
+    ├── course.yml
+    ├── lectures/01-limits-and-continuity.md   # frontmatter + markdown, flashcards as blocks
+    ├── tutorials/…  tests/…  summaries/…
+    └── assets/…
 ```
 
-## Note frontmatter — the schema
+- Every custom block has a defined markdown serialization (callouts as `> [!type]`, flashcards as
+  `> [!flashcard]`, math as LaTeX). No proprietary blobs.
+- Import accepts the same structure — export→import round-trips (this is also our test fixture).
+- Review history and queue export as JSON/JSONL alongside.
 
-```yaml
----
-title: Limits and Continuity
-type: lecture            # lecture | tutorial | test | summary | reference
-week: 1                  # ties the note to a course week (optional for summaries)
-date: 2026-07-28         # date the material was covered / test was sat
-tags: [limits, epsilon-delta, continuity]
-status: complete         # draft | complete | needs-review
-source: onedrive         # optional provenance marker set by the importer
-difficulty: 3            # optional 1–5 self-rating, feeds study prioritisation
----
-```
+This is the "no lock-in" trust signal (see [06-product-market.md](06-product-market.md)) and it
+means the v1 personal-repo workflow remains a supported citizen: power users can live in
+git and sync via import/export.
 
-Rules:
+## Metadata rules
 
-- `title` and `type` are required; everything else is optional with defaults
-  (`week` inferred from filename prefix when possible, `status: draft`).
-- The **course and term are never in frontmatter** — they come from the path. One less thing to
-  keep in sync.
-- `scripts/validate.ts` enforces this schema and fails CI on violations.
-
-## Note types and their templates
-
-| Type | Template contains |
-|------|-------------------|
-| `lecture` | Title, "Key ideas" callout, body sections, "Linked concepts" footer |
-| `tutorial` | Link slot for the original sheet PDF, per-question `## Q1`, `## Q2` sections with a `> [!answer]` callout each |
-| `test` | Metadata block (date, weight, score), link to paper PDF, per-question worked solutions, "Mistakes & lessons" section |
-| `summary` | Dense, exam-oriented; the study queue prefers these |
-| `reference` | Freeform (formula sheets, glossaries, links) |
-
-Templates live in `scripts/templates/` and are used by both the in-app "New note" flow and the
-`npm run new:note` CLI.
-
-## Linking conventions
-
-- **Wiki-links between notes:** `[[MATH2001/lectures/02-derivatives]]` or, within the same course,
-  `[[02-derivatives]]`. A remark plugin resolves them; unresolved links render highlighted and are
-  reported by `validate`.
-- **Section links:** `[[02-derivatives#chain-rule]]` targets a heading anchor.
-- These links are the edges of the knowledge graph (see [03-features.md](03-features.md)).
-
-## Special markdown extensions
-
-- **Callouts:** `> [!definition]`, `> [!theorem]`, `> [!example]`, `> [!warning]`, `> [!answer]`
-  render as styled blocks. `[!answer]` blocks are collapsed by default — instant self-quizzing on
-  tutorial sheets.
-- **Flashcards inline in notes:**
-
-  ```md
-  > [!flashcard]
-  > Q: State the epsilon-delta definition of a limit.
-  > A: For all ε>0 there exists δ>0 such that ...
-  ```
-
-  The content layer extracts every `[!flashcard]` block into the review system automatically —
-  cards live inside the notes they belong to, never in a separate silo.
-- **Math:** `$...$` and `$$...$$` via KaTeX. **Diagrams:** fenced ```mermaid blocks.
-
-## Heading conventions (powers the section finder)
-
-Headings are indexed verbatim, so descriptive headings pay off: prefer `## Chain rule` over
-`## Part 2`. The section finder (see features) searches every heading across every course, so a
-query like "eigenvalues" answers "where is this covered?" directly.
-
-## `data/` files
-
-| File | Purpose | Shape |
-|------|---------|-------|
-| `study-queue.json` | Ordered list of things to study in free time | `[{ ref, addedAt, priority, targetDate?, done }]` where `ref` is a note path or `path#heading` |
-| `review-log.jsonl` | Append-only flashcard review history | one `{ cardId, ts, grade }` per line |
-| `settings.json` | UI prefs (theme, dashboard layout) | freeform |
+- `title` + `type` required; everything else optional with inferred defaults (week from title
+  like "Week 7"/"Tut 3", date from creation). Never block a note on metadata (product principle).
+- Validation is a background lint, surfaced as a per-course "health" panel (broken links, missing
+  weeks, untitled assets) — the v1 `validate` script reborn as UI.

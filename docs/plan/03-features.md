@@ -1,123 +1,147 @@
 # 03 — Features
 
-Each feature lists what it does, how it works, and its priority
-(**P0** = core, build first; **P1** = important; **P2** = nice-to-have).
+Priorities: **P0** = MVP (single-user product must ship with these) · **P1** = beta/launch ·
+**P2** = post-launch growth. AI-powered features are cross-referenced to
+[08-ai-features.md](08-ai-features.md); collaboration features assume the space model from
+[02-content-model.md](02-content-model.md).
 
 ---
 
-## 1. Dashboard (home page) — P0
+## A. Capture & organise
 
-The first screen. Answers "what's my situation?" at a glance.
+### A1. Course & note creation — P0
+New-course wizard (term, code, name, color, icon, weeks, exam dates) and new-note flow
+(course + type + week → template-filled editor). Semester setup flow: create a whole term's
+courses in one screen — the first-run "aha" moment.
 
-- **Course cards** — one per active course: color, icon, note counts by type, coverage bar
-  (weeks with notes vs. `weeks` in `course.yml`), days until `exam_date`.
-- **Study queue preview** — top 5 queue items, one-click "open" / "done".
-- **Recently edited notes** (from git/file mtimes).
-- **Cards due today** — flashcard count due under the spaced-repetition schedule.
-- **Activity heatmap** — GitHub-style calendar of study activity (edits + reviews), built from
-  the review log and git history. *(P1)*
+### A2. Rich editor — P0
+Full block inventory from [02-content-model.md](02-content-model.md): math, callouts, collapsed
+answers, flashcard blocks, wiki-links, PDF embeds, Mermaid, tables, images. Markdown-native
+typing, lossless copy/paste as markdown. Autosave, offline editing, version history with restore.
 
-## 2. Course page — P0
+### A3. Import — P0 (file upload) / P1 (cloud connectors)
+Drag-in PDFs/docx/markdown onto a course; cloud importers (OneDrive, Google Drive, Notion) as
+onboarding flows. Full spec: [04-import-platform.md](04-import-platform.md).
 
-Everything about one course.
+### A4. Asset & paper management — P0
+Every PDF (tutorial sheets, past papers, slides) is a first-class asset: viewable inline,
+page-linkable, searchable by title/course; OCR + text extraction for scanned PDFs (P1) makes
+them full-text searchable.
 
-- Header with metadata, exam countdown, external links.
-- **Week-by-week grid**: rows = weeks 1..N, columns = lectures / tutorials / tests. Instantly
-  shows gaps ("week 7 has no tutorial notes").
-- Tabbed lists per note type with status chips (`draft` / `complete` / `needs-review`).
-- **Course overview panel** — auto-generated: all headings across the course's notes as a
-  hierarchical table of contents, i.e. a syllabus reconstructed from what you actually wrote.
-- **Coverage donut + difficulty strip** — % complete notes, and which weeks you rated hard. *(P1)*
+## B. Find
 
-## 3. Note reader — P0
+### B1. Command palette & full-text search — P0
+⌘K everywhere: fuzzy search over titles, headings, tags, body, asset names; filters for course /
+type / week / status / term. Results show highlighted snippets and deep-link to the matched
+**section**, not just the note.
 
-- Rendered Markdown with KaTeX math, Shiki code, Mermaid diagrams, styled callouts.
-- **Sticky outline sidebar** (the note's headings) with scroll-spy.
-- Collapsed-by-default `[!answer]` blocks for self-quizzing.
-- Backlinks panel: every note that links here.
-- Actions: "Add to study queue" (whole note or current section), "Edit in VS Code" (`vscode://`
-  deep link), copy path.
-- Embedded PDF viewer for sibling PDFs (original tutorial sheets, test papers). *(P1)*
+### B2. Section finder ("where is X covered?") — P0
+Heading-level index across all courses, grouped by course, ordered by relevance:
+*"eigenvalues"* → every lecture/summary/tutorial section that covers it, with week numbers.
+Browsable A–Z concept index from headings + tags (P1). Semantic search upgrade via embeddings
+(P1, see 08) so *"the trick for integrating by parts twice"* finds the right section without
+keyword overlap.
 
-## 4. Full-text search — P0
+### B3. Course overview — P0
+Auto-generated per course: hierarchical outline of every heading across its notes (the syllabus
+as actually written), week-by-week coverage grid (weeks × note types, gaps visible at a glance),
+status chips, health panel (broken links, missing weeks).
 
-- One search box (⌘K palette) over titles, headings, tags, and body text of every note.
-- Filters: course, type, term, tag, status.
-- Results show highlighted snippets and the matched **section**, deep-linking to the exact heading.
-- Implementation: `minisearch` index built by the content layer; rebuilt on file change in dev.
+### B4. Backlinks & knowledge graph — P1
+Backlinks panel on every note. Force-directed graph (nodes = notes colored by course, edges =
+wiki-links), filters, hover previews, orphan-note list, cross-course edges highlighted.
 
-## 5. Section finder ("where is X covered?") — P0
+## C. Study
 
-The killer feature for revision. A dedicated view (and a search mode) that indexes **every heading
-in every note** and answers queries like *"eigenvalues"* with:
+### C1. Study Queue — P0
+The "what I'm studying in my free time" list: add whole notes or specific sections from anywhere;
+drag-reorder, priority, optional target date; **focus mode** (distraction-free reader, next item,
+done/snooze). Per-user even inside shared spaces.
 
-> `MATH2001 › lectures › 05-eigen-things › ## Eigenvalues & eigenvectors` — week 5
-> `MATH2001 › summaries › exam-cheatsheet › ## Eigen-decomposition shortcuts`
-> `STAT2003 › lectures › 09-pca › ## Why eigenvalues appear in PCA`
+### C2. Spaced repetition — P0 (core loop) / P1 (polish)
+Cards extracted from flashcard blocks in notes; review UI is keyboard-first
+(front → reveal → Again/Hard/Good/Easy); per-course decks + "all due"; every card links back to
+its source section. Scheduler: FSRS (modern, better retention curves than SM-2) derived from the
+append-only review log. Daily due counts, streaks, and study reminders (email/push) — P1.
 
-Grouped by course, ordered by relevance, each row deep-links to the heading. Also browsable as an
-A–Z concept index built from headings + tags. *(Index build is part of P0 search; the dedicated
-browse view is P1.)*
+### C3. AI-generated study material — P1
+Draft flashcards from a selected section; generate practice quizzes from a course's notes;
+summarize a week into an exam-ready digest. All cited to source sections, all confirm-before-save.
+Spec & guardrails: [08-ai-features.md](08-ai-features.md).
 
-## 6. Creation flows — P0
+### C4. Ask-your-notes (RAG chat) — P1
+Per-course chat grounded in the student's own materials: *"explain question 3 of tutorial 5 using
+my lecture notes"* — answers cite the exact sections used. See 08.
 
-- **New course wizard**: term, code, name, color, icon, weeks → scaffolds the folder structure and
-  `course.yml`.
-- **New note**: pick course + type (+ week), get a template-filled Markdown file with frontmatter;
-  opens in the app (or editor) immediately.
-- Mirrored CLI: `npm run new:course`, `npm run new:note` for terminal folk.
+### C5. Past-paper practice — P1
+The past-paper bank across courses; **practice mode** runs a test PDF with a timer, then flips to
+your worked solutions; "Mistakes & lessons" sections aggregate into a per-course **mistake log** —
+the highest-value pre-exam read.
 
-## 7. Study Queue — P0
+### C6. Exam readiness — P1
+Per-course readiness signals combining coverage (notes exist per week), card retention (FSRS
+stability), queue completion, and past-paper attempts — shown as an honest indicator with its
+inputs, not a fake single score. Drives the "what should I study today?" suggestion.
 
-The "things I want to study in my free time" list, backed by `data/study-queue.json`.
+## D. Together (the growth engine)
 
-- Add whole notes **or specific sections** from anywhere (reader, search, section finder).
-- Manual drag-to-reorder plus priority stars; optional target date.
-- **Focus mode**: "give me the next item" → distraction-free reader; mark done / re-queue / snooze.
-- Suggestions engine *(P1)*: proposes items from `needs-review` notes, high-`difficulty` weeks, and
-  courses with near exams. Suggestions require one click to accept — the queue stays yours.
+### D1. Shared course spaces — P1
+One classmate creates the course space, invites via link; members see shared materials (lectures,
+tutorial sheets, past papers, worked solutions) while queues, review state, and personal
+annotations stay private. Roles: owner / editor / viewer.
 
-## 8. Flashcards & spaced repetition — P1
+### D2. Collaborative editing — P1
+Google-Docs-style live co-editing on shared notes (CRDT sync makes this "free"); presence
+indicators; per-block comments & discussion threads (P2) for arguing about a worked solution.
 
-- Cards are extracted from `[!flashcard]` blocks inside notes (see content model) — authoring
-  happens where the knowledge lives.
-- **SM-2 scheduling** derived by replaying `data/review-log.jsonl`; grades Again/Hard/Good/Easy.
-- Review session UI: front → reveal → grade, keyboard-driven. Per-course decks and "all due".
-- Each card links back to its source note & heading for context.
+### D3. Sharing out — P1
+Publish a note or course pack as a read-only public link (great cheat-sheets get shared; every
+public page is an acquisition channel). Duplicate-to-my-space on any public pack.
 
-## 9. Knowledge graph — P1
+### D4. Community template & pack gallery — P2
+Curated course templates (structures, not copyrighted content) and shared study packs;
+campus-course directory so joining "MATH2001 @ your uni" is one search.
 
-- Force-directed graph: nodes = notes (sized by inbound links, colored by course), edges =
-  wiki-links. Hover previews, click to open. Filter by course/term/type.
-- Surfaces **orphan notes** (nothing links in or out) as a review-worthy list.
-- Cross-course edges highlighted — the interesting ones (e.g. linear algebra ↔ statistics).
+## E. Visualise
 
-## 10. Graphics & stats — P1
+All charts one visual system, course-color-keyed, light/dark aware.
 
-All charts follow one visual system (consistent palette keyed to course colors, dark/light aware):
+| Graphic | Where | Question answered | Priority |
+|---------|-------|-------------------|----------|
+| Week × type coverage grid | course page | What's missing? | P0 |
+| Exam countdown + readiness ring | dashboard cards | How long, how ready? | P0 / P1 |
+| Study activity heatmap (calendar) | dashboard | Am I consistent? | P1 |
+| Retention curve (FSRS stability) | study stats | Is review working? | P1 |
+| Notes-per-week timeline | course page | Effort distribution | P1 |
+| Knowledge graph | its own view | How does it connect? | P1 |
+| Tag/concept cloud → index | section finder | What does this space know? | P2 |
 
-| Graphic | Where | Question it answers |
-|---------|-------|--------------------|
-| Coverage bars / week grid | dashboard, course page | What's missing? |
-| Activity heatmap (calendar) | dashboard | Am I consistent? |
-| Exam countdown ring | course card | How long left, how ready? |
-| Retention curve | flashcards | Is review working? |
-| Notes-per-week timeline | course page | Effort distribution over the term |
-| Tag cloud → concept index | section finder | What does this repo know about? |
+## F. Platform & lifecycle
 
-## 11. Tests & tutorials as first-class citizens — P0 (model) / P1 (views)
+### F1. Dashboard — P0
+Course cards (coverage, countdowns, due cards), study queue preview, resume-where-you-left-off,
+today's suggestions. The screen that answers "what's my situation?"
 
-- `tutorial` and `test` are dedicated note types with templates (per-question sections,
-  collapsed answers, "mistakes & lessons").
-- **Past-paper bank view**: all `test` notes across courses, filterable, each with its PDF and your
-  worked solutions side by side.
-- **Mistake log** *(P2)*: aggregates "Mistakes & lessons" sections across tests into one page per
-  course — the highest-value pre-exam read.
+### F2. Offline & PWA — P0
+Installable PWA; previously opened content fully readable/editable offline; sync on reconnect
+(see architecture). Mobile-web responsive from day one.
 
-## 12. Quality-of-life — P2
+### F3. Mobile app (Expo) — P2
+Review-first mobile experience: flashcards, study queue, reading, quick capture. Ship only when
+web retention proves the loop.
 
-- Read-only static export for phone reading (GitHub Pages).
-- In-app quick editor (CodeMirror) for small fixes without leaving the browser.
-- Print/PDF stylesheet for cheat sheets.
-- `validate` report page in-app (broken links, schema violations) instead of terminal-only.
-- Random review button ("teleport me to a random section from a completed course").
+### F4. Notifications & reminders — P1
+Daily review reminder (respecting due counts), exam-approaching nudges, weekly digest
+("week 9: 3 courses missing notes, 42 cards due"). Email + web push; quiet by default,
+granular controls.
+
+### F5. Calendar integration — P2
+Subscribe-able ICS feed (exam dates, review sessions); import timetable to auto-create weeks.
+
+### F6. Semester lifecycle — P1
+End-of-term flow: mark courses completed, archive spaces (read-only, searchable, excluded from
+due counts), carry summaries forward; new-term setup wizard.
+
+### F7. Accounts, billing, settings — P0 (accounts) / P1 (billing)
+Magic-link + Google/Apple sign-in; personal space auto-created; Stripe subscriptions with student
+verification; full data export (see content model) and account deletion, self-serve.

@@ -1,23 +1,34 @@
-# Notes — University Notes Manager
+# Notes — The Study Workspace Shaped Like Your Degree
 
-A personal knowledge base for university: every course's lectures, tutorials, tests, and
-summaries stored as plain Markdown in this repo, with a local web app on top for searching,
-visualising, and actively studying them.
+A course-native study workspace for university students: lectures, tutorial sheets, past papers,
+and summaries organised the way a degree actually is — courses, weeks, exams — with heading-level
+search ("where is X covered?"), spaced-repetition flashcards that live inside your notes, AI study
+tools grounded in *your own materials* with citations, and shared course spaces for your cohort.
+Full plain-markdown export at any time: no lock-in, ever.
 
-**Status: planning.** The full plan lives in [`docs/plan/`](docs/plan/):
+**Status: planning (v2 — industry/product scope).** The full plan lives in [`docs/plan/`](docs/plan/):
 
-1. [Overview & goals](docs/plan/00-overview.md)
-2. [Architecture & stack](docs/plan/01-architecture.md)
-3. [Content model](docs/plan/02-content-model.md) — folder layout, frontmatter, note types
-4. [Features](docs/plan/03-features.md) — dashboard, search, section finder, study queue, flashcards, graphs
-5. [OneDrive migration](docs/plan/04-onedrive-migration.md)
-6. [Roadmap](docs/plan/05-roadmap.md) — build phases and acceptance criteria
+| # | File | Contents |
+|---|------|----------|
+| 00 | [Vision & overview](docs/plan/00-overview.md) | The wedge, product principles, v1→v2 scope evolution |
+| 01 | [Architecture](docs/plan/01-architecture.md) | SaaS stack, CRDT sync engine, multi-tenancy, environments |
+| 02 | [Content model & editor](docs/plan/02-content-model.md) | Domain model, note types, block editor, portability contract |
+| 03 | [Features](docs/plan/03-features.md) | Complete spec: capture, find, study, collaborate, visualise |
+| 04 | [Import platform](docs/plan/04-import-platform.md) | OneDrive/Drive/Notion/PDF importers as onboarding |
+| 05 | [Roadmap](docs/plan/05-roadmap.md) | Phases 0–6: validation → MVP → cloud → AI → launch → scale |
+| 06 | [Product & market](docs/plan/06-product-market.md) | Personas, competitors, pricing, growth loops, metrics |
+| 07 | [Platform & security](docs/plan/07-platform-security.md) | Auth, GDPR, reliability, observability, unit costs |
+| 08 | [AI features](docs/plan/08-ai-features.md) | RAG over notes, card/quiz generation, guardrails, cost control |
 
-## The pitch in one paragraph
+## Positioning in one line
 
-Notes live in `courses/<term>/<code>/` as Markdown with YAML frontmatter; the app (Next.js, run
-locally) renders them with math/diagrams/callouts, indexes every heading so "where is X covered?"
-is a 5-second search, generates per-course overviews and coverage visuals, extracts flashcards
-straight out of the notes for spaced repetition, and maintains a Study Queue of notes and
-sections to work through in free time. Existing OneDrive material is migrated in once by a
-script; after that, git is the source of truth.
+> Notion makes you rebuild your degree by hand; Anki divorces cards from their source;
+> we ship the structure and keep everything connected — and your notes export as plain files
+> whenever you want.
+
+## Trust pillars
+
+1. **No lock-in** — one-click full export as plain markdown + assets, round-trip tested in CI.
+2. **Offline-first** — your notes are readable and editable without us.
+3. **Never training data** — AI providers used with no-training/no-retention terms.
+4. **Grounded AI** — every AI answer cites the exact sections of your own notes it came from.
