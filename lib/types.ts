@@ -47,6 +47,7 @@ export interface Note {
   source?: string; // provenance, e.g. "import"
   repoPath?: string; // set when the note comes from the repo's courses/ folder
   repoHash?: string; // hash of the repo body at last sync — divergence detector
+  repoAssetPaths?: string[]; // site-relative paths of repo assets this note references
   createdAt: number;
   updatedAt: number;
 }

@@ -39,7 +39,12 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const courses = useLiveQuery(() => db.courses.where("status").equals("active").toArray(), [], []);
+  // All courses, newest term first — completed years stay reachable.
+  const courses = useLiveQuery(
+    () => db.courses.toArray().then((cs) => cs.sort((a, b) => b.term.localeCompare(a.term) || a.code.localeCompare(b.code))),
+    [],
+    [],
+  );
   const queueCount = useLiveQuery(() => db.queue.where("done").equals(0).count(), [], 0);
   const noteCount = useLiveQuery(() => db.notes.count(), [], 0);
 

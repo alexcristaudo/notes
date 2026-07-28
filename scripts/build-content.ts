@@ -50,7 +50,12 @@ interface RepoNote {
   body: string;
   repoPath: string;
   repoHash: string;
+  assets?: string[]; // site-relative repo-asset paths from frontmatter `assets:`
 }
+
+/** Heavy/unviewable files stay in the repo but are not copied into the site. */
+const SITE_COPY_MAX_BYTES = 35 * 1024 * 1024;
+const SITE_SKIP_EXT = /\.(pages|zip|rdata|rproj)$/i;
 
 function parseYamlish(raw: string): Record<string, string> {
   const out: Record<string, string> = {};
@@ -102,7 +107,9 @@ if (existsSync(SRC)) {
           const destDir = join(OUT_ASSETS, term, code);
           mkdirSync(destDir, { recursive: true });
           for (const file of readdirSync(dir).sort()) {
-            copyFileSync(join(dir, file), join(destDir, file));
+            const src = join(dir, file);
+            if (SITE_SKIP_EXT.test(file) || statSync(src).size > SITE_COPY_MAX_BYTES) continue;
+            copyFileSync(src, join(destDir, file));
             course.assets.push({ name: file, path: `repo-assets/${term}/${code}/${file}` });
           }
           continue;
@@ -116,7 +123,12 @@ if (existsSync(SRC)) {
           const raw = readFileSync(join(dir, file), "utf8");
           const { data, body } = parseFrontmatter(raw);
           const prefixWeek = file.match(/^(\d{1,2})-/)?.[1];
+          const assetNames = Array.isArray(data.assets) ? data.assets : [];
+          const assetPaths = assetNames
+            .filter((a) => existsSync(join(courseDir, "assets", a)) && !SITE_SKIP_EXT.test(a) && statSync(join(courseDir, "assets", a)).size <= SITE_COPY_MAX_BYTES)
+            .map((a) => `repo-assets/${term}/${code}/${a}`);
           notes.push({
+            assets: assetPaths.length > 0 ? assetPaths : undefined,
             id: `repo:${repoPath}`,
             courseId,
             type: typeof data.type === "string" && data.type in NOTE_TYPE_FOLDER ? (data.type as NoteType) : type,

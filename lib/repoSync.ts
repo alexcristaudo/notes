@@ -25,6 +25,7 @@ interface RepoContent {
     tags: string[];
     status: string;
     type: NoteType;
+    assets?: string[];
   })[];
 }
 
@@ -81,10 +82,15 @@ export async function syncFromRepo(): Promise<void> {
       const locallyEdited = stableHash(existing.body) !== existing.repoHash;
       if (locallyEdited) {
         // keep local edits; record the new repo hash target so Health can flag divergence
-        await db.notes.update(n.id, { repoPath: n.repoPath });
+        await db.notes.update(n.id, { repoPath: n.repoPath, repoAssetPaths: n.assets });
         continue;
       }
-      if (existing.repoHash === n.repoHash) continue; // unchanged
+      if (existing.repoHash === n.repoHash) {
+        if (JSON.stringify(existing.repoAssetPaths) !== JSON.stringify(n.assets)) {
+          await db.notes.update(n.id, { repoAssetPaths: n.assets });
+        }
+        continue;
+      }
     }
     const note: Note = {
       id: n.id,
@@ -100,6 +106,7 @@ export async function syncFromRepo(): Promise<void> {
       source: n.source,
       repoPath: n.repoPath,
       repoHash: n.repoHash,
+      repoAssetPaths: n.assets,
       createdAt: existing?.createdAt ?? now,
       updatedAt: now,
     };

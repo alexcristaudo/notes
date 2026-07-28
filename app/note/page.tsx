@@ -162,8 +162,11 @@ function NoteInner() {
         </div>
 
         {/* Attached assets */}
-        {assets.length > 0 && (
+        {((note.repoAssetPaths?.length ?? 0) > 0 || assets.length > 0) && (
           <div className="mb-4 space-y-2">
+            {(note.repoAssetPaths ?? []).map((p) => (
+              <RepoAssetRow key={p} path={p} />
+            ))}
             {assets.map((a) => (
               <AssetRow key={a.id} name={a.name} mime={a.mime} blob={a.blob} />
             ))}
@@ -267,6 +270,37 @@ function EditorToolbar({ onInsert }: { onInsert: (snippet: string) => void }) {
           {label}
         </button>
       ))}
+    </div>
+  );
+}
+
+/** A file living in the repo's course assets folder, served from the site. */
+function RepoAssetRow({ path }: { path: string }) {
+  const [open, setOpen] = useState(false);
+  const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+  const url = `${base}/${path}`;
+  const name = path.split("/").pop() ?? path;
+  const isPdf = name.toLowerCase().endsWith(".pdf");
+  const isImage = /\.(png|jpe?g|gif|svg|webp)$/i.test(name);
+  return (
+    <div className="card p-2">
+      <div className="flex items-center gap-2 px-1 text-sm">
+        <span>{isPdf ? "📄" : isImage ? "🖼" : "📎"}</span>
+        <span className="flex-1 truncate">{name}</span>
+        {(isPdf || isImage) && (
+          <button className="btn btn-ghost btn-sm" onClick={() => setOpen((v) => !v)}>
+            {open ? "Hide" : "View inline"}
+          </button>
+        )}
+        <a className="btn btn-ghost btn-sm" href={url} target="_blank" rel="noreferrer">
+          Open ↗
+        </a>
+      </div>
+      {open && isPdf && <iframe src={url} className="mt-2 h-[70vh] w-full rounded-lg" title={name} />}
+      {open && isImage && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={url} alt={name} className="mt-2 max-h-[60vh] rounded-lg" />
+      )}
     </div>
   );
 }
