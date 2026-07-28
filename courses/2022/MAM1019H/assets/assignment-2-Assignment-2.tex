@@ -1,0 +1,66 @@
+\documentclass[12pt, a4paper]{exam}
+\usepackage{graphicx}
+%\usepackage[left=0.8in, top=0.7in, total={6.2in,8in}]{geometry}
+\usepackage[normalem]{ulem}
+\renewcommand\ULthickness{1.0pt}   %%---> For changing thickness of underline
+\setlength\ULdepth{1.3ex}%\maxdimen ---> For changing depth of underline
+\usepackage{amssymb} 
+
+\begin{document}
+	%\thispagestyle{empty}
+	\noindent
+	\begin{minipage}[l]{0.1\textwidth}
+		\noindent
+	\end{minipage}
+\hfill
+\begin{minipage}[c]{1.0\textwidth}
+	\begin{center}
+		
+		{
+		\large \ \ \par
+		\large \ \ \par
+		\large  Alexander Cristaudo \par
+		\small	CRSALE010	\par
+		\large	MAM1019H	\par
+	\large \textbf{Hand-in 2}	\par
+\small	Date: August 08, 2022}
+	\end{center}
+\end{minipage}
+\par
+\vspace{0.2in}
+\noindent
+\uline{ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \  \ \ \ \ \ \ \ \ \ \ \ \ \ \  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\par 
+\vspace{0.15in}
+\noindent
+\centering
+{\small \bfseries 	Answers }
+
+
+
+
+\begin{questions}
+	\pointsdroppedatright
+	\question
+	\begin{parts}
+		\part True 
+		\part False
+		\part True
+		\part 	False
+	\end{parts}
+\vspace{0.2in}
+	\pointsdroppedatright
+	\question {
+	First note that the set of even numbers, $E = \{2n : n \in \mathbb{N}\} \subset \mathbb{N}$ since $\forall x \in E, x \in \mathbb{N} $ and $E \ne \mathbb{N}$ (we see that, for example, $1 \in \mathbb{N}$ but $1 \notin E$). Now we have to prove that it is not true that $|E| < |\mathbb{N}|$. We do this by proving a bijection $E \to \mathbb{N}$ exists. It is then sufficient to prove that $|E| = |\mathbb{N}|$ to prove this. Now we can write the elements of $E$ as the list: $2,4,6,8,10,...$ and this means that $|E| = |\mathbb{N}|$ and thus proving this statement false
+	
+	}
+	
+	\question {
+	Suppose $A$ and $B$ are non-empty sets with $|A| = |B|$. This means there is a bijection $f: A \to B$. Now consider $g: \mathcal{P}(A) \to \mathcal{P}(B)$ defined as $g(X) = \{f(x) : x \in X\}$ for all $X \in \mathcal{P}(A)$. We need to prove this is a bijection. Suppose $g(X) = g(Y)$ for some $X,Y \in \mathcal{P}(A) \Rightarrow  \{f(x) : x \in X\} =  \{f(x) : x \in Y\}$. Now to prove $X = Y$, we prove that $X \subseteq Y$ and $Y \subseteq X$. Suppose $y \in g(X) \Rightarrow \exists x \in X, f(x) = y$. Also, $y \in g(Y) \Rightarrow \exists x' \in Y$ such that $f(x')=y=f(x) \Rightarrow x=x'$ since $f$ is injective and so $x \in Y$. So $X \subseteq Y$. Similarly, $Y \subseteq X,$ meaning $X = Y$ and so $g$ is injective. Now suppose $Y \in \mathcal{P}(B)$. Each $y \in Y$ has some $x \in X$ such that $f(x) = y$ because $f$ is surjective and so we can construct a set $A = \{x \in X:f(x) \in Y \}$ and then this is the preimage of $Y$. Then $g(A) = \{f(x):x \in A\} = Y$ so $g$ is surjective. Thus $g$ is a biijection, meaning $| \mathcal{P}(A)| = |\mathcal{P}(B)|$, so this statement is true.
+	}
+	
+\end{questions}
+
+
+
+\end{document}

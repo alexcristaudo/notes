@@ -1,0 +1,41 @@
+\documentclass[11pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for rotated page geometry
+%\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb}
+
+%SetFonts
+
+%SetFonts
+
+
+\title{Hand-in 1}
+\author{Alexander Cristaudo \\ CRSALE010}
+\date{}							% Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+%\section{}
+%\subsection{}
+
+\begin{enumerate}
+\item[1.] {
+\begin{enumerate}
+\item[(a)] {False}
+\item[(b)] {False}
+\item[(c)] {False}
+\item[(d)] {True}
+\end{enumerate}
+}
+\item[    2. ] {Consider $f: \mathbb{N} \to A$ where $f(n) = \pi n$. Now to prove this is a bijection, we must prove injectivity and surjectivity. \\ Injectivity: Suppose $f(n_1) = f(n_2)$ for any $n_1,n_2 \in \mathbb{N}$, then, by the function definition, we have that $\pi n_1 = \pi n_2 \Rightarrow n_1 = n_2$ and thus $f$ is an injection. \\ Surjectivity: Now suppose $y \in A$, then by the definition of $A, \exists n \in \mathbb{N}$ such that $y = \pi n$. Then $f(n) = \pi n = y$ and thus $f$ is surjective. \\ $f$ is now injective and surjective so $f$ is a bijection, thus $|\mathbb{N}| = |A|$}
+
+\item[3.] {Note that the set of irrational numbers can be written as $\{x \in \mathbb{R} : x \notin \mathbb{Q}\} = \mathbb{R}-\mathbb{Q}$. Now suppose that the set of irrational numbers is countable. Since $\mathbb{Q}$ is countable, we know that $\mathbb{Q} \cup (\mathbb{R} - \mathbb{Q})$ is also countable (the union of countable sets is countable). But notice that $\mathbb{Q} \cup (\mathbb{R} - \mathbb{Q}) = \mathbb{R}$. Thus we have that $\mathbb{R}$ is countable, but this is a contradiction and so the initial claim that the set of irrational numbers is countable is false, and so the set of irrational numbers is uncountable
+}
+
+
+\end{enumerate}
+
+\end{document}  

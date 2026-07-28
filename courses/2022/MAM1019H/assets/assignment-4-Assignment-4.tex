@@ -1,0 +1,59 @@
+\documentclass[12pt, a4paper]{exam}
+\usepackage{graphicx}
+%\usepackage[left=0.8in, top=0.7in, total={6.2in,8in}]{geometry}
+\usepackage[normalem]{ulem}
+\renewcommand\ULthickness{1.0pt}   %%---> For changing thickness of underline
+\setlength\ULdepth{1.3ex}%\maxdimen ---> For changing depth of underline
+\usepackage{amssymb} 
+
+\begin{document}
+	%\thispagestyle{empty}
+	\noindent
+	\begin{minipage}[l]{0.1\textwidth}
+		\noindent
+		%\includegraphics[width=2.4\textwidth]{uct.png}
+	\end{minipage}
+\hfill
+\begin{minipage}[c]{1.0\textwidth} % use 0.8 when using the image
+	\begin{center}
+		
+		{
+		\large \ \ \par
+		\large \ \ \par
+		\large  Alexander Cristaudo \par
+		\small	CRSALE010	\par
+		\large	MAM1019H	\par
+	\large \textbf{Hand-in 4}	\par
+\small	Date: August 26, 2022}
+	\end{center}
+\end{minipage}
+\par
+\vspace{0.2in}
+\noindent
+\uline{ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \  \ \ \ \ \ \ \ \ \ \ \ \ \ \  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\par 
+\vspace{0.15in}
+\noindent
+\centering
+{\small \bfseries 	Answers}
+
+\begin{questions}
+	\pointsdroppedatright
+	\question
+	\begin{parts}
+		\part[9] False  
+		\part[9] True
+		\part False
+		\part False
+	\end{parts}
+\vspace{0.2in}
+	\pointsdroppedatright
+	\question Some $a \in \mathbb{N}-\{1\}$ is minimal if there is no $x \in \mathbb{N}-\{1\}$ such that $x \ne a$ and $x | a$. Now, this means that $p \in \mathbb{N}$, some prime number, is minimal, because there is no $x \in \mathbb{N}-\{1\}$ such that $x | p$ (otherwise it is not a prime number). Now suppose there is some composite number $c$ which is minimal. Then $\exists p \in \mathbb{N}, p $ is a prime number, and $p \ne a$ and $p | a$ so $a$ is not minimal, so the set of all minimal elements is the set of all prime numbers. \\ Now some $a \in \mathbb{N}-\{1\}$ is maximal if there is no $x \in \mathbb{N}-\{1\}$ with $x \ne a$ and $a | x$. Now this means that $0$ is maximal, because there is no $x \in \mathbb{N}-\{1\}$ where $0 | x$. However, this is the only maximal element. To show this, suppose $a \in \mathbb{N}-\{0,1\}$. Now $a | 0$ so $a$ is not maximal, thus $0$ is the only maximal element. 
+		\vspace{0.05in}
+		\question  To prove this, we have to prove both implications (directions) \\ $(\Longrightarrow)$ Suppose $a \in A$ is the minimum of $A$ under $\le$. This means that $a \le x$ for all $x \in A$. Now $a \le x \iff x \le ^{-1} a$, so $x \le ^{-1} a, \  \forall x \in A$. This is precisely the definition for the maximum of $A$ under $\le ^{-1}$. This means that: \\ $(a$ is the minimum of $A$ under $\le) \Longrightarrow (a$ is the maximum of $A$ under $\le ^{-1})$ \\ 
+		
+		$(\Longleftarrow)$  Suppose $a \in A$ is the maximum of $A$ under $\le ^{-1}$. This means that $x \le ^{-1} a$ for all $x \in A$. Now $x \le ^{-1} a \iff a \le x$, so $a \le x, $ for all $ x \in A$. This is the definition for the minimum of $A$ under $\le$. Thus, we have that: \\ $(a$ is the maximum of $A$ under $\le ^{-1}) \Longrightarrow (a$ is the minimum of $A$ under $\le)$ \\ 
+		Finally, since both directions have been proven, we can conclude that \\ $(a$ is the minimum of $A$ under $\le) \iff (a$ is the maximum of $A$ under $\le ^{-1})$
+\end{questions}
+\vspace{0.75in}
+\end{document}

@@ -1,0 +1,61 @@
+\documentclass[12pt, a4paper]{exam}
+\usepackage{graphicx}
+%\usepackage[left=0.8in, top=0.7in, total={6.2in,8in}]{geometry}
+\usepackage[normalem]{ulem}
+\renewcommand\ULthickness{1.0pt}   %%---> For changing thickness of underline
+\setlength\ULdepth{1.3ex}%\maxdimen ---> For changing depth of underline
+\usepackage{amssymb} 
+\usepackage{comment}
+
+\begin{document}
+	%\thispagestyle{empty}
+	\noindent
+	\begin{minipage}[l]{0.1\textwidth}
+		\noindent
+		%\includegraphics[width=2.4\textwidth]{uct.png}
+	\end{minipage}
+\hfill
+\begin{minipage}[c]{1.0\textwidth} % use 0.8 when using the image
+	\begin{center}
+		
+		{
+		\large \ \ \par
+		\large \ \ \par
+		\large  Alexander Cristaudo \par
+		\small	CRSALE010	\par
+		\large	MAM1019H	\par
+	\large \textbf{Hand-in 7}	\par
+\small	Date: September 28, 2022}
+	\end{center}
+\end{minipage}
+\par
+\vspace{0.2in}
+\noindent
+\uline{ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \  \ \ \ \ \ \ \ \ \ \ \ \ \ \  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\par 
+\vspace{0.15in}
+\noindent
+\centering
+{\small \bfseries 	Answers}
+
+\begin{questions}
+	\pointsdroppedatright
+	\question
+	\begin{parts}
+		\part False
+		\part False
+		\part True
+		\part False
+		
+	\end{parts}
+\vspace{0.2in}
+	\pointsdroppedatright
+	\question $\le $ on $\mathbb{N}_0$ is defined by: $m\le n \iff \exists z\in \mathbb{N}_0, $ such that $m+z=n$. So $2 \le 4 \iff \exists z\in \mathbb{N}_0, $ such that $2+z=4$. Now $2+2=4$ and $2\in \mathbb{N}_0$ and so $2 \le 4$ (taking $z=2$)\\ $<$ on $\mathbb{N}_0$ is defined by: $m<n \iff m \le n $ and $m \ne n$. So $4<10 \iff 4 \le 10$ and $4 \ne 10 \iff \exists z\in \mathbb{N}_0, 4+z=10$ and $4 \ne 10$. Now $4+6=10$ and $6\in \mathbb{N}_0$ so $4 \le 10$. Moreover, $4 \ne 10$ so $4<10.$
+	
+	\question $m \ge n \iff n \le m$. Since $n \le m \iff \exists z\in \mathbb{N}_0, n+z=m$, that means $m \ge n \iff \exists  z\in \mathbb{N}_0, n+z=m.$ \\ We use this to define $>$ on $\mathbb{N}_0$. So  $m > n \iff m \ge n$ and $ m \ne n$ 
+	
+	\question Suppose $m \le n$. That is, $\exists z\in \mathbb{N}_0$ such that $m+z=n.$ Thus, $s(m+z)=s(n)$ \\ $\Rightarrow m+s(z)=s(n)$ by (A2) with $n=m$ and  $m=z$ (in the axiom definition). Now $s(z)\in \mathbb{N}_0$, since $z\in \mathbb{N}_0$. Thus $m \le s(n)$
+	
+\end{questions}
+\vspace{0.75in}
+\end{document}

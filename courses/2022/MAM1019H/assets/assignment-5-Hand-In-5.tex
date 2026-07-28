@@ -1,0 +1,59 @@
+\documentclass[12pt, a4paper]{exam}
+\usepackage{graphicx}
+%\usepackage[left=0.8in, top=0.7in, total={6.2in,8in}]{geometry}
+\usepackage[normalem]{ulem}
+\renewcommand\ULthickness{1.0pt}   %%---> For changing thickness of underline
+\setlength\ULdepth{1.3ex}%\maxdimen ---> For changing depth of underline
+\usepackage{amssymb} 
+
+\begin{document}
+	%\thispagestyle{empty}
+	\noindent
+	\begin{minipage}[l]{0.1\textwidth}
+		\noindent
+		%\includegraphics[width=2.4\textwidth]{uct.png}
+	\end{minipage}
+\hfill
+\begin{minipage}[c]{1.0\textwidth} % use 0.8 when using the image
+	\begin{center}
+		
+		{
+		\large \ \ \par
+		\large \ \ \par
+		\large  Alexander Cristaudo \par
+		\small	CRSALE010	\par
+		\large	MAM1019H 	\par
+	\large \textbf{Hand-in 5}	\par
+\small	Date: August 31, 2022}
+	\end{center}
+\end{minipage}
+\par
+\vspace{0.2in}
+\noindent
+\uline{ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \  \ \ \ \ \ \ \ \ \ \ \ \ \ \  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\par 
+\vspace{0.15in}
+\noindent
+\centering
+{\small \bfseries 	Answers}
+
+\begin{questions}
+	\pointsdroppedatright
+	\question
+	\begin{parts}
+		\part[9] False
+		\part[9] True
+		\part False 
+		\part True
+		
+		
+			\end{parts}
+\vspace{0.2in}
+	\pointsdroppedatright
+	\question Suppose $a\in A$ is a minimal element of $a$. Thus there is no $x\in A, x\ne a$ and $x\le a$. But $(P, \le) $ is a linear order, so $\forall x,y\in P, $ we either have that $x \le y$ or $y \le x$. Thus we must have that $\forall x \in A \subseteq P, x \le a$ or $a \le x$. For $a$ to be minimal, we must have that $a \le x \ \ \forall x\in A$. Therefore $a$ is the minimum of $A$. 
+	\question Consider $f:P \to \mathbb{N}$ defined by: $f(x)= \log _2 x$. Note that $\forall x\in P, \exists n\in \mathbb{N}, x=2^n$ by the definition of $P$. Thus $f(x)=\log _2 2^n=n\in \mathbb{N}$ so this is well defined. Moreover, for any $n\in \mathbb{N}, 2^n \in P $ by the definition of $P$ and  $f(2^n)=\log _2 2^n=n$ so $f$ is surjective. Now if $f(x)=f(x')$ for some $x,x' \in P$, then $\log _2 x=\log _2 x' \Rightarrow 2^{\log _2x}=2^{\log _2x'} \Rightarrow x=x'$ so $f$ is injective. Thus $f$ is a bijection. Now we need to show that for any $p,p' \in P$, $p | p' \iff f(p) \le f(p')$. \\ $(\Rightarrow)$ Assume $p,p' \in P$ such that $p|p'$. Since $p,p' \in \mathbb{N}$, we have that $np=p', n \in \mathbb{N} \Rightarrow p \le p' \Rightarrow \log _2p \le \log _2 p' \Rightarrow f(p) \le f(p').$ Thus $p|p' \Rightarrow f(p) \le f(p').$ \\ $(\Leftarrow)$Now assume that $f(p) \le f(p')$ for some $p,p' \in P$. Thus $\log _2 p \le \log _2 p'. $ Now, by the definition of $P$, $\exists n,n' \in N$ such that $p=2^n$ and $p'=2^{n'}$. Thus, by our inequality, $\log _2 2^n \le \log _2 2^{n'} \Rightarrow n\le n'$. But if $n \le n'$, then $n' = n+m$ for some $m \in \mathbb{N}$ meaning $2^{n'}=2^{n+m}$ for some $m\in \mathbb{N}$, so $2^{n'}=2^n \cdot 2^m \Rightarrow 2^n | 2^{n'} \Rightarrow p|p'$ so $f(p) \le f(p') \Rightarrow p|p'.$ Thus $p|p' \iff f(p) \le f(p')$ making $f$ an order isomorphism.
+	
+	
+\end{questions}
+\vspace{0.75in}
+\end{document}

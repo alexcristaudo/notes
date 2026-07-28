@@ -1,0 +1,62 @@
+\documentclass[12pt, a4paper]{exam}
+\usepackage{graphicx}
+%\usepackage[left=0.8in, top=0.7in, total={6.2in,8in}]{geometry}
+\usepackage[normalem]{ulem}
+\renewcommand\ULthickness{1.0pt}   %%---> For changing thickness of underline
+\setlength\ULdepth{1.3ex}%\maxdimen ---> For changing depth of underline
+\usepackage{amssymb} 
+
+\begin{document}
+	%\thispagestyle{empty}
+	\noindent
+	\begin{minipage}[l]{0.1\textwidth}
+		\noindent
+		%\includegraphics[width=2.4\textwidth]{uct.png}
+	\end{minipage}
+\hfill
+\begin{minipage}[c]{1.0\textwidth} % use 0.8 when using the image
+	\begin{center}
+		
+		{
+		\large \ \ \par
+		\large \ \ \par
+		\large  Alexander Cristaudo \par
+		\small	CRSALE010	\par
+		\large	MAM1019H	\par
+	\large \textbf{Hand-in 8}	\par
+\small	Date: September 28, 2022}
+	\end{center}
+\end{minipage}
+\par
+\vspace{0.2in}
+\noindent
+\uline{ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \  \ \ \ \ \ \ \ \ \ \ \ \ \ \  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\par 
+\vspace{0.15in}
+\noindent
+\centering
+{\small \bfseries 	Answers}
+
+\begin{questions}
+	\pointsdroppedatright
+	\question
+	\begin{parts}
+		\part True
+		\part False
+		\part True
+		\part False
+	\end{parts}
+\vspace{0.2in}
+	\pointsdroppedatright
+	\question 
+	\begin{parts}
+	\part We have that $[a,b]=[n,0]$ or $[0,n]$ for some $n\in \mathbb{N}_0$. Now $[n,0]$ is denoted by $n$ and $[0,n]$ is denoted by $-n$, thus for $[a,b]$ to represent $-3$, $[a,b]=[0,3]$. Similarly for $[c,d]$ to represent $2$, we need $[c,d]=[2,0] $
+		\part $[e,f]=[a,b]+_{\mathbb{Z}}[c,d]= [0,3] +_{\mathbb{Z}} [2,0] = [0+2, 3+0]=[2,3]	$
+	\part $[2,3] $ is represented by $(2,3)$. Now we need $(2,3) \sim (0,n)$ or $(2,3) \sim (n,0).$ Notice if $(2,3) \sim (n,0)$, then $2+0=3+n$ but $n\in \mathbb{N}_0$ and $2<3$ yielding no solution. So $(2,3) \sim (0,n) \iff 2+n=3+0 \iff n=1$. So $(2,3)\sim (0,1). $ 
+	\part Since $(2,3) \sim (0,1), $ we have that $[2,3] = [0,1]$ so $[e,f]=[2,3]=[0,1]$ is represented as $-1$
+	\end{parts}
+	
+	\question $(m,n) \sim (p,2) \iff m+2=p+n.$ By commutativity, $p+n=n+p$ so $n+p=m+2$. Now, by the definition of subtraction, if $n \le (m+2)$, then $p=(m+2)-n$. So we need to show that $n \le m+2$. It was given that $n \le m$, so $n+2 \le m+2$. Also $n \le n+2$, so by the transitivity of $\le$, we have that $n \le m+2$. Thus, $p=(m+2)-n$. We see that $p+n=((m+2)-n)+n = m+2$ so $(m,n) \sim (p,2)$ so this solution is valid
+	\end{questions}
+\vspace{0.75in}
+\end{document}

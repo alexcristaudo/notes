@@ -1,0 +1,84 @@
+\documentclass[12pt, a4paper]{exam}
+\usepackage{graphicx}
+%\usepackage[left=0.8in, top=0.7in, total={6.2in,8in}]{geometry}
+\usepackage[normalem]{ulem}
+\renewcommand\ULthickness{1.0pt}   %%---> For changing thickness of underline
+\setlength\ULdepth{1.3ex}%\maxdimen ---> For changing depth of underline
+\usepackage{amssymb} 
+
+\begin{document}
+	%\thispagestyle{empty}
+	\noindent
+	\begin{minipage}[l]{0.1\textwidth}
+		\noindent
+		%\includegraphics[width=2.4\textwidth]{uct.png}
+	\end{minipage}
+\hfill
+\begin{minipage}[c]{1.0\textwidth}
+	\begin{center}
+		
+		{
+		\large \ \ \par
+		\large \ \ \par
+		\large  Alexander Cristaudo \par
+		\small	CRSALE010	\par
+		\large	MAM1019H	\par
+	\large \textbf{Hand-in 3}	\par
+\small	Date: August 15, 2022}
+	\end{center}
+\end{minipage}
+\par
+\vspace{0.2in}
+\noindent
+\uline{ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \  \ \ \ \ \ \ \ \ \ \ \ \ \ \  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\par 
+\vspace{0.15in}
+\noindent
+\centering
+{\small \bfseries 	Answers}
+
+\begin{questions}
+	\pointsdroppedatright
+	\question
+	\begin{parts}
+		\part True  
+		\part False 
+		\part False
+		\part True
+	\end{parts}
+\vspace{0.2in}
+	\pointsdroppedatright
+	\question
+	This statement is false. We will prove that $\mathbb{R}$ and $\mathcal{P}(\mathbb{R})$ are both uncountable, but have different cardinalities. We know that there is no bijection $\mathbb{N} \to \mathbb{R}$, so $\mathbb{R}$ is uncountable. Note that $|A| < |\mathcal{P}(A)|$ for every set $A$, so $|\mathbb{R}| < |\mathcal{P}(\mathbb{R})|$ meaning $\mathcal{P}(\mathbb{R})$ is also uncountable and $|\mathbb{R}| \ne |\mathcal{P}(\mathbb{R})|$, thus not all uncountable sets have the same cardinality
+	
+	\question 
+	\begin{parts}
+		\part Since if $|A| = |B|$ for some sets $A,B$, then $|\mathcal{P}(A)| = |\mathcal{P}(B)|$, it is sufficient to prove that $|\mathbb{N}| = |\mathbb{N \times N}|$, so then $|\mathcal{P}(\mathbb{N})| = |\mathcal{P}(\mathbb{N \times N})|$. \\ Consider the table: \\
+
+\begin{center}
+\includegraphics[width=0.4\textwidth]{table.png}
+\end{center}
+%		\begin{center}
+
+%  \ \ \ \ \ \ \ \ \ 1 \ \ \ \ \ \ \  2 \ \ \ \ \ \ \  3 \ \ \ \ \ \ \ 4 \ \ \  \ ... \\ 
+% 1 \ \ \ \ \ (1,1) \ \ (1,2)  \ \  (1,3) \ \ (1,4)   \ \ ... \\ 
+% 2 \ \ \  \ \  (2,1) \ \  (2,2)  \ \ (2,3) \ \ (2,4) \ \ ... \\ 
+%  3 \ \ \  \ \  (3,1) \ \ (3,2) \ \ (3,3) \ \ (3,4)  \ \ ... \\ 
+%   4 \ \ \  \ \   (4,1) \ \ (4,2) \ \ (4,3) \ \ (4,4)  \ \ ... \\ 
+%    $   \  \vdots \ \ \ \ \ \ \ \ \  \vdots \ \ \ \ \ \ \ \ \vdots \ \ \ \ \ \ \ \ \vdots \ \ \ \ \ \ \ \ \ \vdots \ \ \  \ \ddots$ \\ 
+
+
+
+% \end{center}
+% This is the code for the table without the arrows
+
+Now we can list the elements in the depicted way: \\ (1,1),(1,2),(2,1),(3,1),(2,2),(1,3),(1,4),(2,3),(3,2),(4,1)...
+\\ This list covers all of $\mathbb{N \times N}$ with no repeated elements and so $|\mathbb{N}| = |\mathbb{N \times N}|$ and thus this statement is true
+		
+
+	\part First note that $|\mathcal{P}(\mathbb{N})| = |\mathbb{R}| = |(0,1)|$, so now what is left to prove is that $|(0,1)\times (0,1)| = |(0,1)|$. First note that any $x \in (0,1)$ has the form $x = 0.x_1x_2x_3x_4...$ where each $x_i$ is the $i$th decimal place of $x$ and $x_i \in \{0,1,2,...,9\}$. Now define $f:(0,1)\times(0,1) \to (0,1)$ as $f(a,b) = 0.a_1b_1a_2b_2a_3b_3...$. We prove injectivity, so suppose $(a,b) \ne (a',b'), \forall (a,b),(a',b') \in (0,1) \times (0,1).$ Thus $ a \ne a'$ or $b \ne b'$. Now, without loss of generality, assume that $a \ne a'$. This means $\exists n \in \mathbb{N}$ such that $a_n \ne a'_n$ (with $a_n$ the $n$th decimal place of $a$). Notice $a_n$ is the $(2n-1)$th decimal place of $f(a,b)$ and $a'_n$ is the $(2n-1)th$ decimal place of $f(a',b')$ and these differ, so $f(a,b) \ne f(a',b')$ and thus $f$ is injective. Now consider the map $g:(0,1) \to (0,1) \times (0,1) $ defined as $g(x) = (x,x)$ for any $x \in (0,1)$. This is well defined because $x \in (0,1) \Rightarrow (x,x) \in (0,1) \times (0,1)$. Also note that $g(x) = g(x') \Rightarrow (x,x) = (x',x') \Rightarrow x=x' $ for any $x,x' \in (0,1)$. Thus $g$ is injective. Now since we have an injection $(0,1) \times (0,1) \to (0,1)$ and an injection $(0,1) \to (0,1) \times (0,1)$, by CSB, we have that $|(0,1)| = |(0,1) \times (0,1)|$ finally showing that $|\mathcal{P}(\mathbb{N}) \times \mathcal{P}(\mathbb{N})  | = |(0,1)|$
+	\end{parts}
+	
+\end{questions}
+\vspace{0.75in}
+\end{document}
