@@ -1,0 +1,682 @@
+\documentclass{assignment}
+\usepackage[final]{pdfpages}
+\usepackage{fancyvrb}
+\usepackage{enumitem}
+\begin{document}
+\includepdf{assets/BSTTitle.pdf}
+
+\newpage
+
+\section{Object Oriented Design}
+
+%%%% YOUR PART HERE %%%%
+% What classes you created, why and how they interact
+The classes involved include: 
+\begin{itemize}
+    
+    \item \textbf{BST}. This class uses generics to create binary search trees that store the specified object type as the data in the nodes of the tree. This class is also used to perform operations on that binary search tree, such as insertions, deletions, retrieval of all the data in the tree, changing the value of a key in the tree and finding a node with a specified value in the tree
+    \item \textbf{Node}. This is an inner class  of the BST class and is used to represent the nodes stored in the binary search tree. The class is used to store a generic data item and a link to the left and right nodes from that node. 2 nodes can be compared using the Node class, and the data in the node can be retrieved
+    \item \textbf{Video}. This class represents a video the user can create to store the 'file name', 'description' and the 'number of likes' that video has in one object. The class can also be used to retrieve or do operations on these attributes
+    
+    \item \textbf{Profile}. This class represents a Profile object, storing the 'account name', 'description', 'their created videos', 'the other profiles they follow' and 'the videos they like'. This class is also used to perform operations on these attributes and retrieve them. 
+
+    \item \textbf{TokTik}. This class has the main method to run the user interface and create the objects to make the application work. The class displays TokTik to the user and is also used to validate data inputted by the user.
+    
+\end{itemize}
+These classes interact with the other classes as follows:
+\begin{itemize}
+    \item \textbf{BST} uses \textbf{Node} as its head node and any data insertion creates a node object. Node objects are also used to find data, delete data and get all the data in the tree
+    
+    \item \textbf{Node} uses \textbf{Node} to store links to the left and right nodes and compare 2 different node objects
+    \item \textbf{Video} uses \textbf{Video} to compare 2 different video objects
+    \item \textbf{Profile} uses \textbf{Profile} to store a list of profiles that profile follows. Profile objects are also used to compare 2 profiles, unfollow and follow a profile, get a profiles followers (which also uses \textbf{BST} of profiles), and create a new profile off of an old profile with a new username
+    
+    \item \textbf{Profile} uses \textbf{Video} to store video objects for the videos that profile has created. The videos are stored using \textbf{BST}, by creating a tree object storing video objects
+    \item \textbf{Profile} also uses \textbf{Video} in a List to store the liked video. Video objects are also used to like a video, add a video to the BST of videos and display content about a video of a profile
+    \item \textbf{TokTik} uses \textbf{Profile} and \textbf{BST} to create a binary tree of with profile objects as the data in each node. \textbf{TokTik} therefore uses \textbf{Profile} to create profile objects and \textbf{Video} to create video objects. 
+    \item \textbf{TokTik} uses  \textbf{Node} during validation to check if a found Node object is part of its associated tree (the tree could be the tree of profiles, or tree of videos for a profile).
+    
+\end{itemize}
+
+%%% 
+
+\newpage
+\section{Test Values}
+\subsection{Text Files}
+The following 2 files are used during testing:  
+\begin{center}
+\underline{dataset1.txt}
+\end{center}
+\lstinputlisting{assets/dataset1.txt}
+\begin{center}
+\underline{dataset2.txt}
+\end{center}
+
+\lstinputlisting{assets/dataset2.txt}
+ \newpage
+\subsection{Testing}
+Initially, the user is given the following prompt:
+
+
+\begin{center}
+\small {
+\color{gray}
+\begin{BVerbatim}
+WELCOME TO TOKTIK
+===============================
+Choose an action from the menu:
+===============================
+
+1. Find the profile description for a given account
+2. List all accounts
+3. Create an account
+4. Delete an account
+5. Display all posts for a single account
+6. Add a new post for an account
+7. Load a file of actions from disk and process this
+8. Sign into an account
+9. Quit
+
+Enter your choice:
+
+\end{BVerbatim} 
+}
+\end{center} \color{black}
+
+\noindent After each function is run, the same menu is printed again. Each choice corresponds to a function the program runs and testing will be done on the base 7 functions (1-7) by showing the output the program runs for the inputted data: \newline
+
+\begin{enumerate}
+    \item {\textbf{Find the profile description for a given account:} \\ Starting with the data in \underline{dataset1.txt}: 
+    \begin{enumerate}
+        \item Account is in the tree:
+            \begin{center}
+\small {
+\color{gray}
+\begin{BVerbatim}
+Enter your choice: 1
+
+Enter the account name: UlicQel-Droma6
+
+UlicQel-Droma6s description:
+broccoli's werewolf's gonads
+\end{BVerbatim} 
+}
+\end{center} \color{black}
+
+        \item Item is not in the tree:
+            \begin{center}
+\small {
+\color{gray}
+\begin{BVerbatim}
+Enter your choice: 1
+
+Enter the account name: Greedo9
+
+There is no account with username 'Greedo9'
+\end{BVerbatim} 
+}
+\end{center} \color{black}
+
+    \end{enumerate}
+}
+    \newpage
+\item \textbf{List all accounts:} 
+    \begin{enumerate}
+        \item Starting with the data in \underline{dataset1.txt}: 
+            \begin{center}
+\small {
+\color{gray}
+\begin{BVerbatim}
+Enter your choice: 2
+
+USERNAME: Greedo8
+DESCRIPTION: Kishinev drip's transcendentally
+---------------------------------------------
+USERNAME: GeneralVeers3
+DESCRIPTION: Coulter's immaculately mill
+----------------------------------------
+USERNAME: KyleKatarn2
+DESCRIPTION: amicability's aquariums baseboard
+----------------------------------------------
+USERNAME: UlicQel-Droma6
+DESCRIPTION: broccoli's werewolf's gonads
+-----------------------------------------
+USERNAME: MaraJade7
+DESCRIPTION: stud's nationalization's foxgloves
+-----------------------------------------------
+\end{BVerbatim} 
+}
+\end{center} \color{black}
+        \item Starting with an empty BST:
+            \begin{center}
+\small {
+\color{gray}
+\begin{BVerbatim}
+Enter your choice: 2
+
+No accounts
+\end{BVerbatim} 
+}
+\end{center} \color{black}
+    \end{enumerate}
+
+    
+\item \textbf{Create an account: } 
+\begin{enumerate}
+   
+    \item Creating an account with a blank username (The [ ] brackets show the input and are not shown in the program):
+        \begin{center}
+\small {
+
+\color{gray}
+\begin{BVerbatim}
+Enter your choice: 3
+
+Enter account name: []
+
+The account name '' cannot be empty
+\end{BVerbatim} 
+
+}
+
+\end{center} \color{black}
+        
+    \item Creating a username with a space :
+        \begin{center}
+\small{
+\color{gray}
+\begin{BVerbatim}
+Enter account name: Alex Cristaudo
+
+The account name 'Alex Cristaudo' cannot have a space
+\end{BVerbatim}
+}
+\end{center} \color{black}
+
+    \item A valid username but blank description (The [ ] brackets show the input and are not shown in the program):
+        \begin{center}
+\small{
+\color{gray}
+\begin{BVerbatim}
+Enter account name: alexcristaudo
+
+Enter the account description: []
+
+The description '' cannot be blank
+\end{BVerbatim} 
+}
+\end{center} \color{black}
+
+    \item Creating a description that is only spaces (The [ ] brackets show the input and are not shown in the program):
+        \begin{center}
+\color{gray}
+\small{
+\begin{BVerbatim}
+    
+Enter the account description: [   ]
+
+The description '   ' cannot be only spaces
+\end{BVerbatim}
+}
+\end{center} \color{black}
+
+    \item A valid description is entered:
+        \begin{center}
+\small{
+\color{gray}
+\begin{BVerbatim}
+Enter the account description: My account
+
+Account 'alexcristaudo' with description 'My account' has succesfully been created
+\end{BVerbatim} 
+}
+\end{center} \color{black}
+\item[]
+Should you try to view the accounts, the following is displayed (starting from an empty BST):
+    \begin{center}
+\small{
+\color{gray}
+\begin{BVerbatim}
+Enter your choice: 2
+
+USERNAME: alexcristaudo
+DESCRIPTION: My account
+----------------------
+\end{BVerbatim} 
+}
+\end{center}  \color{black}
+\item[] Should we have started with the data in \underline{dataset1.txt} and use 'alexcristaudo' as the username and 'My account' as the description. The list of accounts would be (running function 2):
+\begin{center}
+\small{
+\color{gray}
+\begin{BVerbatim}
+USERNAME: Greedo8
+DESCRIPTION: Kishinev drip's transcendentally
+---------------------------------------------
+USERNAME: GeneralVeers3
+DESCRIPTION: Coulter's immaculately mill
+----------------------------------------
+USERNAME: KyleKatarn2
+DESCRIPTION: amicability's aquariums baseboard
+----------------------------------------------
+USERNAME: UlicQel-Droma6
+DESCRIPTION: broccoli's werewolf's gonads
+-----------------------------------------
+USERNAME: MaraJade7
+DESCRIPTION: stud's nationalization's foxgloves
+-----------------------------------------------
+USERNAME: alexcristaudo
+DESCRIPTION: My account
+-----------------------
+\end{BVerbatim} 
+}
+\end{center}  \color{black}
+\end{enumerate}
+
+\item \textbf{Delete an account}. Starting with the data in \underline{dataset1.txt}: 
+\begin{enumerate}
+    \item Valid Item in the Tree: 
+        \begin{center}
+\color{gray}
+\small{
+\begin{BVerbatim}
+Enter your choice: 4
+
+Enter account name: KyleKatarn2
+'KyleKatarn2' has successfully been deleted
+\end{BVerbatim} 
+\newpage
+\begin{BVerbatim}
+===============================
+Choose an action from the menu:
+===============================
+
+1. Find the profile description for a given account
+2. List all accounts
+3. Create an account
+4. Delete an account
+5. Display all posts for a single account
+6. Add a new post for an account
+7. Load a file of actions from disk and process this
+8. Sign into an account
+9. Quit
+
+Enter your choice: 2
+
+USERNAME: Greedo8
+DESCRIPTION: Kishinev drip's transcendentally
+---------------------------------------------
+USERNAME: GeneralVeers3
+DESCRIPTION: Coulter's immaculately mill
+----------------------------------------
+USERNAME: UlicQel-Droma6
+DESCRIPTION: broccoli's werewolf's gonads
+-----------------------------------------
+USERNAME: MaraJade7
+DESCRIPTION: stud's nationalization's foxgloves
+-----------------------------------------------
+\end{BVerbatim}
+}
+\end{center} \color{black}
+We see that after showing all accounts, 'KyleKatarn2' has been deleted
+\item Item is not in the Tree:
+        \begin{center}
+\color{gray}
+\small{
+\begin{BVerbatim}
+Enter your choice: 4
+
+Enter account name: Greedo10
+'Greedo10' does not exist
+\end{BVerbatim}
+}
+\end{center} \color{black}
+\end{enumerate}
+
+\item \textbf{Display all posts for a single account}. Starting with the data in \underline{dataset1.txt}:
+    \begin{enumerate}
+        \item Account is in the tree and has posts:
+        \begin{center} \small { \color{gray}
+        \begin{BVerbatim} 
+Enter your choice: 5
+
+Enter account name: Greedo8
+'bacterium Roger's cane overspecializing Serrano's' has 7147 likes
+'Brewster's aggregating biologist miniaturization' has 7345 likes
+'plains flora's continuance rejoin takeoff's' has 2438 likes
+        \end{BVerbatim} 
+        } \end{center} \color{black}
+        
+        \item Account is in the tree but has no posts:
+        \begin{center} \small { \color{gray}
+        \begin{BVerbatim} 
+Enter your choice: 5
+
+Enter account name: UlicQel-Droma6
+User 'UlicQel-Droma6' has no videos
+        \end{BVerbatim} 
+        } \end{center} \color{black}
+        
+        \item Account is not in the tree:
+        \begin{center} \small { \color{gray}
+        \begin{BVerbatim} 
+Enter your choice: 5
+
+Enter account name: Greedo10
+User 'Greedo10' does not exist
+        \end{BVerbatim} 
+        } \end{center} \color{black}
+    \end{enumerate}
+
+\item \textbf{Add a new post for an account}. Starting with the data in \underline{dataset1.txt}:
+\begin{enumerate}
+    \item Adding to a user with existing videos:
+    \begin{center} \small { \color{gray}
+\begin{BVerbatim} 
+Enter your choice: 6
+
+Enter account name: Greedo8
+Enter file name: video1000.mpg
+Enter number of likes: 1000
+Enter the video description: I am back
+Video 'I am back' from 'video1000.mpg' was successfully added to user 'Greedo8'
+\end{BVerbatim} 
+} \end{center} \color{black}
+Choosing option 5 yields:
+\begin{center} 
+\small{
+\color{gray}
+\begin{BVerbatim} 
+Enter account name: Greedo8
+'bacterium Roger's cane overspecializing Serrano's' has 7147 likes
+'I am back' has 1000 likes
+'Brewster's aggregating biologist miniaturization' has 7345 likes
+'plains flora's continuance rejoin takeoff's' has 2438 likes
+\end{BVerbatim} 
+} \end{center} \color{black}
+
+
+    \item Adding to a user with no videos:
+    \begin{center} \small { \color{gray}
+\begin{BVerbatim} 
+Enter your choice: 6
+
+Enter account name: GeneralVeers3
+Enter file name: video1001.mpg
+Enter number of likes: 10
+Enter the video description: My first video 
+Video 'My first video' from 'video1001.mpg' was successfully added to user 'GeneralVeers3'
+\end{BVerbatim} 
+} \end{center} \color{black}
+Choosing option 5 yields:
+\begin{center} 
+\small{
+\color{gray}
+\begin{BVerbatim} 
+Enter account name: GeneralVeers3
+'My first video' has 10 likes
+\end{BVerbatim} 
+} \end{center} \color{black}
+
+
+    \item Attempting to add to a user that does not exist:
+    \begin{center} \small { \color{gray}
+\begin{BVerbatim} 
+Enter your choice: 6
+
+Enter account name: Greedo10
+User 'Greedo10' does not exist
+\end{BVerbatim} 
+} \end{center} \color{black}
+
+\item Attempting to add an invalid file:
+\begin{center} \small { \color{gray}
+\begin{BVerbatim} 
+Enter your choice: 6
+
+Enter account name: MaraJade7
+Enter file name: video4820.mpg
+The file name 'video4820.mpg' already exists
+
+Enter account name: MaraJade7
+Enter file name: file 1.mpg
+The file name 'file 1.mpg' cannot have a space
+
+Enter account name: MaraJade7
+Enter file name: 
+The file name '' cannot be empty
+\end{BVerbatim} 
+} \end{center} \color{black}
+
+\item Attempting to add an invalid number of likes
+
+\begin{center} \small { \color{gray}
+\begin{BVerbatim} 
+Enter account name: MaraJade7
+Enter file name: video1000.mpg
+Enter number of likes: Yes
+Enter a valid number. 'Yes' contains non-numeric characters or is blank
+
+Enter account name: MaraJade7
+Enter file name: video1000.mpg
+Enter number of likes: 
+Enter a valid number. '' contains non-numeric characters or is blank
+\end{BVerbatim} 
+} \end{center} \color{black}
+
+\item Attempting to add an invalid description
+
+\begin{center} \small { \color{gray}
+\begin{BVerbatim} 
+Enter account name: MaraJade7
+Enter file name: video1000.mpg
+Enter number of likes: 10
+Enter the video description: 
+The description '' cannot be blank
+
+Enter account name: MaraJade7
+Enter file name: video1000.mpg
+Enter number of likes: 10
+Enter the video description:    
+The description '   ' cannot be only spaces
+\end{BVerbatim} 
+} \end{center} \color{black}
+
+\end{enumerate}
+
+\item \textbf{Load a file of actions from disk and process this}. 
+\begin{enumerate}
+    \item Starting with an empty BST:
+\begin{center} \small { \color{gray}
+\begin{BVerbatim} 
+Enter your choice: 7
+
+Enter the file name: dataset1.txt
+File 'dataset1.txt' was successfully loaded
+
+\end{BVerbatim} 
+}
+\end{center} \color{black}
+Choosing (2) shows all the accounts have been created:
+
+\begin{center} \small { \color{gray}
+\begin{BVerbatim}
+USERNAME: Greedo8
+DESCRIPTION: Kishinev drip's transcendentally
+---------------------------------------------
+USERNAME: GeneralVeers3
+DESCRIPTION: Coulter's immaculately mill
+----------------------------------------
+USERNAME: KyleKatarn2
+DESCRIPTION: amicability's aquariums baseboard
+----------------------------------------------
+USERNAME: UlicQel-Droma6
+DESCRIPTION: broccoli's werewolf's gonads
+-----------------------------------------
+USERNAME: MaraJade7
+DESCRIPTION: stud's nationalization's foxgloves
+-----------------------------------------------
+\end{BVerbatim}
+}
+\end{center} \color{black}
+Choosing (5) for some random profile shows the videos have been added:
+\begin{center} \small { \color{gray}
+\begin{BVerbatim}
+Enter account name: Greedo8
+'bacterium Roger's cane overspecializing Serrano's' has 7147 likes
+'Brewster's aggregating biologist miniaturization' has 7345 likes
+'plains flora's continuance rejoin takeoff's' has 2438 likes    
+\end{BVerbatim} 
+} \end{center} \color{black}
+    
+    \item Starting with a BST with objects in it. Suppose \underline{dataset1.txt} has been loaded.
+
+\begin{center} \small { \color{gray}
+\begin{BVerbatim} 
+Enter your choice: 7
+
+Enter the file name: dataset2.txt
+File 'dataset2.txt' was successfully loaded
+\end{BVerbatim} 
+}
+\end{center} \color{black}
+Choosing (2) shows all the accounts have been created:
+
+\begin{center} \small { \color{gray}
+\begin{BVerbatim}
+USERNAME: Greedo8
+DESCRIPTION: Kishinev drip's transcendentally
+---------------------------------------------
+USERNAME: GeneralVeers3
+DESCRIPTION: Coulter's immaculately mill
+----------------------------------------
+USERNAME: BibFortuna7
+DESCRIPTION: befits Firebase's should
+-------------------------------------
+USERNAME: KyleKatarn2
+DESCRIPTION: amicability's aquariums baseboard
+----------------------------------------------
+USERNAME: UlicQel-Droma6
+DESCRIPTION: broccoli's werewolf's gonads
+-----------------------------------------
+USERNAME: MaraJade7
+DESCRIPTION: stud's nationalization's foxgloves
+-----------------------------------------------
+USERNAME: PROXY8
+DESCRIPTION: demonstratives Lollobrigida SC's
+---------------------------------------------
+USERNAME: PreVizsla8
+DESCRIPTION: Loren scuffled equivalent's
+----------------------------------------
+\end{BVerbatim}
+}
+\end{center} \color{black}
+Choosing (5) for some random profile shows the videos have been added:
+\begin{center} \small { \color{gray}
+
+\begin{BVerbatim}
+Enter account name: UlicQel-Droma6
+'furtiveness lurch Verdun rangier Wei's' has 3447 likes
+'crier's Tijuana's florid senselessness's betray' has 9406 likes
+\end{BVerbatim} 
+
+} \end{center} \color{black}
+
+   
+
+    \item Entering an invalid file path:
+\begin{center} \small { \color{gray}
+\begin{BVerbatim} 
+Enter your choice: 7
+
+Enter the file name: dataset3.txt
+File not found: 'dataset3.txt'
+\end{BVerbatim} 
+} \end{center} \color{black}
+
+\end{enumerate}
+
+\end{enumerate}
+
+
+\newpage
+\section{Additional Features}
+The following features relating to the program as a whole have been implemented:
+\begin{enumerate}
+    \item Data is validated before accepted. The implemented criteria is:
+    \begin{itemize}
+        \item A username/file name must be unique
+        \item A username/file name cannot contain any spaces
+        \item A username/file name cannot be empty
+        \item A description cannot be empty
+        \item A description cannot be made of only spaces
+        \item The number of likes must be an integer
+        \item When a list of options is provided, the integer entered must be a valid option for that given list
+    \end{itemize}
+\end{enumerate}
+User-specific features have also been implemented. First, a user can sign into their profile, and after that, they can do one of the following:
+\begin{enumerate}
+    \item A user can now follow another user and view the users they follow
+    \item A user can unfollow a followed user
+    \item A user can browse content: A user can either be in 'for you' mode, which when selected, displays a random video from any other profile to the user, or the user can be in 'following' mode to view content only from users that they have followed. This takes a random video from the following users and displays that video
+    \item When content is displayed, the option to like the video comes up and should the user like the video, the likes on that video increase and that video is stored in a list of liked videos
+    \item The user can update their user settings:
+        \begin{itemize}
+            \item They can change their username (this is validated and must not be taken)
+            \item They can change their description (this is validated)
+        \end{itemize}
+    \item The user can get a list of their followers (the users who follow them)
+    
+    \item A user can get a list of liked videos
+    \item A user can get a list of their own videos
+\end{enumerate}
+
+\newpage
+\section{Git}
+The first 10 and last 10 lines are (with last 10 shown first, then first 10): \\ \\
+0: commit 6b1c419c3661be694bfc4f56f25fc62facb2e76b \\
+1: Author: alexcristaudo $<$alexcristaudo1@gmail.com$>$ \\
+2: Date:   Sat Apr 15 15:48:20 2023 +0200 \\
+3: \\
+4: Fix an exception when the user tries to display content and do not follow a user or their followed users have no videos made, javadocs added \\
+5: \\
+6: commit fbd89c033d31b0603c38efb9ea65f71052eb27ee \\
+7: Author: alexcristaudo $<$alexcristaudo1@gmail.com$>$ \\
+8: Date:   Fri Apr 14 23:55:52 2023 +0200 \\
+9: \\
+... \\
+145: Author: alexcristaudo $<$alexcristaudo1@gmail.com$>$ \\
+146: Date:   Sat Apr 8 22:03:17 2023 +0200 \\
+147: \\ 
+148: Added user functionality and browsing content \\
+149: \\ 
+150: commit ef8f150d3c85215047bef78cdfb26fcde948c572 \\
+151: Author: alexcristaudo $<$alexcristaudo1@gmail.com$>$ \\ 
+152: Date:   Thu Apr 6 09:16:07 2023 +0200 \\ 
+153: \\ 
+154: Project Files with base functions implemented (validation and error messages not implemented)
+
+\end{document}
+
+
+
+
+\documentclass{assignment}
+\begin{document}
+
+\assignmentTitle{Your Name}{Your Student Id}{Course Name}{Assignment 1}
+
+\section*{Section 1}
+\lstinputlisting{assets/dataset1.txt}
+
+\section*{Section 2}
+
+\hword{highlight box} example
+
+\end{document}
+
+
+\begin{center} \small { \color{gray}
+\begin{BVerbatim} 
+
+\end{BVerbatim} } \end{center} \color{black}

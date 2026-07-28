@@ -1,0 +1,18 @@
+                                  2.5 %  97.5 %
+(Intercept)                   -21.80000 47.4000
+traffic_density                 0.01550  0.1440
+industrial_orderedLow          -3.17000  8.4900
+industrial_orderedModerate      0.60500 12.3000
+industrial_orderedHigh         -0.25000 11.0000
+days_of_week_orderedTuesday    -5.99000  6.0100
+days_of_week_orderedWednesday  -5.35000  5.6600
+days_of_week_orderedThursday   -5.54000  5.8700
+days_of_week_orderedFriday     -8.06000  3.2200
+days_of_week_orderedSaturday  -12.40000  3.3900
+days_of_week_orderedSunday    -10.20000  6.0400
+wind_speed                     -0.80400  0.8430
+holidayYes                     -4.72000  6.7200
+urban_greenery                 -0.41400 -0.1770
+temperature                    -1.15000  0.5890
+humidity                       -0.11100  0.4960
+temperature:humidity           -0.00876  0.0209

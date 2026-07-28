@@ -1,0 +1,13 @@
+protected void enterClub() throws InterruptedException {
+    // Gets the lock on the entrance, but releases it when it waits or moves through
+    // one lock held
+
+    synchronized (club.whereEntrance()) { // wait if the entrance is occupied or the club is full
+        while (club.whereEntrance().occupied() || club.isFull()) {
+            club.whereEntrance().wait();
+        }
+        // whichever thread gets here first reaquires the lock on the entrance and enters the club. Only one does since this section is synchronized on the entrance
+        sleep(500); // wait a bit before enterring
+
+        currentBlock = club.enterClub(myLocation); // enter through entrance
+        ...

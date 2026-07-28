@@ -1,0 +1,6 @@
+synchronized (newBlock) {
+    if (currentBlock.equals(entrance)) {
+        synchronized (entrance) {
+            // only release the block when you have the entrances lock (otherwise you could release the entrance and another thread obtain that lock and then try obtain this lock)
+            // This way, guaranteed to get the entrance lock (entrance still taken so no other thread can take the entrance lock)
+            ...

@@ -1,0 +1,18 @@
+synchronized (waiting) { 
+    if (!waiting.isEmpty()) {
+        Clubgoer next = waiting.remove();
+        try {
+            servePatron(next);
+    ... 
+
+private void servePatron(Clubgoer next) throws InterruptedException {
+    PeopleLocation patron = next.getLocation();
+    ... (here the bartender moves towards the location)
+    next.served();
+}
+public void served() {
+    synchronized (served) {
+        served.set(true);
+        served.notifyAll();
+    }
+}

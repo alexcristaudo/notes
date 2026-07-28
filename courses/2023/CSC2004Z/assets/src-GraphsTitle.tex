@@ -1,0 +1,83 @@
+\documentclass{article}
+
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{thmtools}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{framed}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tcolorbox}
+
+\colorlet{LightGray}{White!90!Periwinkle}
+\colorlet{LightOrange}{Orange!15}
+\colorlet{LightGreen}{Green!15}
+
+\newcommand{\HRule}[1]{\rule{\linewidth}{#1}}
+
+\declaretheoremstyle[name=Theorem,]{thmsty}
+\declaretheorem[style=thmsty,numberwithin=section]{theorem}
+\tcolorboxenvironment{theorem}{colback=LightGray}
+
+\declaretheoremstyle[name=Proposition,]{prosty}
+\declaretheorem[style=prosty,numberlike=theorem]{proposition}
+\tcolorboxenvironment{proposition}{colback=LightOrange}
+
+\declaretheoremstyle[name=Principle,]{prcpsty}
+\declaretheorem[style=prcpsty,numberlike=theorem]{principle}
+\tcolorboxenvironment{principle}{colback=LightGreen}
+
+\setstretch{1.2}
+\geometry{
+    textheight=9in,
+    textwidth=5.5in,
+    top=1in,
+    headheight=12pt,
+    headsep=25pt,
+    footskip=30pt
+}
+
+% ------------------------------------------------------------------------------
+
+\newcommand{\assignmentTitle}[4]{
+    \begin{flushleft}
+    \end{flushleft}
+    \begin{flushright}
+    Student Name: \textbf{\textit{#1}}\\ % Student Name
+    Student ID: \textbf{\textit{#2}}\\ % Student Number
+    Due Date: \textbf{\textit{#3}}
+    \end{flushright}
+    \normalsize \textsc{}
+		\\ [2.0cm]
+		% \HRule{5pt}{1.5pt} 
+  \begin{center}
+  % line length = 209pt = 13 * 19 (length of "Binary Search Trees")
+  \rule[0pt]{247pt}{1.5pt} \\
+		\LARGE {\textbf{#4} } \\ % title 
+  \rule[0pt]{247pt}{1.5pt} 
+  \end{center} % Large text is 11pt, so 
+  
+   
+		% \HRule{1.5pt} \\  
+
+   %  \noindent\rule{\linewidth}{.6pt}
+}
+
+\begin{document}
+
+% ------------------------------------------------------------------------------
+% Cover Page and ToC
+% ------------------------------------------------------------------------------
+\assignmentTitle{Alexander Cristaudo}{CRSALE010}{05 May 2023}{Graphs}
+%^\title{ 
+%		}
+%\date{Due: 19 April 2023}
+%\author{\textbf{CRSALE010}}
+%\maketitle
+
+
+\end{document}

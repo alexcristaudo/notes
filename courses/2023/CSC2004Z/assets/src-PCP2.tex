@@ -1,0 +1,78 @@
+\documentclass{assignment}
+\usepackage[final]{pdfpages}
+\usepackage{fancyvrb}
+\usepackage{enumitem}
+
+
+\begin{document}
+\includepdf{pcp2_assets/PCP2Title.pdf}
+
+\newpage
+
+\section{Enforcing Simulation Rules}
+The following list is the simulation rules that were not necessarily enforced previously and were modified to ensure they were enforced: \\
+\begin{enumerate}
+    \item {The Start button initiates the simulation}
+    
+    \item[]{A latch is created in the \textbf{ClubSimulation} class which is released when the 'start' button is pressed. Each \textbf{Clubgoer} waits until the latch is opened and continues with its execution when it is.}
+    \item{The Pause button pauses/resumes the simulation}
+    \item[]{An AtomicBoolean flag, created in \textbf{ClubSimulation} represents the value of the pause state of the program. Threads constantly check for pauses, and if this value is true, they will wait on the 'pause' variable. When unpaused, the variable notifies all threads (notifyAll()) and everything continues}
+
+    \item{The entrance and exit doors are accessed by one patron at a time and the maximum number of patrons inside the club must not exceed a specified limit. Patrons must wait if the club limit is reached or the entrance door is occupied}
+    \item[]{There are 2 parts to this: The entrance was only accessed by one patron by making a thread only enter the club if the entrance is not occupied and the club is not full. If it is occupied/full, the thread will wait until notified by the entrance. The entrance notifies one thread when it is no longer occupied (notify())), or someone leaves the exit (again, only one thread). 
+Only one thread enters the club at one time because only one thread is notified when someone leaves or the entrance is not full. Should someone leave the club at the same time someone leaves the entrance block, whichever thread wins the synchronization race (this block is synchronized on the entrance) is the one that enters the club and the other must wait again
+        \lstinputlisting{pcp2\_assets/enterClubCode.txt}  
+
+    The exit was accessed by only one patron since it is a \textbf{GridBlock} that patrons walk to. This is talked about in the rule that a \textbf{GridBlock} can only be accessed by one patron}
+
+    \item{Inside the club, patrons maintain a realistic distance from each other (one per grid block).}
+    \item[]{The following methods in \textbf{GridBlock} are synchronized: get(int threadID) (checks if a block is taken and if not assigns the thread to it), release() (releases the block) and occupied() (returns whether the block is occupied). So only one thread will be able to check each of those conditions at a time for each block. Additionally, in \textbf{ClubGrid}, as a part of the move(...) method (responsible for moving a person), the following is done: The new block is obtained and synchronized on (only one thread can try to move to a block at once). The block must be empty, and if it is, the current thread occupies this new block.
+    \begin{center}
+    \lstinputlisting{pcp2\_assets/clubMove.txt} 
+    \end{center}
+Since the get(ID) method is synchronized, the valid result is returned for that method. 
+        }
+        \item{Liveness and Deadlocks are discussed in the final section}    
+\end{enumerate}
+
+\section{Design Approach for Andre}
+A class for Andre was created to have a different thread perform his actions. This class inherits from Clubgoer. As a part of the \textbf{AndreTheBarman} class, a queue of \textbf{Clubgoer} (called 'waiting') is created so that a patron can add themselves to the queue when they want a drink. When they do want a drink, a patron will synchronize on the queue and add themselves (so only one patron can add at a time). They will then wait on their own AtomicBoolean 'served'. The bartender constantly checks if the queue is non-empty. This is done by synchronizing on the queue (so no updates are made), and checking if the queue is empty. If a \textbf{Clubgoer} is in the queue, they are obtained from the queue and their position is obtained. Andre then moves towards that position (by getting the difference in x positions between Andre and the Clubgoer, and moving left if it is negative and right otherwise) and serves them a drink (by changing 'served') and notifies them that they have been served. The code snippet for this is given below
+\begin{center}
+    \lstinputlisting{pcp2\_assets/andre.txt} 
+\end{center}
+
+\section{Challenges Faced}
+\begin{itemize}
+    \item Checking that the final code had no deadlocks
+    \item Ensuring all shared variables are safe with synchronizations, but only relevant parts are synchronized
+    \item Making sure patrons wait at the door if the entrance is full or the club is full and letting patrons in if both are not met. 
+\end{itemize}
+
+\section{Lessons Learned}
+\begin{itemize}
+    \item Using flag variables and having threads wait on a flag variable (in more depth and practically)
+    \item Using a queue that multiple threads can access
+    \item The importance of positioning of synchronizations and conditions (as seen in the deadlock section)
+    \item Using JButtons to change flags and release latches and changing labels in frames
+\end{itemize}
+
+\section{Synchronization Mechanisms}
+The following classes had some synchronization mechanisms added to them: \\
+\begin{itemize}
+    \item {\textbf{AndreTheBarman}: Since \textbf{AndreTheBarman} extends \textbf{Clubgoer}, all those locking mechanisms can be used by Andre as well. Additionally, \textbf{AndreTheBarman} uses synchronization on the queue 'waiting' when checking if anyone is in the queue (so it is not updated). \textbf{AndreTheBarman} will also synchronize on each \textbf{Clubgoer}s 'served' variable to notify a thread that they have been served }
+    \item {\textbf{PeopleCounter}: The following methods are synchronized: personEntered(), personLeft(), overCapacity(). In this way, the number of people inside will not change when overCapacity() is run.}
+    \item {\textbf{PeopleLocation}: The get and set method for the Color of a person are synchronized}
+    \item {\textbf{GridBlock}: As mentioned in (4), the get(threadID), release() and occupied() method are synchronized for the reasons supplied. }
+    \item{\textbf{ClubSimulation}: The only synchronization is on the pause flag (to notify all threads waiting). This class also has the latch initialized, and the pause flag that changes values whenever the pause button is clicked}
+    \item{\textbf{ClubGrid}: The move method (used to move a \textbf{Clubgoer} around the club) synchronizes on the new block that the \textbf{Clubgoer} wants to move to (if it is open). Should their current block be the entrance, the lock on the entrance is obtained to notify threads waiting on the entrance that it is now open. The locking on the new block prevents other threads from moving to the same block at the same time (as after the lock is released, the block will be taken and the other thread will not be able to move to that block). The lock on the entrance is also obtained if someone leaves the club (also to notify)}
+    \item {\textbf{Clubgoer}: Each \textbf{Clubgoer} will synchronize on the 'pause' flag and wait for the flag to be true. This synchronization is needed to wait on the variable. Additionally, patrons can add themselves to the 'waiting' queue (which requires synchronizing on that variable so that only one thread is added at a time). Each patron will also wait on their own served variable (and thus synchronize on that variable). They can also wait on the clubs 'entrance' if the club is full, or the entrance is occupied.}
+\end{itemize}
+
+\section{Liveness and Deadlocks}
+Adaptations made mean that when someone wants to move, they will lock on their new grid block rather than the entire club. This means that multiple threads can move simultaneously as long as they move to different grid blocks \\ 
+~\\
+Deadlocks are avoided in that whenever one object is locked, that thread will not try and access some other lock (except in one case described next). Comments in the code are added for the synchronization to explain why it would not cause a deadlock. The one case where two locks can be obtained is (note the comments in the code explain why no deadlock is achieved):
+\begin{center}
+    \lstinputlisting{pcp2\_assets/todo.txt} 
+\end{center}
+\end{document}

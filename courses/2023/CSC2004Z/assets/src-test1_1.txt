@@ -1,0 +1,6 @@
+Vertices: 10.0
+Edges: 20.0
+Start Node: Node9
+vCount: 10.0
+eCount: 20.0
+pCount: 21.0
