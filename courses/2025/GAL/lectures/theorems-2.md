@@ -1,0 +1,323 @@
+---
+title: Theorems
+type: lecture
+tags: [latex]
+status: needs-review
+source: latex
+assets: [theorems.tex]
+---
+> [!warning]
+> Compiled from **theorems.tex** by the built-in LaTeX renderer
+> The original .tex is attached above.
+
+## Chapter 2. Fields Extensions
+
+> [!theorem]
+> **Theoremx**
+>
+> {2.5}
+> Let $E/F$ be a field extension, $\alpha \in E$, and $\varphi_\alpha: F[x] \to E$ the evaluation homomorphism of $F[x]$ into $E$ such that $\varphi_\alpha(a) = a$ for all $a \in F$ and $\varphi_\alpha(x) = \alpha$.  Then $\alpha$ is transcendental over $F$ if and only if $\varphi_\alpha$ is a monomorphism.
+
+> [!theorem]
+> **Theoremx**
+>
+> {2.6}
+> Let $E/F$ be a field extension and $u\in E$ algebraic over $F$.  If $m \in F[x]$ is a monic polynomial of minimal degree such that $m(u) = 0$, then
+> (i) $m$ is irreducible in $F[x]$;
+> (ii) for any $f \in F[x]$, $f(u) = 0$ if and only if $m$ divides $f$;
+> (iii) $m$ is uniquely determined by $u$.
+
+\begin{corollaryx}{2.23}
+Let $F_1,F_2,\dots,F_r$ be fields, and suppose that $F_{i+1}:F_i$ is a finite extension for $i=1,\dots,r-1$.  Then
+$$
+  [F_r:F_1] = [F_r:F_{r-1}]\,[F_{r-1}:F_{r-2}] \cdots [F_2:F_1].
+$$
+\end{corollaryx}
+
+\begin{corollaryx}{2.24}
+Let $E/F$ be a field extension, $u\in E$ algebraic over $F$, and $v\in F(u)$.  Then $\deg(v,F)$ divides $\deg(u,F)$.
+\end{corollaryx}
+
+\begin{corollaryx}{2.31}
+Let $K/E/F$ be field extensions.  Then $K/F$ is algebraic if and only if both $K/E$ and $E/F$ are algebraic.
+\end{corollaryx}
+
+\begin{corollaryx}{2.32}
+Let $E/F$ be a field extension.  Then
+$$
+  A = \{\,u \in E \mid u \text{ is algebraic over }F\}
+$$
+is a subfield of $E$, and $A/F$ is an algebraic extension.
+\end{corollaryx}
+
+## Chapter 4. Splitting Fields
+
+> [!theorem]
+> **Theoremx**
+>
+> {4.5}
+> Let $f$ be a polynomial of degree $n\ge1$ over a field $F$.  Then a splitting field $E\supseteq F$ of $f$ over $F$ always exists, and $[E:F]\le n!$.
+
+> [!theorem]
+> **Theoremx**
+>
+> {4.11}
+> Let $\varphi: F \to F'$ be a field isomorphism.  Given a monic irreducible polynomial $p\in F[x]$, let $u$ be a root of $p$ in some extension $E\supseteq F$ and let $v$ be a root of $p^\varphi$ in some extension $E'\supseteq F'$.  Then there is a unique isomorphism $F(u)\to F'(v)$ given by
+> $$
+>   f(u) \;\mapsto\; f^\varphi(v) \quad (f\in F[x]),
+> $$
+> that extends $\varphi$ and sends $u$ to $v$.
+
+\begin{corollaryx}{4.12}
+Let $p$ be a monic irreducible polynomial and let $u,v$ be two roots of $p$ in extension fields $E,E'\supseteq F$.  Then $F(u)\cong F(v)$.  Moreover, if $\deg(u,F)=n$, the map
+$$
+  a_0 + a_1u + \cdots + a_{n-1}u^{n-1} \;\longmapsto\; a_0 + a_1v + \cdots + a_{n-1}v^{n-1}
+$$
+is an isomorphism $F(u)\to F(v)$ sending $u\mapsto v$ and fixing every element of $F$.
+\end{corollaryx}
+
+> [!theorem]
+> **Theoremx**
+>
+> {4.13}
+> Let $\varphi:F\to F'$ be an isomorphism of fields, and let $f\in F[x]$ be a non-constant polynomial with $f^\varphi\in F'[x]$ its image under $\varphi$.  If $E\supseteq F$ is a splitting field of $f$ and $E'\supseteq F'$ is a splitting field of $f^\varphi$, then there exists an isomorphism $E\to E'$ extending $\varphi$.
+
+\begin{corollaryx}{4.14}
+Any two splitting fields of a polynomial $f(x)\in F[x]$ over $F$ are isomorphic.
+\end{corollaryx}
+
+> [!theorem]
+> **Theoremx**
+>
+> {4.20}
+> A finite extension $E/F$ is normal if and only if $E$ is a splitting field of some polynomial in $F[x]$.
+
+\begin{corollaryx}{4.21}
+Let $E/F$ be a finite normal extension and let $L$ be an intermediate field ($F\subseteq L\subseteq E$).  Then any $F$-monomorphism $L\to E$ can be extended to an $F$-automorphism of $E$.
+\end{corollaryx}
+
+\begin{corollaryx}{4.23}
+Let $E/F$ be a finite normal extension.  If $u$ and $v$ are roots in $E$ of the same irreducible polynomial over $F$, then there exists an $F$-automorphism $\theta$ of $E$ such that $\theta(u)=v$.
+\end{corollaryx}
+
+## Chapter 5. Finite Fields
+
+> [!theorem]
+> **Theoremx**
+>
+> {5.3}
+> The characteristic of a unital ring $R$ coincides with the order of the element $1$ in the additive group $(R,+)$.  More precisely, if $\mathrm{ord}(1)=\infty$ in $(R,+)$ then $\mathrm{char}(R)=0$, while if $\mathrm{ord}(1)=n$ then $\mathrm{char}(R)=n$.
+
+> [!theorem]
+> **Theoremx**
+>
+> {5.4}
+> The characteristic of an integral domain is either $0$ or a prime number.
+
+\begin{corollaryx}{5.5}
+The characteristic of a field is either $0$ or a prime number.
+\end{corollaryx}
+
+> [!theorem]
+> **Theoremx**
+>
+> {5.7}
+> Let $E/F$ be a finite field extension of degree $n$.  If $F$ has $q$ elements, then $E$ has $q^n$ elements.
+
+\begin{corollaryx}{5.8}
+If $E$ is a finite field of characteristic $p$, then $|E|=p^n$ for some integer $n\ge1$.
+\end{corollaryx}
+
+> [!theorem]
+> **Theoremx**
+>
+> {5.9}
+> Let $E$ be a field with $|E|=p^n$, where $p$ is prime.  Then the elements of $E$ are precisely the roots of the polynomial $x^{p^n}-x$ in $\mathbb{Z}_p[x]$, and $E$ is the splitting field of this polynomial over $\mathbb{Z}_p$.
+
+> [!theorem]
+> **Theoremx**
+>
+> {5.11}
+> The multiplicative group $F^*$ of nonzero elements of a finite field $F$ is cyclic.
+
+\begin{corollaryx}{5.12}
+A finite extension $E$ of a finite field $F$ is a simple extension of $F$.
+\end{corollaryx}
+
+> [!theorem]
+> **Theoremx**
+>
+> {5.14}
+> Let $F$ be a field and let $f,g \in F[x]$.  Then:
+> (1) $D(af) = a\,(Df)$ for all $a\in F$.
+> (2) $D(f+g)=Df+Dg$.
+> (3) $D(fg)=(Df)\,g+f\,(Dg)$.
+> (4) $D(f(g(x))) = Df(g(x))\cdot Dg(x)$.
+
+> [!theorem]
+> **Theoremx**
+>
+> {5.16}
+> Let $f$ be a polynomial in $F[x]$ and let $L$ be a splitting field of $f$ over $F$.  Then the roots of $f$ in $L$ are all distinct if and only if $f$ and its formal derivative $Df$ have no nonconstant common factor.
+
+> [!theorem]
+> **Theoremx**
+>
+> {5.17}
+> Let $p$ be a prime and $n\ge1$ an integer.  Then there exists, up to isomorphism, exactly one field of order $p^n$.
+
+> [!theorem]
+> **Theoremx**
+>
+> {5.19}
+> As an additive group, $\mathrm{GF}(p^n)\cong \mathbb{Z}_p\oplus \cdots \oplus \mathbb{Z}_p$ ($n$ summands).  As a multiplicative group, the nonzero elements $\mathrm{GF}(p^n)^*$ form a cyclic group of order $p^n-1$, i.e.\ $\mathbb{Z}_{p^n-1}$.
+
+> [!theorem]
+> **Theoremx**
+>
+> {5.20}
+> Let $F$ be a field and let $f\in F[x]$ be an irreducible monic polynomial of degree $m\ge1$.  Then the field $F[x]/\langle f\rangle$ can be represented as
+> $$
+>   \{a_0 + a_1\alpha + \cdots + a_{m-1}\alpha^{m-1} \mid a_i \in F,\ f(\alpha)=0\},
+> $$
+> where $\alpha = x \bmod f$.  Moreover, this representation of elements is unique:
+> $$
+>   a_0 + a_1\alpha + \cdots + a_{m-1}\alpha^{m-1}
+>   \;=\;
+>   b_0 + b_1\alpha + \cdots + b_{m-1}\alpha^{m-1}
+> $$
+> if and only if $a_i=b_i$ for each $i$.
+
+\begin{corollaryx}{5.25}
+$\mathrm{GF}(p^n) = \mathbb{Z}_p(u)$, where $u$ is a primitive element of $\mathrm{GF}(p^n)$, i.e., a generator of the cyclic group $\mathrm{GF}(p^n)^*$.
+\end{corollaryx}
+
+\begin{corollaryx}{5.26}
+If $p$ is a prime and $n\ge1$, then there exists an irreducible polynomial of degree $n$ over $\mathbb{Z}_p$.
+\end{corollaryx}
+
+## Chapter 6. Galois Theory
+
+\begin{lemmax}{6.3}
+Let $E/F$ be a field extension, $u\in E$, and $\sigma\in\mathrm{Gal}(E/F)$.  Then:
+(i) $\sigma(f(u)) = f(\sigma(u))$ for all $f\in F[x]$.
+(ii) If $u$ is a root of some $f\in F[x]$, then $\sigma(u)$ is also a root of $f$.
+(iii) If $u$ is algebraic over $F$ and $\sigma,\tau\in \mathrm{Gal}(F(u)/F)$, then $\sigma=\tau$ if and only if $\sigma(u)=\tau(u)$.
+\end{lemmax}
+
+> [!theorem]
+> **Theoremx**
+>
+> {6.4}
+> Let $F(u)/F$ be a simple extension with $u$ algebraic over $F$, and let $u_1=u,u_2,\dots,u_r$ be the distinct roots of $\mathrm{irr}(u,F)$ in $F(u)$.  Then
+> $$
+>    \mathrm{Gal}(F(u)/F) = \{\sigma_1=\mathrm{id}, \sigma_2, \dots, \sigma_r\},
+> $$
+> where each $\sigma_i$ is the unique $F$-automorphism of $F(u)$ satisfying $\sigma_i(u)=u_i$.  Hence if $\mathrm{irr}(u,F)$ splits in $F(u)$ and has distinct roots, then $|\mathrm{Gal}(F(u)/F)| = [F(u):F]$.
+
+> [!theorem]
+> **Theoremx**
+>
+> {6.7}
+> Let $E=F(u_1,\dots,u_n)/F$ be a finite extension where each $u_i$ is algebraic over $F$ with minimal polynomial $m_i = \mathrm{irr}(u_i,F)$.  If $\sigma\in\mathrm{Gal}(E/F)$, then:
+> (i) For any $\tau\in\mathrm{Gal}(E/F)$, one has $\sigma=\tau$ if and only if $\sigma(u_i)=\tau(u_i)$ for each $i$.
+> (ii) $\sigma(u_i)$ is a root of $m_i$ for each $i$.
+> (iii) $\sigma$ is uniquely determined by the choice of $\sigma(u_1),\dots,\sigma(u_n)$ in $E$.
+> In particular, $\mathrm{Gal}(E/F)$ is a finite group.
+
+> [!theorem]
+> **Theoremx**
+>
+> {6.9}
+> Let $G=\mathrm{Gal}(E/F)$ where $E$ is the splitting field of a polynomial $f(x)\in F[x]$ and let $X$ be the set of distinct roots of $f$ in $E$.  Then:
+> (i) $G$ is isomorphic to a subgroup of the symmetric group $S_X$.
+> (ii) If $f(x)$ is irreducible over $F$, then $G$ acts transitively on $X$.
+> (iii) If $f(x)$ has no repeated root in $E$ and $G$ acts transitively on $X$, then $f$ is irreducible over $F$.
+
+> [!theorem]
+> **Theoremx**
+>
+> {6.13}
+> Let $F$ be a field and $f$ an irreducible polynomial in $F[x]$.
+> (i) If $\mathrm{char}(F)=0$, then $f$ is separable over $F$.
+> (ii) If $\mathrm{char}(F)=p>0$, then $f$ is separable over $F$ unless it is of the form $f(x)=g(x^p)$ for some $g\in F[x]$.  More precisely, $f(x)=g(x^p)=b_0 + b_1 x^p + b_2x^{2p} + \cdots + b_mx^{mp}$.
+
+\begin{corollaryx}{6.14}
+If $\mathrm{char}(F)=0$, then $F$ is a perfect field, and thus every algebraic extension of $F$ is separable.
+\end{corollaryx}
+
+> [!theorem]
+> **Theoremx**
+>
+> {6.15}
+> Let $F$ be a field of characteristic $p>0$, and let
+> $$
+>   f(x) = g(x^p) = b_0 + b_1x^p + \cdots + b_m x^{mp}.
+> $$
+> Then the following are equivalent:
+> (i) $f$ is irreducible in $F[x]$;
+> (ii) $g$ is irreducible in $F[x]$ and not all the coefficients $b_i$ are $p$-th powers in $F$.
+
+> [!theorem]
+> **Theoremx**
+>
+> {6.16}
+> Every finite field is perfect.
+
+> [!theorem]
+> **Theoremx**
+>
+> {6.17}
+> Let $E\supseteq K\supseteq F$ be fields.  If $E/F$ is a finite separable extension, then $E/K$ is also separable.
+
+> [!theorem]
+> **Theoremx**
+>
+> {6.18}
+> Let $\varphi:F\to F'$ be an isomorphism of fields and let $f\in F[x]$ be a polynomial.  If $E\supseteq F$ and $E'\supseteq F'$ are splitting fields of $f$ and $f^\varphi$ respectively, then the number of field isomorphisms $\hat\varphi:E\to E'$ extending $\varphi$ is at most $[E:F]$, with equality if $f$ is separable over $F$.
+
+\begin{corollaryx}{6.19}
+Let $E\supseteq F$ be a splitting field of a polynomial $f\in F[x]$.  Then $|\mathrm{Gal}(E/F)|\le [E:F]$, with equality if $f$ is separable over $F$.
+\end{corollaryx}
+
+> [!theorem]
+> **Theoremx**
+>
+> {6.25}
+> Let $E/F$ be a finite field extension.  Then $|\mathrm{Gal}(E/F)| \le [E:F]$.
+
+> [!theorem]
+> **Theoremx**
+>
+> {6.36}
+> For a finite extension $E/F$ with Galois group $G=\mathrm{Gal}(E/F)$, the following conditions are equivalent:
+> (i) $E/F$ is Galois,
+> (ii) $E/F$ is normal and separable.
+
+\begin{corollaryx}{6.37}
+If $\mathrm{char}(F)=0$, then the finite Galois extensions of $F$ are precisely the normal extensions.
+\end{corollaryx}
+
+\begin{corollaryx}{6.38}
+Every finite Galois extension is simple (i.e., of the form $F(\alpha)$ for some $\alpha$).
+\end{corollaryx}
+
+\begin{corollaryx}{6.39}
+If $E\supseteq K\supseteq F$ are fields and $E/F$ is a finite Galois extension, then $E/K$ is Galois.
+\end{corollaryx}
+
+> [!theorem]
+> **Theoremx**
+>
+> {6.41}
+> Let $E/F$ be a finite Galois extension with Galois group $G=\mathrm{Gal}(E/F)$.  For an intermediate field $K$ (so $F\subseteq K\subseteq E$) let $K^* = \mathrm{Gal}(E/K)$, and for a subgroup $H\subseteq G$ let
+> $$
+>   H^\circ = \{x\in E \mid \sigma(x)=x\ \forall\sigma\in H\}
+> $$
+> be the fixed field of $H$.  Then:
+> (i) $H = (H^\circ)^*$ and $K = (K^*)^\circ$.
+> (ii) The maps $K\mapsto K^*$ and $H\mapsto H^\circ$ are mutually inverse inclusion-reversing bijections between the set of intermediate fields of $E/F$ and the set of subgroups of $G$.
+> (iii) $[E:K] = |K^*|$.
+> (iv) $[K:F] = |G:K^*|$, the index of $K^*$ in $G$.
+> (v) $E/K$ is Galois.
+> (vi) $K/F$ is Galois if and only if $K^*$ is a normal subgroup of $G$, in which case $\mathrm{Gal}(K/F)\cong G/K^*$.

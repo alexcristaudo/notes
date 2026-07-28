@@ -9,6 +9,7 @@ import { saveNoteBody, updateNoteMeta, deleteNote, backlinksTo } from "@/lib/not
 import { addToQueue } from "@/lib/study";
 import { extractHeadings } from "@/lib/markdown/extract";
 import { extractPdfMarkdown } from "@/lib/pdfExtract";
+import { latexNoteBody } from "@/lib/latex";
 import { Markdown } from "@/components/Markdown";
 import { NOTE_TYPE_LABEL, type Note, type NoteStatus } from "@/lib/types";
 import { useRouter } from "next/navigation";
@@ -34,6 +35,8 @@ function NoteInner() {
   const [toast, setToast] = useState("");
   const [pdfOpen, setPdfOpen] = useState(false);
   const [extracting, setExtracting] = useState(false);
+  const [texSource, setTexSource] = useState<string | null>(null);
+  const [compiling, setCompiling] = useState(false);
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const body = draft ?? note?.body ?? "";
@@ -94,6 +97,40 @@ function NoteInner() {
   const hasPdf = !!repoPdf || !!localPdf;
   const pdfName = repoPdf ? repoPdf.split("/").pop()! : localPdf?.name ?? "";
 
+  const repoTex = note.repoAssetPaths?.find((p) => p.toLowerCase().endsWith(".tex"));
+  const localTex = assets.find((a) => a.name.toLowerCase().endsWith(".tex"));
+  const hasTex = !!repoTex || !!localTex;
+  const texName = repoTex ? repoTex.split("/").pop()! : localTex?.name ?? "";
+
+  const readTex = async (): Promise<string> =>
+    repoTex ? (await fetch(`${base}/${repoTex}`)).text() : localTex!.blob.text();
+
+  const toggleSource = async () => {
+    if (texSource !== null) return setTexSource(null);
+    try {
+      setTexSource(await readTex());
+    } catch {
+      flash("Couldn't load the .tex source");
+    }
+  };
+
+  // Re-run the LaTeX compiler on the attached source (after editing the .tex,
+  // or to pick up compiler improvements).
+  const recompile = async () => {
+    if (compiling) return;
+    if (!confirm("Recompile from the .tex source? This replaces the note body.")) return;
+    setCompiling(true);
+    try {
+      await saveNoteBody(note.id, latexNoteBody(await readTex(), texName));
+      setDraft(null);
+      flash("Recompiled from LaTeX — export & commit to keep it");
+    } catch (err) {
+      flash(`Compile failed: ${err instanceof Error ? err.message : "unknown error"}`);
+    } finally {
+      setCompiling(false);
+    }
+  };
+
   const extract = async () => {
     if (extracting) return;
     const isStub = body.includes("Imported from OneDrive");
@@ -136,6 +173,16 @@ function NoteInner() {
             {hasPdf && (
               <button className="btn btn-sm" onClick={extract} disabled={extracting} title="Pull the PDF's text into this note so it reads like a normal note">
                 {extracting ? "Extracting…" : "⤓ Extract notes"}
+              </button>
+            )}
+            {hasTex && (
+              <button className={`btn btn-sm ${texSource !== null ? "btn-primary" : ""}`} onClick={toggleSource} title={`Show the ${texName} source`}>
+                {texSource !== null ? "Hide source" : "∑ LaTeX source"}
+              </button>
+            )}
+            {hasTex && (
+              <button className="btn btn-sm" onClick={recompile} disabled={compiling} title="Re-run the LaTeX compiler on the attached .tex">
+                {compiling ? "Compiling…" : "⚙ Recompile"}
               </button>
             )}
             <button
@@ -208,6 +255,16 @@ function NoteInner() {
             ) : (
               <LocalPdfFrame blob={localPdf!.blob} name={pdfName} />
             )}
+          </div>
+        )}
+
+        {/* LaTeX source view */}
+        {texSource !== null && (
+          <div className="card mb-4 p-3">
+            <div className="label mb-2">{texName}</div>
+            <pre className="editor-textarea max-h-[60vh] overflow-auto rounded-lg bg-[var(--bg)] p-3 text-xs">
+              <code>{texSource}</code>
+            </pre>
           </div>
         )}
 

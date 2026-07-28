@@ -1,0 +1,92 @@
+---
+title: Src PCP1
+type: lecture
+tags: [latex]
+status: needs-review
+source: latex
+assets: [src-PCP1.tex]
+---
+> [!warning]
+> Compiled from **src-PCP1.tex** by the built-in LaTeX renderer — Unhandled commands left as-is: \lstinputlisting
+> The original .tex is attached above.
+
+pdf{assets/PCP1Title.pdf}
+
+## Methods
+
+### Parallelization Approach
+
+The sequential approach to finding the minimum of a function involves creating $n$ search objects. Each search object is responsible for running the Monte Carlo algorithm that chooses some random point (within the specified domain) and finds the local minimum from that point. Since this is done sequentially, each search object is executed after the previous search object is completed. This presents the opportunity to use parallelization to complete the task of finding the global minimum in a domain because each search can be done independently so multiple threads can be used to run the searches simultaneously.
+The Fork/Join Framework has been used to create a parallel solution. Firstly, one thread is created and invoked to begin the process. Then each thread will split into more threads until the sequential cutoff has been reached (call this $s$). This means new threads will be created until each thread has been allocated to $s$ searches that that thread must do sequentially. Each thread has a unique identifier that is used to modify an output array, and the minimum is obtained from the output array and printed to the console. Note that an array is used because each thread will access a distinct index in the array, so no race conditions will arise. The sequential cutoff provides optimises the code and a cutoff value of $1000$ was used. Counters used in the sequential approach will no longer be reliable, so a solution is provided in "Problems and Difficulties". The use of the array to hold the minimum values provides an optimisation to find the minimum and index of the minimum at the same time as one search through the array will find both.
+
+### Validation
+
+The Rosenbrock function will be used to validate that the parallel approach works because the Rosenbrock function has only one global minimum at $(1,1)$. So as long as $(1,1)$ is included in the domain, that should be the answer that turns up. Running the provided sequential code, the following output is obtained:
+
+    \lstinputlisting{pcp1_assets/validation_sequential.txt}
+
+Running the parallel solution, the following is obtained:
+
+    \lstinputlisting{pcp1_assets/validation_parallel.txt}
+
+These results both obtain the correct global minimum and correct coordinates for the same input (so the same rows, columns, xmin, xmax, ymin, ymax, density). Not only is the correct output achieved, but both also achieved the same percentages of grid points visited and evaluated (when rounded to the nearest percentage). This means that the parallel solution did not skip any searches and visited roughly the same number of points but with a quicker execution time. The differing values result from the Monte Carlo Algorithm being random.
+
+### Benchmark
+
+Each test was run with a sequential cutoff of $1000$ with a fixed domain having $xmin = ymin = -1000$ and $xmax = ymax = 1000$ for the function $f(x,y)=-2 \sin (x) \cos (\frac{y}{2})+\log \mid y-2 \pi \mid$. The collection of data involved the following process:
+
+5 search densities were varied. The densities were $0.05, 0.14, 0.23, 0.32, 0.41$. For each search density, 28 tests were run in which the rows and columns were changed. The rows and columns varied between $150, 450, 750, ..., 8250$ (the rows and columns were the same in a test, so for test 1 $rows = columns = 150$).
+These values were then used in both the parallel and sequential solution 5 times (to get 5 values for each test). The median of the 5 times was used as the final value for that set of parameters. The speedup for that data point is calculated with $speed \ up = \frac{t_s}{t_p}$ where $t_s$ is the sequential time and $t_p$ is the parallel time. A speedup graph is obtained by plotting the speed-up against $n=rows \times columns$ and 5 different lines are plotted for each search density. This sequence of testing was performed on 2 different architectures (the architectures are described under "Architectures"). The results of the test are described as follows:
+
+#### Test Results
+
+To see the results from the tests, consult the tests folder. "test1.txt" are the results from test 1. Note the first 5 are parallel tests, the next 5 are sequential tests, then 5 parallel and so on (the text file has headings to help). The median times are displayed at the bottom of the text file, with each line having the parallel time before the sequential time. An example of the results from test run 1 and 2 is:
+
+| *Test Set 1* | *Test Set 2* |
+| --- | --- |
+| \lstinputlisting{pcp1_assets/example_parallel.txt} ~~~~~~~~~~~~~~~~~~~~~ | \lstinputlisting{pcp1_assets/example_sequential.txt}  ~ |
+
+### Architectures
+
+The test set 1 was run on a MacBook Pro with the following specifications:
+
+Chip: Apple M1
+
+Memory: 16GB
+
+Operating System: macOS Ventura
+
+Total Number of Cores: 8 (4 performance and 4 efficiency)
+
+~
+Test set 2 was run on the Computer Science Departmental server, accessed via Nightmare. This has the following specifications:
+This has 8 cores (with an Intel Xeon CPU) and 48GiB $\approx$ 51.5GB.
+
+### Problems and Difficulties
+
+Difficulties arrived with modifying the provided code to prevent a race condition in multiple threads accessing the "grid_points_evaluated" and "grid_points_visited" variables which reduced the value shown in the number of searches performed. The implemented solution for "grid_points_evaluated" involves using a 2D array as a counter where each index represents a counter for that point. The total counted value is obtained by summing the values in the 2D array. The number of visited grid points is obtained by searching through the "visit" array and counting how many non-zero values there are (the value is non-zero if that point has been visited)
+
+## Results
+
+### Graphs
+
+#### Test 1
+
+Test 1 yielded the following graph:
+~
+{pcp1_assets/test1.png}
+
+#### Test 2
+
+Test 2 yielded the following graph:
+~
+{pcp1_assets/test2.png}
+
+### Discussion
+
+As expected, the higher the grid size, the better the speedup with Graph 1 showing speedup increasing rapidly from the smaller speedups and then gradually increasing as the grid size gets larger. The grid sizes between $rows \times columns = 21652200$ until the final measurement of $68062500$ all had approximately the best speedup according to Graph 1. Graph 2 has the same with the larger grid sizes having a bigger speedup than the smaller grid sizes (although the graph jumps around, it is tending to increase. The maximum speedup Graph 1 obtained was roughly $2.6$ for Graph 1 but was about 7.5 for Graph 2. Although both architectures have the same number of cores, the sequential time for Test 1 was much lower than on Test 2 (on Nightmare). The sequential times were inconsistent with the Nightmare results, and this resulted in large jumps between speedups. Excluding the large peak of 7.5 and 6.5 (which seem to have formed due to the inconsistencies of Nightmare), we see a maximum speedup of about 5.7. Both architectures have $8$ cores, so a maximum speed-up is 8 times. But by Amdahl's Law, since not $100\%$ of the code will be parallel, this will not be achieved. Since each test took a median of 5 runs for one set of data, the data is more reliable. Plenty of tests were run for each search density, with the tests checking many different grid sizes. The densities checked were spread apart. In Graph 1 (and some parts of Graph 2), we see that Density 0.41 has the highest speedup most of the time, followed by 0.32, then 0.23 then 0.14 and finally 0.05. 0.05 does jump around, but is mostly the one with the lowest speedup. Graph 2 does not have 0.05 always at the bottom, but is consistently lower down and 0.41 and 0.32 higher up.
+Some anomalies, as mentioned above is that some lower densities have a better performance than higher densities when it comes to speedup at specific points. This is because a Monte Carlo Algorithm is random, so the time taken to execute a program with the same set of parameters can differ every time. Should a sequence of searches where fewer points are visited compared to another sequence of searches arise, the first will have a quicker time. Additionally, since these tasks are allocated by a Scheduler to be run, other processes may take preference for extending the duration of a program. In the case of Test 2, since it was performed on the Departmental Server, other users may have accessed and run at the same time hindering the performance and making the graph more jagged. Other anomalies include some search times being less despite more searches, as seen in the Test 1 text file. This corresponds to a graph going down after going back up and can be explained in the same way.
+
+## Conclusions
+
+As can be seen from the graphs, applying the parallelization of this problem is worth it for larger grid sizes and search densities, as a large speedup can be obtained which can greatly reduce the time taken (the maximum speedup obtained was 2.6 in the Test 1 and as high as 7.5 for Test 2). Should the grid size or search density be smaller, the sequential code is quick enough such that the implementation of the parallelization of this code would not be worth it. Additionally, for very small grid values, the parallelization may be slower as the task of creating threads to do the searches may take longer than the searches themselves. The difference in time can be as large as having a parallel time of 8136 compared to a sequential time of 32743, or even a difference of 14493 (for parallel) and 97412 (for sequential) as the number of searches gets very large (from Test 2). The second value is taken from the peak of the 0.41 density graph and the first comparison is from the 7.5 peak of the 0.14 density graph. Since Test 2 was performed on the Departmental Server, we can deduce that if a multi-core device with a lot of accessible memory is being used, parallelization should be implemented since the speedups make the parallelization even more beneficial.

@@ -8,6 +8,7 @@ import rehypeHighlight from "rehype-highlight";
 import rehypeSlug from "rehype-slug";
 import rehypeStringify from "rehype-stringify";
 import { remarkCallouts, remarkWikiLinks } from "./remark-plugins";
+import { KATEX_MACROS } from "../katexMacros";
 
 const processor = unified()
   .use(remarkParse)
@@ -17,7 +18,8 @@ const processor = unified()
   .use(remarkCallouts)
   .use(remarkRehype)
   .use(rehypeSlug)
-  .use(rehypeKatex)
+  // macros from templates/latex/macros.tex so LaTeX notes render their shorthands
+  .use(rehypeKatex, { macros: { ...KATEX_MACROS }, throwOnError: false, strict: false })
   .use(rehypeHighlight, { detect: false })
   .use(rehypeStringify);
 

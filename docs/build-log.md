@@ -59,6 +59,33 @@ All three gaps from the entry above are done:
    avoid theme flash, theme-aware Mermaid rendering, and the link accent moved to a `--link`
    variable for contrast in both themes.
 
+## 2026-07-28 — LaTeX compiler for .tex notes
+
+`lib/latex.ts` compiles LaTeX into the app's note format: sections → headings, theorem
+environments and the template's tcolorbox macros (`\dfn`, `\thm`, `\ex`, `\nt`, `\clm`,
+`\qs`, `myproof`, starred variants) → callouts, itemize/enumerate/tabular → markdown,
+display-math environments preserved for KaTeX, TikZ → placeholders, unknown commands
+degraded to their argument text rather than dropped.
+
+- `scripts/gen-katex-macros.ts` extracts 285 `\newcommand` definitions from
+  `templates/latex/{macros,letterfonts,preamble}.tex` into a KaTeX macro map, so `\bbR`,
+  `\eps`, `\mcX` and friends render. (First pass only read macros.tex and missed the
+  `\bb*`/`\mc*` shorthands, which live in letterfonts.tex.)
+- `scripts/link-tex-notes.ts` creates a note per un-claimed `.tex` asset — 63 notes.
+  The Honours courses had LaTeX-only material and were showing **zero** notes (ALG, GAL,
+  MEAS); they now have content.
+- Note page: **∑ LaTeX source** (view original) and **⚙ Recompile** buttons, mirroring the
+  PDF pattern.
+- Pipeline ordering matters: structure/lists/tables convert *before* theorem→callout
+  quoting, otherwise `> ` prefixes end up inside table cells (caught by a regression test).
+
+**Deliberate scope:** not a TeX engine. A real `pdflatex` would need a 1–2 GB TeX Live in CI
+(these documents pull in tcolorbox, TikZ and custom fonts) and could not be verified from the
+build sandbox; the in-browser compiler works on static hosting, offline, and on the 15
+fragment files that could never compile standalone. Measured on the Honours Algebra notes:
+93 formulas, 3 parse failures (nested `$$` inside `align`), which KaTeX renders in red with
+the source visible.
+
 ## 2026-07-28 — PDF viewer + in-app PDF text extraction
 
 - **View PDF** button on any note with an attached PDF: full-height inline viewer for both

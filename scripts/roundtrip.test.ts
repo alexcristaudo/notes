@@ -94,6 +94,48 @@ async function main() {
     assert.equal(guessWeek("05-eigen.md"), 5);
   });
 
+  const { latexToMarkdown } = await import("../lib/latex");
+
+  await test("latex: structure, theorems and math compile to markdown", () => {
+    const tex = String.raw`\documentclass{report}
+\title{Measure Theory}
+\begin{document}
+\maketitle
+\section{Measurable sets}
+A $\sigma$-algebra $\mathcal{A}$ on $\Omega$.
+\dfn{Measure}{A map $\mu:\mathcal{A}\to[0,\infty]$ with $\mu(\emptyset)=0$.}
+\begin{theorem}[Fatou]
+$\int \liminf f_n \le \liminf \int f_n$.
+\end{theorem}
+\begin{itemize}
+  \item countable additivity
+  \item monotonicity
+\end{itemize}
+\begin{align*} a &= b \\ c &= d \end{align*}
+\begin{tikzpicture}\draw (0,0)--(1,1);\end{tikzpicture}
+\end{document}`;
+    const doc = latexToMarkdown(tex);
+    assert.equal(doc.title, "Measure Theory");
+    assert.match(doc.markdown, /^## Measurable sets$/m, "sections become headings");
+    assert.match(doc.markdown, /> \[!definition\]/, "\\dfn becomes a definition callout");
+    assert.match(doc.markdown, /> \[!theorem\]/, "theorem env becomes a theorem callout");
+    assert.match(doc.markdown, /Theorem: Fatou/, "optional theorem name is kept");
+    assert.match(doc.markdown, /^- countable additivity$/m, "itemize becomes a list");
+    assert.match(doc.markdown, /\$\$\\begin\{align\*\}/, "display math is preserved for KaTeX");
+    assert.match(doc.markdown, /TikZ diagram/, "tikz degrades to a placeholder");
+    assert.doesNotMatch(doc.markdown, /\\maketitle|\\documentclass/, "preamble/noise stripped");
+  });
+
+  await test("latex: tables survive inside theorem callouts", () => {
+    const doc = latexToMarkdown(String.raw`\begin{document}
+\ex{Sets}{\begin{tabular}{rl} Open: & $\phi$ \\[3mm] Closed: & $X$ \end{tabular}}
+\end{document}`);
+    const table = doc.markdown.split("\n").filter((l) => l.includes("|"));
+    assert.ok(table.length >= 3, "table rows rendered");
+    assert.ok(table.every((l) => l.trimStart().startsWith(">")), "rows stay inside the callout");
+    assert.doesNotMatch(doc.markdown, /\[3mm\]/, "row spacing args are stripped");
+  });
+
   // ---- Full round-trip through the real DB-backed import/export ----
   const { createCourse } = await import("../lib/notes");
   const { importFile } = await import("../lib/import");

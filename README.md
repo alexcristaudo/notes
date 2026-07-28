@@ -49,6 +49,26 @@ Extraction is best-effort — layout, equations, and symbols usually need a clea
 edit the result and then **Export all** → replace `courses/` → push to keep it. Until you do,
 the course Health tab lists the note as "not committed to GitHub".
 
+## LaTeX notes
+
+`.tex` files are compiled into readable notes by a built-in LaTeX renderer: `\section`s
+become headings, theorem-like environments and the template's macros (`\dfn`, `\thm`, `\ex`,
+`\nt`, …) become callouts, lists and tables convert to markdown, and math renders with KaTeX
+using the shorthands from `templates/latex` (`\bbR`, `\eps`, `\mcX`, …).
+
+On a note with a `.tex` attached:
+
+- **∑ LaTeX source** — read the original source.
+- **⚙ Recompile** — re-run the compiler (after editing the .tex, or to pick up improvements).
+
+To regenerate notes for new `.tex` files: `npx tsx scripts/link-tex-notes.ts`.
+After editing `templates/latex/*.tex`, refresh the math macros with
+`npx tsx scripts/gen-katex-macros.ts`.
+
+It is not a TeX engine: there is no page layout or cross-reference numbering, TikZ diagrams
+show as placeholders, and a small fraction of deeply-nested formulas fall back to showing
+their source in red. The original `.tex` is always attached.
+
 ## Note format
 
 YAML frontmatter (`title`, `type`, `week`, `tags`, `status`, `difficulty`) + markdown with:

@@ -1,0 +1,247 @@
+---
+title: MAM4000W Algebra
+type: lecture
+tags: [latex]
+status: needs-review
+source: latex
+assets: [MAM4000W_Algebra.tex]
+---
+> [!warning]
+> Compiled from **MAM4000W_Algebra.tex** by the built-in LaTeX renderer — TikZ diagrams are shown as placeholders. Unhandled commands left as-is: \KwIn, \KwOut, \SetAlgoLined, \SetNoFillComment, \tcc, \vspace, \uIf, \tcp…
+> The original .tex is attached above.
+
+# Some Class — Random Examples
+
+## Random Examples
+
+> [!definition]
+> **Definition: Limit of Sequence in $\bs{\bbR}$**
+>
+> Let $\{s_n\}$ be a sequence in $\bbR$. We say $$\lim_{n\to\infty}s_n=s$$ where $s\in\bbR$ if $\forall$ real numbers $\eps>0$ $\exists$ natural number $N$ such that for $n>N$ $$s-\eps<s_n<s+\eps\text{ i.e. }|s-s_n|<\eps$$
+
+> [!warning]
+> **Question**
+>
+> Is the set ${x-}$axis${\setminus\{\text{Origin}\}}$ a closed set
+
+**Solution.** We have to take its complement and check whether that set is a open set i.e. if it is a union of open balls
+
+> [!warning]
+> **Note**
+>
+> We will do topology in Normed Linear Space  (Mainly $\bbR^n$ and occasionally $\bbC^n$)using the language of Metric Space
+
+> [!theorem]
+> **Claim: Topology**
+>
+> Topology is cool
+
+> [!example]
+> **Example: Open Set and Close Set**
+>
+> | Open Set: | $\bullet$ $\phi$ |
+> | --- | --- |
+> |  | $\bullet$ $\bigcup\limits_{x\in X}B_r(x)$ (Any $r>0$ will do) |
+> |  | $\bullet$ $B_r(x)$ is open |
+> | Closed Set: | $\bullet$ $X,\ \phi$ |
+> |  | $\bullet$ $\overline{B_r(x)}$ |
+> |  | $x-$axis $\cup$ $y-$axis |
+
+> [!theorem]
+> **Theorem**
+>
+> If $x\in$ open set $V$ then $\exists$ $\delta>0$ such that $B_{\delta}(x)\subset V$
+
+> [!example]
+> **Myproof**
+>
+> By openness of $V$, $x\in B_r(u)\subset V$
+>
+> *[TikZ diagram — open the .tex source to view]*
+>
+> 	Given $x\in B_r(u)\subset V$, we want $\delta>0$ such that $x\in B_{\delta} (x)\subset B_r(u)\subset V$. Let $d=d(u,x)$. Choose $\delta $ such that $d+\delta<r$ (e.g. $\delta<\frac{r-d}{2}$)
+>
+> 	If $y\in B_{\delta}(x)$ we will be done by showing that $d(u,y)<r$ but $$d(u,y)\leq d(u,x)+d(x,y)<d+\delta<r$$
+
+> [!theorem]
+> **Corollary**
+>
+> By the result of the proof, we can then show...
+
+> [!theorem]
+> **Mlenma**
+>
+> Suppose $\vec{v_1}, \dots, \vec{v_n} \in \RR[n]$ is subspace of $\RR^n$.
+
+> [!theorem]
+> **Mprop**
+>
+> $1 + 1 = 2$.
+
+## Random
+
+> [!definition]
+> **Definition: Normed Linear Space and Norm $\boldsymbol{\|\cdot\|}$**
+>
+> Let $V$ be a vector space over $\bbR$ (or $\bbC$). A norm on $V$ is function $\|\cdot\|\ V\to \bbR_{\geq 0}$ satisfying
+> 1. $\|x\|=0 \iff x=0$ $\forall$ $x\in V$
+> 2. 	$\|\lambda x\|=|\lambda|\|x\|$ $\forall$ $\lambda\in\bbR$(or $\bbC$), $x\in V$
+> 3.  $\|x+y\| \leq \|x\|+\|y\|$ $\forall$ $x,y\in V$ (Triangle Inequality/Subadditivity)
+> And $V$ is called a normed linear space.
+>
+> 	$\bullet $ Same definition works with $V$ a vector space over $\bbC$ (again $\|\cdot\|\to\bbR_{\geq 0}$) where  becomes $\|\lambda x\|=|\lambda|\|x\|$ $\forall$ $\lambda\in\bbC$, $x\in V$, where for $\lambda=a+ib$, $|\lambda|=\sqrt{a^2+b^2}$
+
+> [!example]
+> **Example: $\bs{p-}$Norm**
+>
+> $V={\bbR}^m$, $p\in\bbR_{\geq 0}$. Define for $x=(x_1,x_2,\cdots,x_m)\in\bbR^m$ $$\|x\|_p=\Big(|x_1|^p+|x_2|^p+\cdots+|x_m|^p\Big)^{\frac1p}$$(In school $p=2$)
+
+**Special Case $\bs{p=1}$**: $\|x\|_1=|x_1|+|x_2|+\cdots+|x_m|$ is clearly a norm by usual triangle inequality.
+**Special Case $\bs{p\to\infty\ (\bbR^m$ with $\|\cdot\|_{\infty})}$**: $\|x\|_{\infty}=\max\{|x_1|,|x_2|,\cdots,|x_m|\}$
+For $m=1$ these $p-$norms are nothing but $|x|$.
+Now exercise
+
+> [!warning]
+> **Question**
+>
+> Prove that triangle inequality is true if $p\geq 1$ for $p-$norms. (What goes wrong for $p<1$ ?)
+
+**Solution.** {**For Property  for norm-2**
+
+#### **When field is $\bbR:$**
+
+ We have to show
+
+$$\begin{align*}
+		         & \sum_i(x_i+y_i)^2\leq \left(\sqrt{\sum_ix_i^2} +\sqrt{\sum_iy_i^2}\right)^2                                       \\
+		\implies & \sum_i (x_i^2+2x_iy_i+y_i^2)\leq \sum_ix_i^2+2\sqrt{\left[\sum_ix_i^2\right]\left[\sum_iy_i^2\right]}+\sum_iy_i^2 \\
+		\implies & \left[\sum_ix_iy_i\right]^2\leq \left[\sum_ix_i^2\right]\left[\sum_iy_i^2\right]
+	\end{align*}$$
+
+So in other words prove $\langle x,y\rangle^2 \leq \langle x,x\rangle\langle y,y\rangle$ where
+	$$\langle x,y\rangle =\sum\limits_i x_iy_i$$
+
+	
+> [!warning]
+> **Note**
+>
+> - $\|x\|^2=\langle x,x\rangle$
+> - $\langle x,y\rangle=\langle y,x\rangle$
+> - $\langle \cdot,\cdot\rangle$ is $\bbR-$linear in each slot i.e.  $$\begin{align*}
+> 				      \langle rx+x',y\rangle=r\langle x,y\rangle+\langle x',y\rangle	\text{ and similarly for second slot}
+> 			      \end{align*}$$ Here in $\langle x,y\rangle$ $x$ is in first slot and $y$ is in second slot.
+
+Now the statement is just the Cauchy-Schwartz Inequality. For proof $$\langle x,y\rangle^2\leq \langle x,x\rangle\langle y,y\rangle $$ expand everything of $\langle x-\lambda y,x-\lambda y\rangle$ which is going to give a quadratic equation in variable $\lambda $
+
+$$\begin{align*}
+		\langle x-\lambda y,x-\lambda y\rangle & =\langle x,x-\lambda y\rangle-\lambda\langle y,x-\lambda y\rangle                                       \\
+		                                       & =\langle x ,x\rangle -\lambda\langle x,y\rangle -\lambda\langle y,x\rangle +\lambda^2\langle y,y\rangle \\
+		                                       & =\langle x,x\rangle -2\lambda\langle x,y\rangle+\lambda^2\langle y,y\rangle
+	\end{align*}$$
+
+Now unless $x=\lambda y$ we have $\langle x-\lambda y,x-\lambda y\rangle>0$ Hence the quadratic equation has no root therefore the discriminant is greater than zero.
+
+#### **When field is $\bbC:$**
+
+Modify the definition by $$\langle x,y\rangle=\sum_i\overline{x_i}y_i$$Then we still have $\langle x,x\rangle\geq 0$}
+
+## Algorithms
+
+\begin{algorithm}[H]
+\KwIn{This is some input}
+\KwOut{This is some output}
+\SetAlgoLined
+\SetNoFillComment
+\tcc{This is a comment}
+\vspace{3mm}
+some code here\;
+$x \leftarrow 0$\;
+$y \leftarrow 0$\;
+\uIf{$ x > 5$} {
+    x is greater than 5 \tcp*{This is also a comment}
+}
+\Else {
+    x is less than or equal to 5\;
+}
+\ForEach{y in 0..5} {
+    $y \leftarrow y + 1$\;
+}
+\For{$y$ in $0..5$} {
+    $y \leftarrow y - 1$\;
+}
+\While{$x > 5$} {
+    $x \leftarrow x - 1$\;
+}
+\Return Return something here\;
+
+*what*
+
+\end{algorithm}
+
+## Canonical Factorisation of Homomorphisms
+
+> [!theorem]
+> **Theorem**
+>
+> {The Canonical Factorisation} {
+>     Let $\Omega$ be a signature and $(A,v)$ and $(B,v')$ be $\Omega$-algebras. Then every homomorphism $f: A \to B$ factors as the composite $f=\iota\tilde{f} \pi _E$:
+>
+> *[TikZ diagram — open the .tex source to view]*
+>
+> This follows from $a \mapsto [a]_E \mapsto f(a) \mapsto f(a)$. Note that $\tilde{f}$ is well defined, as $[x]=[y] \iff f(x)=f(y) \Rightarrow \tilde{f}([x])=\tilde{f}([y])$
+> ~
+> We have the following properties:
+>
+> - $E$ is a congruence on $A$
+> - $f(A)$ is a subalgebra in $B$
+> - $\pi_E$ is an isomorphism iff $f$ is injective iff $E$ is the equality relation, that is, $(x,y) \in E \iff x=y$
+> - $\iota $ is an isomorphism iff $f$ is surjective iff $f(A)=B$
+> - $f$ is an ismorphism iff $E$ is the equality relation and $f(A)=B$
+>
+> }
+>
+> Stuff about Subalgebras needed:
+> \begin{thm}{Subalgebras} {
+> Let $(A,v)$ be an $\Omega$-algebra and $X \subseteq A$. The following conditions are equivalent:
+>
+> - $X$ is closed in $A$ under all operations of the $\Omega$-algebra structure
+> - There exists an $\Omega$-algebra structure $w$ on X such that the inclusion map $X \to A$ is a homomorphism from $(X,w)$ to $(A,v)$
+> - There exists a unique $\Omega$-algebra structure $w$ on X such that the inclusion map $X \to A$ is a homomorphism from $(X,w)$ to $(A,v)$
+>
+> If these conditions hold, we say $X$, equipped with the $w$ above, is a subalgebra of $A$
+> }
+
+Stuff about congruences needed:
+
+> [!theorem]
+> **Theorem**
+>
+> {Congruences}{
+>     Let $(A,v)$ be an $\Omega $-algebra and $E$ an equivalence relation on $A$. The following conditions are equivalent
+>
+> - $E$ forms a subalgebra in $A \times A$ (i.e., $(a_1,b_1),...,(a_n,b_n)\in E \Rightarrow (\omega(a_1,...,a_n), \omega (b_1, ..., b_n)) \in E$) for each $n=0,1,2,...$ and $\omega \in \Omega _n$ and $a_1,...,a_n, b_1, ..., b_n \in A$
+> - There exists an $\Omega $-algebra structure on $A/E$ such that the canonical map $A \to S/E$ is a homomorphism from $(A,v)$ to $(A/E, w)$
+> - There exists a unique $\Omega $-algebra structure on $A/E$ such that the canonical map $A \to S/E$ is a homomorphism from $(A,v)$ to $(A/E, w)$
+>
+> }
+
+Some results needed here:
+
+-
+- An $\Omega$-algebra homomorphism $f: A\to B$ is an isomorphism iff $f$ is bijective
+
+Their proofs:
+
+- The first implication is obvious (has an inverse so must be bijective). The second: Let $g$ be the inverse of bijective map $f$. We need to show that $g$ is a homomorphism. Let $\omega \in \Omega _n$ for $n=0,1,2,..$ and $b_1, \dots, b_n \in B$. Then $g(\omega (b_1, ..., b_n))=g(\omega (f(a_1), ..., f(a_n)))=g(f(\omega (a_1, ..., a_n)))=\omega (a_1,...,a_n)=\omega(g(b_1),...,g(b_n))$ as desired
+
+\end{thm}
+
+> [!theorem]
+> **Theorem**
+>
+> Every group of prime order is cyclic.
+
+> [!definition]
+> **Definition**
+>
+> A group is called cyclic if it is generated by a single element.
