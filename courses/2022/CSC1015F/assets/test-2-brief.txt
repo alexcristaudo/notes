@@ -1,0 +1,48 @@
+Write a program called ‘testf.py’ that asks the user to enter a series of words and integer numbers, one per line, 
+finishing with the word ‘DONE’. The program will count pairs of adjacent values where one is a word and the other 
+a number.
+
+A word consists entirely of letters of the alphabet. A number consists entirely of digits.
+
+Say, for example, the user enters the following series of words and numbers: more, orange, 15, 1093, seven, 1378, 
+2677, 233. There are three pairs of adjacent values that meet the criterion: (orange, 15), (1093, seven) and 
+(seven, 1378).
+
+HINT: 'fred'.isdigit() is False, and '97'.isdigit() is True.
+
+NOTE: (The input from the user is shown in bold font.)
+
+Sample Input/Output:
+
+Enter a value (or 'DONE'):
+
+ninety
+
+Enter a value (or 'DONE'):
+
+199
+
+Enter a value (or 'DONE'):
+
+how
+
+Enter a value (or 'DONE'):
+
+900
+
+Enter a value (or 'DONE'):
+
+43
+
+Enter a value (or 'DONE'):
+
+DONE
+
+Number of word-number/number-word pairs: 3
+
+
+You may consult your paper notes and textbook, but no electronic resources. You may NOT use a search engine or consult any Web resources (including Vula) or files on your flash disk, hard drive, etc.
+
+Submit the testf.py source file contained within a .ZIP file to the Automatic Marker.
+
+Marks will be awarded for correctness only.

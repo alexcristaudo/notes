@@ -1,0 +1,8 @@
+a 0 15 0 ptline 18 19
+a 1 5 0 ptline 8 19
+a 2 10 0 ptline 11 4
+a 3 11 7 ptline 12 11
+a 4 12 14 ptline 13 18
+w
+w
+x
