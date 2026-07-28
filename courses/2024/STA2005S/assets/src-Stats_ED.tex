@@ -1,0 +1,1177 @@
+\documentclass{article}
+
+\usepackage{multirow}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{thmtools}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{framed}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tcolorbox}
+\usepackage{listings}
+\usepackage{minted}
+\usepackage{booktabs}
+\usepackage{capt-of}
+
+\colorlet{LightGray}{White!90!Periwinkle}
+\colorlet{LightOrange}{Orange!15}
+\colorlet{LightGreen}{Green!15}
+
+\newcommand{\HRule}[1]{\rule{\linewidth}{#1}}
+
+\declaretheoremstyle[name=Theorem,]{thmsty}
+\declaretheorem[style=thmsty,numberwithin=section]{theorem}
+\tcolorboxenvironment{theorem}{colback=LightGray}
+
+\declaretheoremstyle[name=Proposition,]{prosty}
+\declaretheorem[style=prosty,numberlike=theorem]{proposition}
+\tcolorboxenvironment{proposition}{colback=LightOrange}
+
+\declaretheoremstyle[name=Principle,]{prcpsty}
+\declaretheorem[style=prcpsty,numberlike=theorem]{principle}
+\tcolorboxenvironment{principle}{colback=LightGreen}
+
+\setstretch{1.2}
+\geometry{
+    textheight=9.5in,
+    textwidth=7in,
+    top=0.75in,
+    headheight=12pt,
+    headsep=25pt,
+    footskip=30pt
+}
+
+% ------------------------------------------------------------------------------
+
+\newcommand{\assignmentTitle}[3]{
+    
+  \begin{center}
+  % line length = 209pt = 13 * 19 (length of "Binary Search Trees")
+  \rule[0pt]{\textwidth}{1.5pt} \\ ~\\
+		\LARGE {\textwidth{\textbf{#3}} } \\  % title 
+  \rule[0pt]{\textwidth}{1.5pt} 
+  \end{center} % Large text is 11pt, so 
+  
+   ~\\ ~\\ ~\\ ~\\ ~\\ ~\\
+		% \HRule{1.5pt} \\  
+
+   %  \noindent\rule{\linewidth}{.6pt}
+    \begin{figure}[hbt!]
+    \centering
+        \centering
+        \includegraphics[width=\textwidth * 2/4]{ed_assets/uct.png} % Path to the second image
+        
+        \label{fig:acf}
+    
+\end{figure}
+   ~\\ ~\\ ~\\ ~\\ ~\\ ~\\
+   \begin{center}
+   \large {By:} \large{ \textbf{#1}} \\
+          \large{Student Numbers:} \large{ \textbf{#2}}
+   \end{center}
+          
+}
+
+\begin{document}
+
+% ------------------------------------------------------------------------------
+% Cover Page and ToC
+% ------------------------------------------------------------------------------
+\assignmentTitle{Alexander Cristaudo, Jesse Brodkin}{CRSALE010, BRDJES012}{Experimental Design}
+%^\title{ 
+%		}
+%\date{Due: 19 April 2023}
+%\author{\textbf{CRSALE010}}
+%\maketitle
+
+\newpage
+\section{Introduction}
+Fertilizer is crucial in modern agriculture and gardening due to its numerous benefits. 
+It can significantly enhance crop yields, promote plant growth, and improve overall plant health. Recognizing the importance of fertilizers, a local farming company aims to investigate the effectiveness of four popular fertilizer brands across various crop types and terrains. This study will consider different soil types and land gradients to provide a comprehensive analysis. \\ 
+The primary goal of this research is to determine which fertilizer performs best under diverse conditions. By identifying the most effective fertilizer, the company can increase crop production, generate more income, and provide high-quality, organic produce to supermarkets. To achieve this objective, an experimental design will be implemented using four popular fertilizers:
+\begin{itemize}
+    \item Omnia Fertilizer (A)
+    \item Purefert (B)
+    \item LM Marketing (C)
+    \item Kynoch Fertilizer (D)
+\end{itemize}
+This design will help determine if there are significant differences between the fertilizers and, if so, quantify these differences.
+% Why do we care (why does fertilizer matter), why are we doing it \\
+% Give context (best yields for farms in region). 
+\section{Objectives and A-Priori Hypothesis}
+The main objectives of this experiment are:
+\begin{itemize}
+    \item To collect data following the experimental design
+    \item To analyze the collected data thoroughly
+    \item To determine if there are significant differences among the fertilizers
+    \item To quantify any observed differences between fertilizers (provided there is a significant difference observed)
+    \item To assess the validity of the experimental model
+    \item To evaluate the necessity of the introduced blocking factors
+\end{itemize}
+
+Based on our current knowledge and expectations, we have formulated the following hypotheses:
+
+\begin{itemize}
+    \item There will be a significant effect of fertilizer type on crop growth. This hypothesis is based on the understanding that fertilizers contribute substantially to the nutrients that crops receive.
+    \item We predict that Omnia Fertilizer (A) will promote the best crop growth. This prediction is based on its widespread use in the agricultural industry.
+    \item The blocking factors (soil type, plant type, and gradient) will prove necessary for controlling variability in the experiment.
+    \item The experimental model will be valid, meeting all the assumptions outlined in the Model Checking section.
+\end{itemize}
+
+\section{Experimental Design}
+The experiment will be conducted using the following materials and setup:
+\begin{itemize}
+    \item 16 identical pots (pots are identical as a control measure)
+    \item 4 different types of soil: Sandy, Clay, Black, and Peat
+    \item 4 different plant types: Radish, Carrot, Cucumber, and Beetroot
+    \item 4 different soil gradients: $0 ^{\circ}, 10^{\circ}, 20^{\circ}, \text{ and } 30^{\circ}$
+\end{itemize}
+In this setup, the experimental units are the pots, while the observational units are the plants themselves. The response variable will be the yield of the plants (measured in grams) after a growth period of 6 weeks.
+The experiment incorporates three blocking factors: The soil type, the plant type, and the soil gradient \\ ~\\
+Each of these factors could potentially affect plant growth, necessitating their inclusion as blocking factors. The treatments in this experiment are the four different fertilizers. To accommodate these multiple factors, we will use a Graeco-Latin square design. A Graeco-Latin Square is formed by taking a Latin Square and superimposing a second square with a different blocking factor in Greek letters. For our example, the Greek letters $\alpha, \beta, \gamma, \text{ and } \delta$ are the gradients $0^{\circ}, 10^{\circ}, 20^{\circ}, \text{ and } 30^{\circ}$ (in a random order, assigned during randomisation). An example of a Graeco-Latin square is:
+
+\begin{figure}[h]
+    \centering
+    \begin{minipage}{0.36\textwidth}
+        \centering
+        
+        \begin{center}
+        Latin-Square for 2 blocking factors
+        \scalebox{0.9}{
+        \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        \multirow{2}{*}{Plant} & \multicolumn{4}{c|}{Soil Type} \\ \cline{2-5}
+        & Sandy & Clay & Black & Peat \\ \hline
+Radish & A & B & C & D \\ \hline
+Carrot & B & A & D & C \\ \hline
+Cucumber & C & D & A & B \\ \hline
+Beetroot & D & C & B & A \\ \hline
+\end{tabular} 
+}
+\end{center}
+        
+    \end{minipage}\hfill
+    +
+    \begin{minipage}{0.2\textwidth}
+        \centering
+
+        
+        \begin{center}
+        Third blocking factor
+        \scalebox{1.2}{
+        \begin{tabular}{|c|c|c|c|}
+        \hline
+        % \multirow{2}{*}{Plant} & \multicolumn{4}{c|}{Soil Type} \\ 
+        %\cline{2-5}
+        
+ $\alpha$ & $\beta$ & $\gamma$ & $\delta$ \\ \hline
+ $\gamma$ & $\delta$ & $\alpha$ & $\beta$ \\ \hline
+ $\delta$ & $\gamma$ & $\beta$ & $\alpha$ \\ \hline
+ $\beta$ & $\alpha$ & $\delta$ & $\gamma$ \\ \hline
+\end{tabular} 
+}
+\end{center}
+        
+    \end{minipage} \hfill
+    =
+    \begin{minipage}{0.38\textwidth}
+        \centering
+        \begin{center}
+        Graeco-Latin square
+        \scalebox{0.9}{
+        \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        \multirow{2}{*}{Plant} & \multicolumn{4}{c|}{Soil Type} \\ \cline{2-5}
+        & Sandy & Clay & Black & Peat \\ \hline
+Radish & \textcolor{red}{A$\alpha$} & B$\beta$ & C$\gamma$ & D$\delta$ \\ \hline
+Carrot & B$\gamma$ & A$\delta$ & D$\alpha$ & C$\beta$ \\ \hline
+Cucumber & C$\delta$ & D$\gamma$ & A$\beta$ & B$\alpha$ \\ \hline
+Beetroot & D$\beta$ & C$\alpha$ & B$\delta$ & A$\gamma$ \\ \hline
+\end{tabular}
+}
+\end{center}
+    \end{minipage}
+    
+\end{figure}
+In this design, each cell represents a unique combination of plant type, soil type, gradient, and fertilizer. For example, the \textcolor{red}{$A\alpha$} in the Sandy column and Radish row represents a pot, with sandy soil, radish planted, and the soil sculpted to a gradient of $\alpha$ which is exposed to fertilizer 'A'.
+An alternative interpretation is viewing the Greek letters as a $z$-axis in 3D space, representing the different gradient levels. The $x$-axis represents the different plants, and the $y$-axis is the soil type. This is represented by:
+
+\begin{figure}[hbt!]
+    \centering
+    \begin{minipage}{0.27\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{ed_assets/overall_view.png} % Path to the second image
+        
+        \caption{Overall view of the treatments in this cubic structure}
+        \label{fig:image1}
+    \end{minipage}\hfill
+    \begin{minipage}{0.27\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{ed_assets/xz-view} % Path to the second image
+        \caption{A view of the $xz$-plane (showing the different $x$ and $z$ components)}
+        \label{fig:image2}
+    \end{minipage} \hfill
+    \begin{minipage}{0.27\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{ed_assets/xy-view} % Path to the first image
+        \caption{A view of the $xy$-plane (showing the different $x$ and $y$ components)}
+        \label{fig:image3}
+    \end{minipage}
+    
+\end{figure}
+
+% Make a visual representation of your experimental design
+% \\ in excel
+% \\ use ggplot and other libraries to make it look nice \\
+% Explain blocking factors
+% \\ why we design like this
+% \\ treatment factors
+% \\ mention any flaws -> explain why this shouldn't be a problem
+
+To increase the reliability of our results, we will create 5 replicates for each experimental unit. This will be achieved by using four additional pots with the same blocking values and fertilizer for each unique combination. These replicates will be grown simultaneously but independently and placed apart to ensure that weather conditions and other nuisance factors are not identical across replicates. \\ 
+
+We anticipate several potential challenges in conducting this experiment:
+\begin{enumerate}
+    \item Uneven water distribution among pots
+    \item Variations in sunlight exposure
+    \item Temperature fluctuations
+    \item Pest infestations
+    \item Unpredictable weather conditions (e.g., hailstorms)
+\end{enumerate}
+To mitigate these difficulties, we will implement the following control measures:
+\begin{enumerate}
+    \item Water management: Each plant will receive a measured amount of water corresponding to its specific needs (e.g., beetroot needs 2.5cm of water every week).
+    \item Sunlight exposure: Pots with the same plants will be kept close to each other to ensure approximately equal sunlight exposure.
+    \item Randomized placement: The placement of pots will be randomized to minimize systematic environmental effects. (this is done when assigning factors to experimental units in Randomisation)
+    \item Regular monitoring: The experiment will be closely monitored for any signs of pest infestation or disease.    
+\end{enumerate}
+While we cannot control weather conditions, the close proximity of the pots will ensure that all plants are exposed to the same weather events.
+
+\section{Randomization}
+\subsection{Theory}
+Start with a standard Graeco-Latin Square. The Graeco-Latin square can be thought of as a Latin Square with a third blocking factor added which is represented by the Greek letters: $\alpha, \beta, \gamma, \delta$. In our case each row represents a unique ‘plant’, each column represents a unique type of ‘soil’ and each Greek letter represents a level of ‘gradient’. Let $A, B, C, D$ be the different fertilizers and the Greek letters represent the gradient (assigned later). We randomize as follows:
+
+\begin{enumerate}
+    \item Start with the $4 \times 4 $ Latin square: \\
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\multirow{2}{*}{Plant} & \multicolumn{4}{c|}{Soil Type} \\ \cline{2-5}
+ & Sandy & Clay & Black & Peat \\ \hline
+Radish & A & B & C & D \\ \hline
+Carrot & B & A & D & C \\ \hline
+Cucumber & C & D & A & B \\ \hline
+Beetroot & D & C & B & A \\ \hline
+\end{tabular} 
+\end{center} ~\\ Now we randomise this Latin square. This involves getting a random permutation of the rows and afterwards, a random permutation of the columns. 
+
+\begin{minipage}{0.6\textwidth}
+        ~\\
+        \item Then to randomize the Greek letters, we get a random permutation of $(0, 10, 20, 30)$. Then the first value represents the gradient corresponding to $\alpha$, the second to $\beta$, the third to $\gamma$ and the fourth to $\delta$. This will effectively randomise the 4 different $xy$-planes representing each Greek letter, visualised in Figure 4 on the right
+    \end{minipage}
+\begin{minipage}{0.3\textwidth}
+    % \begin{figure}[hbt!]
+    \begin{flushright}
+        \includegraphics[width=0.7\linewidth]{ed_assets/random_greek.png}
+        \centering
+        \captionof{figure}{Greek letters $xy$-plane}
+        \label{fig:greek}
+    % \end{figure} 
+    \end{flushright}
+
+\end{minipage}
+
+
+    
+\item Now we superimpose the Greek letters onto the Latin square to get our Graeco-Latin square
+
+\item Now we need to assign the letters $A,B,C,D$ to different fertilizers. This will be done by listing the fertilizers Omnia, Purefert, LM, Kynoch, then generating a random permutation of $(A,B,C,D)$, then the first letter is assigned to Omnia, second letter to Purefert, third letter to LM and fourth letter to Kynoch.
+
+\item Finally, we get a random order in which the plants are planted, and a random order that the plants are harvested to reduce time-based bias. We will to this in a similar fashion, labeling experimental units as follows: 1-4 are the units in the first row, from left to right, of the Graeco-Latin square. 5-8 is for the second row, 9-12 for the third, and 13-16 for the fourth. We then generate a random permutation of $(1, 2, ..., 16)$ and that is our order. We have to get 2 permutations, one for planting, and one for harvesting
+            
+\end{enumerate}
+
+\subsection{R Code}
+The following R function was used to randomise the structure of the Graeco-Latin Square: 
+\par\noindent\rule{\textwidth}{0.4pt}
+\vspace{-25pt} % Adjust this value to reduce space
+\begin{minted}{r}
+seed <- 42 # random seed (for reproducibility)
+tmts <- c("A", "B", "C", "D") # treatments
+gradient <- c("0", "10", "20", "30") # gradient angles
+outdesign <- design.graeco(tmts, gradient, seed = seed) 
+glsd <- outdesign$book
+# Assign labels to the rows
+levels(glsd$row) <- c("Beetroot", "Cucumber", "Radish", "Carrot")
+# Assign labels to the columns
+levels(glsd$col) <- c("Black", "Clay", "Peat", "Sandy")
+# Renaming columns
+colnames(lsd) <- c("plots", "plants", "soil", "treatment", "gradient")  
+\end{minted}
+\vspace{-15pt} % Adjust this value to reduce space
+\par\noindent\rule{\textwidth}{0.4pt}
+The design.graeco(...) (from the agricolae package) generates a random Graeco-Latin square design, taking in the treatments and greek letters (gradients) as parameters to randomly assigned them to experimental units in a valid manner. The rows are the plants, in the order: Beetroot, Cucumber, Radish, and Carrot. The columns are the soil types, in the order: Black, Clay, Peat, and Sandy. This order was determined prior to creating the Graeco-Latin square structure by using the sample(...) function. This takes in a list and returns a random permutation of it. This was done to eliminate any bias based on assigning what columns and rows are represent what values. 
+\par\noindent\rule{\textwidth}{0.4pt}
+\vspace{-25pt} % Adjust this value to reduce space
+\begin{minted}{r}
+sample(c("Radish", "Carrot", "Cucumber", "Beetroot"))
+sample(c("Sandy", "Clay", "Black", "Peat"))
+\end{minted}
+\vspace{-15pt} % Adjust this value to reduce space
+\par\noindent\rule{\textwidth}{0.4pt}
+
+\section{Design after Randomization}
+We ended up with the following 16 unique treatment and blocking combinations: \\
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{llllll}
+\toprule
+\textbf{plots} & \textbf{plants} & \textbf{soil} & \textbf{treatment} & \textbf{gradient} \\
+\midrule
+101 & Beetroot  & Black  & D & 0  \\
+102 & Beetroot  & Clay   & A & 10 \\
+103 & Beetroot  & Peat   & C & 30 \\
+104 & Beetroot  & Sandy  & B & 20 \\
+201 & Cucumber  & Black  & A & 30 \\
+202 & Cucumber  & Clay   & D & 20 \\
+203 & Cucumber  & Peat   & B & 0  \\
+204 & Cucumber  & Sandy  & C & 10 \\
+301 & Radish    & Black  & C & 0  \\
+302 & Radish    & Clay   & B & 30 \\
+303 & Radish    & Peat   & D & 10 \\
+304 & Radish    & Sandy  & A & 0  \\
+401 & Carrot    & Black  & B & 10 \\
+402 & Carrot    & Clay   & C & 20 \\
+403 & Carrot    & Peat   & A & 20 \\
+404 & Carrot    & Sandy  & D & 30 \\
+\bottomrule
+\end{tabular}
+\caption{Graeco-Latin Square Structure}
+\end{table}
+
+\section{Pilot Study}
+Although we did not perform a pilot experiment for this study, it would have been beneficial to do so. Here's an expanded description of how we would conduct a pilot study (for the following values: Beetroot, Fertilizer A, Sandy Soil, $10^{\circ}$ gradient
+\begin{enumerate}
+    \item Setup: 
+    \begin{itemize}
+        \item Use one pot with sandy soil
+        \item Plant a beetroot seed
+        \item Apply Omnia Fertilizer (Fertilizer A)
+        \item Position the pot in full sun (ideal for beetroot growth)
+    \end{itemize}
+    \item Soil preparation:
+    \begin{itemize}
+        \item Layer the soil in the pot at an angle of approximately $10 ^{\circ}$
+        \item Plant the seed in the soil
+        \item Apply an initial dose of Fertilizer A
+    \end{itemize}
+    \item Care Routine:
+    \begin{itemize}
+        \item Water the beetroot with approximately 2.5cm of water every week
+        \item Apply fertilizer every 2 weeks
+    \end{itemize}
+    \item Duration: 
+    \begin{itemize}
+        \item Let the beetroot grow for 6 weeks
+    \end{itemize}
+    \item Harvesting and recording the data:
+    \begin{itemize}
+        \item After 6 weeks, carefully extract the beetroot
+        \item Clean the beetroot thoroughly
+        \item Use a scale and measure how much the beetroot weighs
+        \item Record the weight of the beetroot as the observation
+        \item Note any challenges that occurred during the 6 weeks and adjust the procedure accordingly
+    \end{itemize}
+    
+\end{enumerate}
+\section{The Model}
+\begin{center}
+We have 3 blocking factors and one treatment factor, each with 4 levels. Thus, our model is represented: 
+    \[ \begin{array}{c}
+    Y_{ijkl} = \mu + \alpha_i + \beta _j + \gamma _k + \tau _l + e_{ijkl}, \text{ with } 1 \le i,j,k,l \le 4 \text{ and} \\ Y_{ijkl} \text{ is the weight measured (response) }\\
+    \mu \text{ is the overall mean }\\
+    \alpha_{i} \text{ is the } i \text{th plants effect } \\
+    \beta_{j} \text{ is the } j \text{th soils effect } \\
+    \gamma_{k} \text{ is the } k \text{th gradients effect } \\
+    \tau_{l} \text{ is the } l \text{th fertilizers effect }  \\
+    e_{ijkl} \sim N(0, \sigma^2) \text{ and the errors are independent of each other }
+    \end{array}
+    \]
+\end{center}
+\section{Data Collection}
+Based on the model, there is a true value for the general mean, 4 true values for each blocking effect and 4 true values for each fertilizer. On this, an error term is added. We define arbitrary values to these parameters and add a random error term for each experimental unit to generate data. This was done by using a HashMap data structure, which assigns a string name to a number. The R code is:
+\par\noindent\rule{\textwidth}{0.4pt}
+\vspace{-25pt} % Adjust this value to reduce space
+\begin{minted}{r}
+h <- hash() # create the HashMap
+h[["Radish"]] = 1.5 # assign string "Radish" to 1.5
+h[["Carrot"]] = 1
+h[["Cucumber"]] = 0
+h[["Beetroot"]] = -2.5
+h[["Sandy"]] = 1.5
+h[["Clay"]] = 1
+h[["Black"]] = 0
+h[["Peat"]] = -2.5
+h[["0"]] = 0.4
+h[["10"]] = 0.2
+h[["20"]] = -0.3
+h[["30"]] = -0.3
+h[["A"]] = 2
+h[["B"]] = -4
+h[["C"]] = 5.5
+h[["D"]] = -3.5
+\end{minted}
+\vspace{-15pt} % Adjust this value to reduce space
+\par\noindent\rule{\textwidth}{0.4pt}
+Then whenever, for example, $h[["A"]]$ is used, the value 2 is obtained and used instead. After this, the Graeco-Latin square is created (as outlined in Randomisation). Then a 'frame' is created to account for more observations (replicates). This duplicates the values in 'glsd', by using rbind(...) to bind the rows returned from replicate(...), which replicates 'glsd' 'num\_replicates' times. The do.call(...) function applies the rbind(...) function onto the replicate(...)
+\par\noindent\rule{\textwidth}{0.4pt}
+\vspace{-25pt} % Adjust this value to reduce space
+\begin{minted}{r}
+num_replicates <- 5
+n_obs <- num_replicates * nrow(glsd)
+frame <- do.call(rbind, replicate(num_replicates, glsd, simplify = FALSE))
+\end{minted}
+\vspace{-15pt} % Adjust this value to reduce space
+\par\noindent\rule{\textwidth}{0.4pt}
+Finally, a loop is used to generate 'n\_obs' different observations, adding a random error term:
+
+\par\noindent\rule{\textwidth}{0.4pt}
+\vspace{-25pt} % Adjust this value to reduce space
+\begin{minted}{r}
+general_mean <- 50
+response <- vector(mode = "numeric", length = n_obs)
+for (i in 1:n_obs) {
+   plant <- as.character(glsd$plants[(i-1) %% 16 + 1])
+   soil <- as.character(glsd$soil[(i-1) %% 16 + 1])
+   treat <- as.character(glsd$treatment[(i-1) %% 16 + 1])
+   grad <- as.character(glsd$gradient[(i-1) %% 16 + 1])
+
+   # deterministic component
+   y <- general_mean + h[[plant]] + h[[soil]] + h[[treat]] + h[[grad]]
+
+   # Random component
+   error <- rnorm(1, 0, 3)
+
+   response[i] = y + error
+} 
+frame$response <- response
+\end{minted}
+\vspace{-15pt} % Adjust this value to reduce space
+\par\noindent\rule{\textwidth}{0.4pt}
+
+\section{Experimental Methods}
+When fitting the data, we will use an ANOVA table. This will include the fertilizer, and all 3 blocking factors to determine whether there is an effect of the fertilizers, and whether blocking improved the design. This will use the aov(...) method. We will represent the fertilizer responses in a modified boxplot, from ggplot(...) using geom\_violin(...) to show a compact display of a continuous distribution. Based on this model, we assume the following:
+\begin{itemize}
+    \item The errors are normal. For this, we will use a normal qqPlot(...) and plot a histogram of the residuals, The Shapiro-Wilk test will get the p-value for testing normality (from shapiro.test(...))
+    \item The errors are independent. We will plot the autocorrelation function for the residuals, using the acf(...) function. We will also use the Durbin-Watson test, which is a test for autocorrelation in the residuals. This uses the durbinWatsonTest(...) function.
+    \item Equal variances in the error terms. For this, we use the Levene test, which assesses the equality of variances. The R function is leveneTest(...)
+    \item The model assumes no interactions between plants, gradient, soil and fertilizer. We use the aov(...) function with the interaction to calculate the p-value for no interaction
+\end{itemize}
+Should there be a significant difference between fertilizers, Tukey's 95\% confidence intervals for all pairwise contrasts of differences between means will be displayed, using aov(...) to get the model, and TukeyHSD(...) to create the confidence intervals. This will allow us to see which fertilizers are significantly different.
+
+\section{Exploratory Data Analysis}
+The data produced is found in Appendix A. \\ 
+We first consider the modified version of a boxplot of the fertilizers against the response, based on the following code:
+
+\par\noindent\rule{\textwidth}{0.4pt}
+\vspace{-25pt} % Adjust this value to reduce space
+\begin{minted}{r}
+ggplot(frame, aes(x = treatment, y = response, fill = treatment)) +
+  geom_violin(trim = FALSE) +
+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5, size = 14, face = "bold")) +
+  geom_boxplot(width = 0.4, fill = "white", alpha = 0.5) +
+  labs(title = "Fertilizers against Weight (g)", x = "Fertilizer", y = "Weight (g)") +
+  theme(legend.position = "none")
+\end{minted}
+\vspace{-15pt} % Adjust this value to reduce space
+\par\noindent\rule{\textwidth}{0.4pt}
+\begin{figure}[hbt!]
+        \centering
+        \includegraphics[width=0.5\linewidth]{ed_assets/boxplot1.png}
+        \caption{Plotting the fertilizers against growth}
+        \label{fig:b1}
+    \end{figure} 
+According to Figure 5, it seems as if Fertilizer C produced the greatest yield, followed by Fertilizer A, with B and D having similar yields (with D slightly higher). The variance of A, B, and D appear similar, with C only slightly bigger (by considering their interquartile range). The advantage of this plot over a standard boxplot is that this shows the density of the observations as well. From this, we see that most of D's data is much higher than B, so we expect D to be higher than B
+
+\section{ANOVA}
+We perform an ANOVA F test by running the following R code: 
+\par\noindent\rule{\textwidth}{0.4pt}
+\vspace{-25pt} % Adjust this value to reduce space
+\begin{minted}{r}
+model <- aov(response ~ treatment + soil + plants + gradient, data = frame)
+summary(model)
+\end{minted}
+\vspace{-15pt} % Adjust this value to reduce space
+\par\noindent\rule{\textwidth}{0.4pt}
+The result of this was:
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{llllllll}
+\toprule
+\textbf{ } & \textbf{Df} & \textbf{Sum Sq} & \textbf{Mean Sq} & \textbf{F value} & \textbf{Pr(\textgreater F)} & \textbf{ }\\
+\midrule
+treatment & 3  & 1160.4  & 386.8 & 52.076 & \textless 2e-16 \\
+soil & 3  & 80.9   & 27.0 & 3.628 & 0.0173 \\
+plants & 3  & 262.0   & 87.3 & 11.757 & 2.8e-0.6\\
+gradient & 3  & 40.9  & 13.6 & 1.837 & 0.1488\\
+Residuals & 67  & 497.7  & 7.4 & ~ & ~ \\
+
+\bottomrule
+\end{tabular}
+\caption{ANOVA Result}
+
+\end{table}
+The F statistic for differences among the treatment means is $F = 52.076$. The p-value is $<2 \times 10^{-16}$, giving very strong evidence to suggest that there are differences between the
+fertilizers with respect to plant growth. Since, for each of the blocking factors, we have $F > 1$, we can conclude that blocking for that factor increased the efficiency of the design. There also appears to be more evidence that the plants used have a larger impact than the soil used and that the soil used had a larger impact than the gradient, with the gradient not making a notable impact.
+
+\section{Model Checking}
+\subsection{Normality of Residuals}
+A key assumption in a Graeco-Latin square assumption is that the residuals $e_{ijkl} \sim N(0, \sigma^2)$ for some error variance $\sigma^2$, and for every $\{ijkl\} \in D$. We will test this assumption by using a normal qqPlot() ( taking in the residuals) and a histogram of the residuals (using ggplot(...), with geom\_histogram(..) to plot the histogram, and stat\_function(...) to overlay a normal distribution). The following R code achieved this: 
+\par\noindent\rule{\textwidth}{0.4pt}
+\vspace{-25pt} % Adjust this value to reduce space
+\begin{minted}{r}
+1. qqPlot(resid(model), xlab = "Normal quantities", 
+    ylab = "Residuals from the data", main = "A normal Q-Q plot of the residuals") 
+2. ggplot(data.frame(x = resid(model)), aes(x)) +
+    geom_histogram(aes(y = ..density..), bins = 10, fill = "lightblue", 
+                 color = "black") + 
+    stat_function(fun = dnorm, args = list(mean =0, sd = sd(resid(model))), 
+                color = "red", size = 1) +
+    labs(title = "Histogram of the residuals with Normal Distribution Curve", 
+       x = "Value", y = "Density")
+\end{minted}
+\vspace{-15pt} % Adjust this value to reduce space
+\par\noindent\rule{\textwidth}{0.4pt}
+
+
+\begin{figure}[hbt!]
+    \centering
+        \centering
+        \includegraphics[width=\textwidth * 3/4]{ed_assets/qqplot.png} % Path to the second image
+        \caption{qqPlot of the residuals}
+        \label{fig:qq}
+    
+\end{figure}
+\newpage
+The blue region provides a visual guide for assessing whether the observed data points (the residuals, represented by dots on the plot) follow a normal distribution. The blue region represents a 95\% confidence envelope, thus since all of the points are in this region, it suggests the residuals are normally distributed
+
+\begin{figure}[hbt!]
+    \centering
+        \centering
+        \includegraphics[width=\textwidth * 2/4]{ed_assets/hist.png} % Path to the second image
+        \caption{Histogram of the residuals, overlayed with a normal distribution}
+        \label{fig:hist}
+    
+\end{figure}
+As seen above, the distribution of the residuals seems slightly skewed to the left, but not enough to discredit the normality assumption. Otherwise, the residuals seem to follow a normal distribution. The Shapiro-Wilk test confirms this, returning a p-value of 0.543 from the following code: \newpage
+\par\noindent\rule{\textwidth}{0.4pt}
+\vspace{-25pt} % Adjust this value to reduce space
+\begin{minted}{r}
+shap_test <- shapiro.test(residuals(model))
+shap_test["p.value"]
+\end{minted}
+\vspace{-15pt} % Adjust this value to reduce space
+\par\noindent\rule{\textwidth}{0.4pt}
+
+\subsection{Interactions}
+A Graeco-Latin Square design assumes no interaction between the treatments and all the blocking factors (including all blocking factors with each other). Considering there are so many factors at play, an interaction plot may not be useful. Instead, an ANOVA test is run to test the interaction between 'plants' and 'soil':
+\par\noindent\rule{\textwidth}{0.4pt}
+\vspace{-25pt} % Adjust this value to reduce space
+\begin{minted}{r}
+mod <- aov(response ~ treatment + gradient + plants * soil, data = frame)
+anova(mod)["plants:soil", "Pr(>F)"]
+\end{minted}
+\vspace{-15pt} % Adjust this value to reduce space
+\par\noindent\rule{\textwidth}{0.4pt}
+The result is a p-value of 0.94, suggesting there is no interaction between these 2 factors. The same test can be performed for all pairwise combinations of the factors. The results of this are all 0.94:
+\par\noindent\rule{\textwidth}{0.4pt}
+\vspace{-25pt} % Adjust this value to reduce space
+\begin{minted}{r}
+anova(aov(response~treatment+gradient*plants+soil,data=frame))["gradient:plants", "Pr(>F)"]
+anova(aov(response~treatment*gradient+plants+soil,data=frame))["treatment:gradient", "Pr(>F)"]
+anova(aov(response~treatment+gradient*soil+plants,data=frame))["gradient:soil", "Pr(>F)"]
+anova(aov(response~treatment*soil+plants+gradient,data=frame))["treatment:soil", "Pr(>F)"]
+anova(aov(response~treatment*plants+gradient+soil,data=frame))["treatment:plants", "Pr(>F)"]
+\end{minted}
+\vspace{-15pt} % Adjust this value to reduce space
+\par\noindent\rule{\textwidth}{0.4pt}
+
+\subsection{Independence of Residuals}
+Our model assumes that the residuals are independent. To test this, the autocorrelation graphing function, acf, and the Durbin-Watson test can be performed. The R code for this is: 
+\par\noindent\rule{\textwidth}{0.4pt}
+\vspace{-25pt} % Adjust this value to reduce space
+\begin{minted}{r}
+acf(resid(model), main = "Autocorrelation Function for the Residuals")
+durbinWatsonTest(model)
+\end{minted}
+\vspace{-15pt} % Adjust this value to reduce space
+\par\noindent\rule{\textwidth}{0.4pt}
+The Durbin-Watson test returns a p-value of 0.692. The graph is:
+\begin{figure}[hbt!]
+    \centering
+        \centering
+        \includegraphics[width=\textwidth * 5/9]{ed_assets/acf.png} % Path to the second image
+        \caption{ACF for the Residuals}
+        \label{fig:acf}
+    
+\end{figure} \newpage
+The autocorrelation is below 0.2 for all lags $\ge 1$. This suggests that the residuals are independent
+
+\subsection{Equality of Variance}
+The variance of the residuals must be the same, regardless of the blocking and treatment factor of that experimental unit. A Levene test is used to check for equality of variance. The R code for this is: 
+\par\noindent\rule{\textwidth}{0.4pt}
+\vspace{-25pt} % Adjust this value to reduce space
+\begin{minted}{r}
+leveneTest(response ~ treatment * soil * gradient * plants, data = frame)
+\end{minted}
+\vspace{-15pt} % Adjust this value to reduce space
+\par\noindent\rule{\textwidth}{0.4pt}
+
+The output is a p-value of 0.582, indicating that there is no evidence to suggest that the variances are different among all the groups
+\section{Confidence Intervals and Contrasts}
+We wish to compare all the treatments. Since we are doing all pairwise comparisons, Tukey's method is the best choice. The R code to display the 95\% confidence intervals for the difference in means of the fertilizers is given by:
+\par\noindent\rule{\textwidth}{0.4pt}
+\vspace{-25pt} % Adjust this value to reduce space
+\begin{minted}{r}
+aov_treat <- aov(response ~ treatment, data = frame)
+hsd_treat <- TukeyHSD(aov_treat)
+plot(hsd_treat, las = 1)
+\end{minted}
+\vspace{-15pt} % Adjust this value to reduce space
+\par\noindent\rule{\textwidth}{0.4pt}
+The resulting graph is:
+\begin{figure}[hbt!]
+    \centering
+        \centering
+        \includegraphics[width=\textwidth]{ed_assets/CI_1.png} % Path to the second image
+        \caption{Tukey's 95\% confidence intervals}
+        \label{fig:acf}
+    
+\end{figure}
+\\ We see that there is a significant positive difference in $C-D$ and $C-B$ since 0 is not in either confidence interval. On the other hand, 0 is contained in the confidence interval for $C-A$. We can thus suggest that $C$ is better than both $B$ and $D$, but not necessarily $A$. Similarly, the data suggests $A$ is better than $B$ and $D$. So the 2 best fertilizers are $A$ and $C$. $B-D$ contains $0$ as well, so we cannot conclude that either is better than the other. Thus the order of fertilizers is $D=B<A=C$.
+
+\section{Conclusion}
+The experiment aimed to determine the most effective fertilizer among four popular brands (Omnia, Purefert, LM Marketing, and Kynoch) for various crop types, soil types and land slopes. Using a Graeco-Latin square design, allowing for three blocking factors: soil type, plant type, and soil gradient. The response variable was plant yield in grams after 6 weeks. We can infer that the best fertilizers are A and C and that the model we used was reliable given the data obtained (with respect to independent and normal error with equal variances, and no interactions). There was a significant difference in the fertilizers, but fertilizer A (Omnia) was not uniquely the best fertilizer. The blocking factors were necessary. Some limitations include that the experiment was conducted in pots, possibly not representing real-world farming and that the study was only over 6 weeks. This is not a problem in that it provides a cheap alternative, and the crops chosen mature very quickly so the limited time frame is not a major concern. This study could be improved by allowing for more replicates, to get stronger and more reliable means of fertilizers, and by increasing the time frame
+
+\newpage
+
+\section{Appendix}
+
+\subsection{Appendix A - Data}
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{|c|c|c|c|c|c|}
+
+\hline
+plots & plants & soil & treatment & gradient & response \\
+\hline
+101 & Beetroot & Black & D & 0 & 42.44103 \\
+102 & Beetroot & Clay & A & 10 & 55.61700 \\
+103 & Beetroot & Peat & C & 30 & 49.49524 \\
+104 & Beetroot & Sandy & B & 20 & 41.77122 \\
+201 & Cucumber & Black & A & 30 & 51.20965 \\
+202 & Cucumber & Clay & D & 20 & 43.61643 \\
+203 & Cucumber & Peat & B & 0 & 44.80407 \\
+204 & Cucumber & Sandy & C & 10 & 55.62197 \\
+301 & Radish & Black & C & 20 & 54.75571 \\
+302 & Radish & Clay & B & 30 & 43.75314 \\
+303 & Radish & Peat & D & 10 & 46.21739 \\
+304 & Radish & Sandy & A & 0 & 51.45373 \\
+401 & Carrot & Black & B & 10 & 48.41580 \\
+402 & Carrot & Clay & C & 0 & 58.31807 \\
+403 & Carrot & Peat & A & 20 & 57.22445 \\
+404 & Carrot & Sandy & D & 30 & 50.30513 \\
+101 & Beetroot & Black & D & 0 & 48.39476 \\
+102 & Beetroot & Clay & A & 10 & 54.05918 \\
+103 & Beetroot & Peat & C & 30 & 49.97996 \\
+104 & Beetroot & Sandy & B & 20 & 44.93734 \\
+201 & Cucumber & Black & A & 30 & 52.10256 \\
+202 & Cucumber & Clay & D & 20 & 39.78905 \\
+203 & Cucumber & Peat & B & 0 & 45.70355 \\
+204 & Cucumber & Sandy & C & 10 & 57.67939 \\
+301 & Radish & Black & C & 20 & 59.69905 \\
+302 & Radish & Clay & B & 30 & 48.07053 \\
+303 & Radish & Peat & D & 10 & 50.50088 \\
+304 & Radish & Sandy & A & 0 & 55.98397 \\
+401 & Carrot & Black & B & 10 & 48.82097 \\
+402 & Carrot & Clay & C & 0 & 59.01749 \\
+403 & Carrot & Peat & A & 20 & 49.04274 \\
+404 & Carrot & Sandy & D & 30 & 49.60584 \\
+101 & Beetroot & Black & D & 0 & 44.67699 \\
+102 & Beetroot & Clay & A & 10 & 50.01757 \\
+103 & Beetroot & Peat & C & 30 & 50.88783 \\
+104 & Beetroot & Sandy & B & 20 & 43.38612 \\
+
+
+\end{tabular}
+
+\label{tab:agri-experiment}
+\end{table}
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{|c|c|c|c|c|c|}
+~ ~ ~ ~ & ~ ~ ~ ~ ~ & ~ ~ ~ ~ & ~ ~ ~ ~ ~ ~ ~ & ~ ~ ~ ~ ~ ~ & ~ ~ ~ ~ ~ ~ \\
+201 & Cucumber & Black & A & 30 & 49.73476 \\
+202 & Cucumber & Clay & D & 20 & 47.90952 \\
+203 & Cucumber & Peat & B & 0 & 38.91918 \\
+204 & Cucumber & Sandy & C & 10 & 54.82792 \\
+301 & Radish & Black & C & 20 & 54.86445 \\
+302 & Radish & Clay & B & 30 & 46.20405 \\
+303 & Radish & Peat & D & 10 & 48.19833 \\
+304 & Radish & Sandy & A & 0 & 55.62645 \\
+401 & Carrot & Black & B & 10 & 46.78891 \\
+402 & Carrot & Clay & C & 0 & 61.84203 \\
+403 & Carrot & Peat & A & 20 & 52.77762 \\
+404 & Carrot & Sandy & D & 30 & 46.19486 \\
+101 & Beetroot & Black & D & 0 & 50.09778 \\
+102 & Beetroot & Clay & A & 10 & 51.34750 \\
+103 & Beetroot & Peat & C & 30 & 49.90362 \\
+104 & Beetroot & Sandy & B & 20 & 42.26582 \\
+201 & Cucumber & Black & A & 30 & 51.83567 \\
+202 & Cucumber & Clay & D & 20 & 49.15930 \\
+203 & Cucumber & Peat & B & 0 & 43.93766 \\
+204 & Cucumber & Sandy & C & 10 & 49.41717 \\
+301 & Radish & Black & C & 20 & 60.38384 \\
+302 & Radish & Clay & B & 30 & 51.92809 \\
+303 & Radish & Peat & D & 10 & 46.21345 \\
+304 & Radish & Sandy & A & 0 & 58.21337 \\
+401 & Carrot & Black & B & 10 & 47.97043 \\
+402 & Carrot & Clay & C & 0 & 56.17609 \\
+403 & Carrot & Peat & A & 20 & 51.59704 \\
+404 & Carrot & Sandy & D & 30 & 49.87681 \\
+101 & Beetroot & Black & D & 0 & 44.61801 \\
+102 & Beetroot & Clay & A & 10 & 46.54736 \\
+103 & Beetroot & Peat & C & 30 & 50.54577 \\
+104 & Beetroot & Sandy & B & 20 & 41.93832 \\
+201 & Cucumber & Black & A & 30 & 53.71333 \\
+202 & Cucumber & Clay & D & 20 & 50.53263 \\
+203 & Cucumber & Peat & B & 0 & 45.95102 \\
+204 & Cucumber & Sandy & C & 10 & 53.61549 \\
+301 & Radish & Black & C & 20 & 51.41945 \\
+302 & Radish & Clay & B & 30 & 43.62753 \\
+303 & Radish & Peat & D & 10 & 45.44893 \\
+304 & Radish & Sandy & A & 0 & 58.00125 \\
+401 & Carrot & Black & B & 10 & 51.54292 \\
+402 & Carrot & Clay & C & 0 & 56.62063 \\
+403 & Carrot & Peat & A & 20 & 49.09522 \\
+404 & Carrot & Sandy & D & 30 & 49.98148 \\
+\hline
+\end{tabular}
+\caption{Agricultural Experiment Data}
+\label{tab:agri-experiment}
+\end{table}
+\end{document}
+
+
+% The following headers
+% Introduction
+%     Background
+%     Experimental units?
+%     Blocking?
+%     Observation units
+%     Controls
+    
+% A-priori Hypothesis
+% Approach (how we go about performing the experiment)
+% English important
+% Include a control
+
+
+% Mention the constraints for the model
+
+
+% METHODS
+%     Experimental Design
+%     BLocking Factors 
+%     Threatment Factors
+%     Method of Randomisation
+%         By using the sample function
+%         Include R code
+
+% Include R snippet on how we generated samples
+% Define what products we use in intro and conclusion, after that, call them ABCD
+
+% If we have factorial, mention 2x3 ...
+
+% Mention avoid confounding, use controls ...
+
+% Maybe include maximum 1 interaction term to check for interaction
+% Blocks can interact with treatment
+
+% HOW WE WILL FIT THE MODEL
+% HOW WE WILL ANALUYSE THE DATA OBTAINED
+% IMPORTANT R FUNCTIONS WE WILL BE MAKING USE OF
+
+% RESUltS
+%     Expoloratory Data Analysis -> boxplots
+%     Boxplots should overlap, overwise no point in doing the analysis
+%     use colour -> presentation important
+%     Consider variation, outliers ...
+
+%     CHECKING MODEL ASSUMPTIONS -> normality of residuals
+%       -> Histogram showing density of residuals, then superimpose normal
+%       Must be normal. All assumptions rely in this [qqPlot(model$residuals)]. Conclusion MUST BE that it appears normal (or skewed, but not enough to violate)
+
+%       Normal Q-Q plot -> normal
+      
+
+%     INTERACTIONS -> need to have replicates to check for interactions. We need at least 2 replicates per treatment. Then say there is an interaction effect when (and say what the factors are)
+
+% DATA ANALYSIS:
+%     ANOVA table:
+
+%     Tukeys with all contrasts to see which factors performed best and worst
+% Dont include too much code, but name functions used
+anova(aov(response ~ treatment + gradient*plants + soil, data = frame2))["gradient:plants", "Pr(>F)"]
+anova(aov(response ~ treatment*gradient + plants + soil, data = frame2))["treatment:gradient", "Pr(>F)"]
+anova(aov(response ~ treatment + gradient*soil + plants, data = frame2))["gradient:soil", "Pr(>F)"]
+anova(aov(response ~ treatment*soil + plants + gradient, data = frame2))["treatment:soil", "Pr(>F)"]
+anova(aov(response ~ treatment*plants + gradient + soil, data = frame2))["treatment:plants", "Pr(>F)"]
+\subsection{Independence of Residuals}
+Our model assumes that the residuals are independent. To test this, the autocorrelation graphing function, acf, and the Durbin-Watson test can be performed. The R code for this is: 
+\par\noindent\rule{\textwidth}{0.4pt}
+\vspace{-25pt} % Adjust this value to reduce space
+\begin{minted}{r}
+acf(resid(model), main = "Autocorrelation Function for the Residuals")
+durbinWatsonTest(model)
+\end{minted}
+\vspace{-15pt} % Adjust this value to reduce space
+\par\noindent\rule{\textwidth}{0.4pt}
+The Durbin-Watson test returns a p-value of 0.692. The graph is:
+\begin{figure}[hbt!]
+    \centering
+        \centering
+        \includegraphics[width=\textwidth * 3/4]{ed_assets/acf.png} % Path to the second image
+        \caption{ACF for the Residuals}
+        \label{fig:acf}
+    
+\end{figure}
+The autocorrelation is below 0.2 for all lags $\ge 1$. This suggests that the residuals are independent
+
+\subsection{Equality of Variance}
+The variance of the residuals must be the same, regardless of the blocking and treatment factor of that experimental unit. A Levene test is used to check for equality of variance. The R code for this is: 
+\par\noindent\rule{\textwidth}{0.4pt}
+\vspace{-25pt} % Adjust this value to reduce space
+\begin{minted}{r}
+leveneTest(response ~ treatment * soil * gradient * plants, data = frame)
+\end{minted}
+\vspace{-15pt} % Adjust this value to reduce space
+\par\noindent\rule{\textwidth}{0.4pt}
+
+The output is a p-value of 0.582, indicating that there is no evidence to suggest that the variances are different among all the groups
+\section{Confidence Intervals and Contrasts}
+We wish to compare all the treatments. Since we are doing all pairwise comparisons, Tukey's method is the best choice. The R code to display the 95\% confidence intervals for the difference in means of the fertilizers is given by:
+\par\noindent\rule{\textwidth}{0.4pt}
+\vspace{-25pt} % Adjust this value to reduce space
+\begin{minted}{r}
+aov_treat <- aov(response ~ treatment, data = frame)
+hsd_treat <- TukeyHSD(aov_treat)
+plot(hsd_treat, las = 1)
+\end{minted}
+\vspace{-15pt} % Adjust this value to reduce space
+\par\noindent\rule{\textwidth}{0.4pt}
+The resulting graph is:
+\begin{figure}[hbt!]
+    \centering
+        \centering
+        \includegraphics[width=\textwidth]{ed_assets/CI_1.png} % Path to the second image
+        \caption{Tukey's 95\% confidence intervals}
+        \label{fig:acf}
+    
+\end{figure}
+We see that there is a significant positive difference in $C-D$ and $C-B$ since 0 is not in either confidence interval. On the other hand, 0 is contained in the confidence interval for $C-A$. We can thus suggest that $C$ is better than both $B$ and $D$, but not necessarily $A$. Similarly, the data suggests $A$ is better than $B$ and $D$. So the 2 best fertilizers are $A$ and $C$. $B-D$ contains $0$ as well, so we cannot conclude that either is better than the other. Thus the order of fertilizers is $D=B<A=C$.
+\\ 
+most important \\
+remember the questions that we asked \\
+1. is X the best? \\
+Should use scheffe's or tukey's, we 
+ didn't have the question before \\
+
+
+\section{Conclusion}
+primary aim, findings, mainly from contrasts and comparisons \\ explain limitations (shouldn't rely too heavily on the results) \\ how we can improve the experiment the next time
+TODO - link to A-priori hypothesis
+\\
+Maybe add ridge plot \\ or circular bar plot \\
+\newpage
+Combine this into above headings
+
+\section{Objectives}
+The objectives of the experiment are to determine whether the type of Fertilizer used has an effect on crop yield and if there is an effect, to determine which fertilizers are best.
+\section{Sources of Variation}
+The treatment factors are the different fertilizers used. There will be 4 different fertilizers, Omnia Fertilizer, Purefert, LM Marketing and Kynoch Fertilizer.
+~\\
+
+The experimental units are the pots in which the crops are grown. As mentioned in section 3, some experimental unit sources of variation include exposure to pests Sunlight exposure and temperature. The pots occupy slightly different positions in space so they will inevitably experience somewhat different conditions.
+ ~\\
+ 
+There are three blocking factors in the experiment, the factors and their levels are as follows:\\Crop Type (Radish, Carrot, Cucumber, Beetroot)\\
+ Soil Type (Sandy, Clay, Black, Peat)\\
+ Gradient (0,10,20,30 degrees)\\
+
+\section{Pilot Study}
+not required?????
+\section{Data Collection}
+Based on the model, there is a true value for the general mean, 4 true values for each blocking effect and 4 true values for each fertilizer. On this, an error term is added. How we have collected the data is by defining arbitrary values to these parameters, and adding a random error term for each experimental unit. We have done this in R by using a HashMap data structure. This (in our case) works by pairing a string name to a number. The HashMap is created as follows:
+\par\noindent\rule{\textwidth}{0.4pt}
+\vspace{-25pt} % Adjust this value to reduce space
+\begin{minted}{r}
+h <- hash()
+h[["Radish"]] = 1.5
+h[["Carrot"]] = 1
+h[["Cucumber"]] = 0
+h[["Beetroot"]] = -2.5
+
+h[["Sandy"]] = 1.5
+h[["Clay"]] = 1
+h[["Black"]] = 0
+h[["Peat"]] = -2.5
+
+h[["0"]] = 0.4
+h[["10"]] = 0.2
+h[["20"]] = -0.3
+h[["30"]] = -0.3
+
+h[["A"]] = 2
+h[["B"]] = -4
+h[["C"]] = 5.5
+h[["D"]] = -3.5
+\end{minted}
+\vspace{-15pt} % Adjust this value to reduce space
+\par\noindent\rule{\textwidth}{0.4pt}
+Then whenever, for example, $h[["A"]]$ is used, the value 2 is obtained and used instead. After this, the Graeco-Latin square is created:
+\par\noindent\rule{\textwidth}{0.4pt}
+\vspace{-25pt} % Adjust this value to reduce space
+\begin{minted}{r}
+seed <- 42 # random seed (for reproducibility)
+tmts <- c("A", "B", "C", "D") # treatments
+gradient <- c("0", "10", "20", "30") # gradient angles
+outdesign <- design.graeco(tmts, gradient, seed = seed)
+glsd <- outdesign$book
+
+# Assign labels to the rows
+levels(glsd$row) <- c("Beetroot", "Cucumber", "Radish", "Carrot")
+
+# Assign labels to the columns
+levels(glsd$col) <- c("Black", "Clay", "Peat", "Sandy")
+colnames(glsd) <- c("plots", "plants", "soil", "treatment", "gradient")
+\end{minted}
+\vspace{-15pt} % Adjust this value to reduce space
+\par\noindent\rule{\textwidth}{0.4pt}
+Then 'frame' is extended to account for more observations (replicates):
+\par\noindent\rule{\textwidth}{0.4pt}
+\vspace{-25pt} % Adjust this value to reduce space
+\begin{minted}{r}
+num_replicates <- 5
+n_obs <- num_replicates * nrow(glsd)
+frame <- do.call(rbind, replicate(num_replicates, glsd, simplify = FALSE))
+\end{minted}
+\vspace{-15pt} % Adjust this value to reduce space
+\par\noindent\rule{\textwidth}{0.4pt}
+Finally, a loop is used to generate 'n\_obs' different observations, adding a random error term:
+
+\par\noindent\rule{\textwidth}{0.4pt}
+\vspace{-25pt} % Adjust this value to reduce space
+\begin{minted}{r}
+general_mean <- 50
+response <- vector(mode = "numeric", length = n_obs)
+for (i in 1:n_obs) {
+   plant <- as.character(glsd$plants[(i-1) %% 16 + 1])
+   soil <- as.character(glsd$soil[(i-1) %% 16 + 1])
+   treat <- as.character(glsd$treatment[(i-1) %% 16 + 1])
+   grad <- as.character(glsd$gradient[(i-1) %% 16 + 1])
+
+   # deterministic component
+   y <- general_mean + h[[plant]] + h[[soil]] + h[[treat]] + h[[grad]]
+
+   # Random component
+   error <- rnorm(1, 0, 3)
+
+   response[i] = y + error
+} 
+frame$response <- response
+\end{minted}
+\vspace{-15pt} % Adjust this value to reduce space
+\par\noindent\rule{\textwidth}{0.4pt}
+
+
+\section{Appendix}
+
+\subsection{Appendix A - Data}
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{|c|c|c|c|c|c|}
+
+\hline
+plots & plants & soil & treatment & gradient & response \\
+\hline
+101 & Beetroot & Black & D & 0 & 42.44103 \\
+102 & Beetroot & Clay & A & 10 & 55.61700 \\
+103 & Beetroot & Peat & C & 30 & 49.49524 \\
+104 & Beetroot & Sandy & B & 20 & 41.77122 \\
+201 & Cucumber & Black & A & 30 & 51.20965 \\
+202 & Cucumber & Clay & D & 20 & 43.61643 \\
+203 & Cucumber & Peat & B & 0 & 44.80407 \\
+204 & Cucumber & Sandy & C & 10 & 55.62197 \\
+301 & Radish & Black & C & 20 & 54.75571 \\
+302 & Radish & Clay & B & 30 & 43.75314 \\
+303 & Radish & Peat & D & 10 & 46.21739 \\
+304 & Radish & Sandy & A & 0 & 51.45373 \\
+401 & Carrot & Black & B & 10 & 48.41580 \\
+402 & Carrot & Clay & C & 0 & 58.31807 \\
+403 & Carrot & Peat & A & 20 & 57.22445 \\
+404 & Carrot & Sandy & D & 30 & 50.30513 \\
+101 & Beetroot & Black & D & 0 & 48.39476 \\
+102 & Beetroot & Clay & A & 10 & 54.05918 \\
+103 & Beetroot & Peat & C & 30 & 49.97996 \\
+104 & Beetroot & Sandy & B & 20 & 44.93734 \\
+201 & Cucumber & Black & A & 30 & 52.10256 \\
+202 & Cucumber & Clay & D & 20 & 39.78905 \\
+203 & Cucumber & Peat & B & 0 & 45.70355 \\
+204 & Cucumber & Sandy & C & 10 & 57.67939 \\
+301 & Radish & Black & C & 20 & 59.69905 \\
+302 & Radish & Clay & B & 30 & 48.07053 \\
+303 & Radish & Peat & D & 10 & 50.50088 \\
+304 & Radish & Sandy & A & 0 & 55.98397 \\
+401 & Carrot & Black & B & 10 & 48.82097 \\
+402 & Carrot & Clay & C & 0 & 59.01749 \\
+403 & Carrot & Peat & A & 20 & 49.04274 \\
+404 & Carrot & Sandy & D & 30 & 49.60584 \\
+101 & Beetroot & Black & D & 0 & 44.67699 \\
+102 & Beetroot & Clay & A & 10 & 50.01757 \\
+103 & Beetroot & Peat & C & 30 & 50.88783 \\
+104 & Beetroot & Sandy & B & 20 & 43.38612 \\
+201 & Cucumber & Black & A & 30 & 49.73476 \\
+202 & Cucumber & Clay & D & 20 & 47.90952 \\
+203 & Cucumber & Peat & B & 0 & 38.91918 \\
+204 & Cucumber & Sandy & C & 10 & 54.82792 \\
+301 & Radish & Black & C & 20 & 54.86445 \\
+302 & Radish & Clay & B & 30 & 46.20405 \\
+303 & Radish & Peat & D & 10 & 48.19833 \\
+304 & Radish & Sandy & A & 0 & 55.62645 \\
+401 & Carrot & Black & B & 10 & 46.78891 \\
+402 & Carrot & Clay & C & 0 & 61.84203 \\
+403 & Carrot & Peat & A & 20 & 52.77762 \\
+404 & Carrot & Sandy & D & 30 & 46.19486 \\
+101 & Beetroot & Black & D & 0 & 50.09778 \\
+102 & Beetroot & Clay & A & 10 & 51.34750 \\
+103 & Beetroot & Peat & C & 30 & 49.90362 \\
+104 & Beetroot & Sandy & B & 20 & 42.26582 \\
+
+\end{tabular}
+
+\label{tab:agri-experiment}
+\end{table}
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{|c|c|c|c|c|c|}
+~ ~ ~ ~ & ~ ~ ~ ~ ~ & ~ ~ ~ ~ & ~ ~ ~ ~ ~ ~ ~ & ~ ~ ~ ~ ~ ~ & ~ ~ ~ ~ ~ ~ \\
+201 & Cucumber & Black & A & 30 & 51.83567 \\
+202 & Cucumber & Clay & D & 20 & 49.15930 \\
+203 & Cucumber & Peat & B & 0 & 43.93766 \\
+204 & Cucumber & Sandy & C & 10 & 49.41717 \\
+301 & Radish & Black & C & 20 & 60.38384 \\
+302 & Radish & Clay & B & 30 & 51.92809 \\
+303 & Radish & Peat & D & 10 & 46.21345 \\
+304 & Radish & Sandy & A & 0 & 58.21337 \\
+401 & Carrot & Black & B & 10 & 47.97043 \\
+402 & Carrot & Clay & C & 0 & 56.17609 \\
+403 & Carrot & Peat & A & 20 & 51.59704 \\
+404 & Carrot & Sandy & D & 30 & 49.87681 \\
+101 & Beetroot & Black & D & 0 & 44.61801 \\
+102 & Beetroot & Clay & A & 10 & 46.54736 \\
+103 & Beetroot & Peat & C & 30 & 50.54577 \\
+104 & Beetroot & Sandy & B & 20 & 41.93832 \\
+201 & Cucumber & Black & A & 30 & 53.71333 \\
+202 & Cucumber & Clay & D & 20 & 50.53263 \\
+203 & Cucumber & Peat & B & 0 & 45.95102 \\
+204 & Cucumber & Sandy & C & 10 & 53.61549 \\
+301 & Radish & Black & C & 20 & 51.41945 \\
+302 & Radish & Clay & B & 30 & 43.62753 \\
+303 & Radish & Peat & D & 10 & 45.44893 \\
+304 & Radish & Sandy & A & 0 & 58.00125 \\
+401 & Carrot & Black & B & 10 & 51.54292 \\
+402 & Carrot & Clay & C & 0 & 56.62063 \\
+403 & Carrot & Peat & A & 20 & 49.09522 \\
+404 & Carrot & Sandy & D & 30 & 49.98148 \\
+\hline
+\end{tabular}
+\caption{Agricultural Experiment Data}
+\label{tab:agri-experiment}
+\end{table}
+\end{document}
+
+
+% The following headers
+% Introduction
+%     Background
+%     Experimental units?
+%     Blocking?
+%     Observation units
+%     Controls
+    
+% A-priori Hypothesis
+% Approach (how we go about performing the experiment)
+% English important
+% Include a control
+
+
+% Mention the constraints for the model
+
+
+% METHODS
+%     Experimental Design
+%     BLocking Factors 
+%     Threatment Factors
+%     Method of Randomisation
+%         By using the sample function
+%         Include R code
+
+% Include R snippet on how we generated samples
+% Define what products we use in intro and conclusion, after that, call them ABCD
+
+% If we have factorial, mention 2x3 ...
+
+% Mention avoid confounding, use controls ...
+
+% Maybe include maximum 1 interaction term to check for interaction
+% Blocks can interact with treatment
+
+% HOW WE WILL FIT THE MODEL
+% HOW WE WILL ANALUYSE THE DATA OBTAINED
+% IMPORTANT R FUNCTIONS WE WILL BE MAKING USE OF
+
+% RESUltS
+%     Expoloratory Data Analysis -> boxplots
+%     Boxplots should overlap, overwise no point in doing the analysis
+%     use colour -> presentation important
+%     Consider variation, outliers ...
+
+%     CHECKING MODEL ASSUMPTIONS -> normality of residuals
+%       -> Histogram showing density of residuals, then superimpose normal
+%       Must be normal. All assumptions rely in this [qqPlot(model$residuals)]. Conclusion MUST BE that it appears normal (or skewed, but not enough to violate)
+
+%       Normal Q-Q plot -> normal
+      
+
+%     INTERACTIONS -> need to have replicates to check for interactions. We need at least 2 replicates per treatment. Then say there is an interaction effect when (and say what the factors are)
+
+% DATA ANALYSIS:
+%     ANOVA table:
+
+%     Tukeys with all contrasts to see which factors performed best and worst
+% Dont include too much code, but name functions used

@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>STA2005S Regression Practical Two - RMarkdown and Inference</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="Prac2_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Prac2_files/libs/quarto-html/quarto.js"></script>
+<script src="Prac2_files/libs/quarto-html/popper.min.js"></script>
+<script src="Prac2_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Prac2_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Prac2_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Prac2_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Prac2_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Prac2_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Prac2_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">STA2005S Regression Practical Two - RMarkdown and Inference</h1>
+<p class="subtitle lead">Questions</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction-to-markdown-rmarkdownquarto-hypothesis-testing" class="level1">
+<h1>Introduction to Markdown, RMarkdown/Quarto &amp; Hypothesis Testing</h1>
+<p>Use the following R code in the console to compile</p>
+<p><code>library(quarto)</code> <code>quarto_render("document.qmd") # all formats</code> <code>quarto_render("document.qmd", output_format = "pdf")</code></p>
+<section id="this-is-a-subheading" class="level2">
+<h2 class="anchored" data-anchor-id="this-is-a-subheading">This is a subheading</h2>
+<p><em>This is italic</em></p>
+<ul>
+<li>bullet point 1 [NB leave a new line after the words above]</li>
+<li>bullet point 2</li>
+</ul>
+<ol type="1">
+<li>number 1</li>
+<li>number 2</li>
+</ol>
+<p>The following is <code>inline code</code></p>
+<p><code>Code on its own line</code></p>
+<p>Running R-code: <code>2+3</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">+</span><span class="dv">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5</code></pre>
+</div>
+</div>
+<p>In line math mode <span class="math inline">\(y_i=\beta_0 + x_{1_i}\beta_1+\epsilon_i\)</span></p>
+<p><span class="math display">\[Math \ mode \ on \ its\ own\  line\]</span></p>
+<p><strong>Primary objective</strong>: Conduct hypothesis testing using a linear regression model.</p>
+<p><strong>Secondary objective</strong>: Familiarize yourself with Markdown syntax, and learn how to integrate R code within a Markdown document using Quarto.</p>
+<p>We aim to make it as easy as possible for you to create a working Quarto document that RStudio turns into an HTML with all your analysis. As such, in this prac we describe Markdown and Quarto at a minimal level so as you can actually use them, and give you a plain text file (<code>PracReg2RdInfStarter.qmd</code>) that you gradually convert (partly by adding in code we give you) into a working Quarto document.</p>
+<p>You do not actually need to learn Markdown and Quarto to do this assignment, or any other coding in this course - you can simply work off an R script. Markdown and Quarto are secondary objectives. But learning Markdown and Quarto will likely be very useful both in future assignments and in your day-to-day career as a data analyst. Combining code and text describing the results is very convenient, and the ability to write mathematics beautifully (especially if you are creating a PDF) is important in academic work.</p>
+<p>If you do not wish to learn Markdown and Quarto now, skip to <code>Part 3: Hypothesis testing</code> towards the end of this document.</p>
+<p>It is also not a bad option to complete the practical in a standard R script, but attempt with the time you have to cover as much of Markdown and Quarto as you can fit this week. Later practicals, and the assignment, will also be opportunities for you to learn.</p>
+</section>
+</section>
+<section id="part-1-getting-to-know-markdown" class="level1">
+<h1>Part 1: Getting to Know Markdown</h1>
+<p>Markdown is the mark-up language that formats the text, e.g.&nbsp;for creating headers (such as <code># Introduction</code> becoming a big heading <code>Introduction</code>) or bold format (e.g.&nbsp;<code>**IMPORTANT POINT**</code> being represented as bold).</p>
+<p>Document written in Markdown can be converted into many different document types, e.g.&nbsp;PDF, Word and HTML.</p>
+<p>Markdown is very easy to learn, and you can learn it by doing here.</p>
+<section id="practice-task" class="level2">
+<h2 class="anchored" data-anchor-id="practice-task">Practice task</h2>
+<p>You’ve been provided with a plain-text document, <code>PracReg2RmdInfPlainText.qmd</code>. Your first task is to transform this document into a well-structured Markdown document.</p>
+</section>
+<section id="cheat-sheet" class="level2">
+<h2 class="anchored" data-anchor-id="cheat-sheet">Cheat sheet</h2>
+<p>Here are the Markdown commands you’ll need to know:</p>
+<ul>
+<li><strong>Headers</strong>: Use <code>#</code> for main headers and <code>##</code> for subheaders (and <code>###</code> for subsubheaders, and so on).</li>
+<li><strong>Bold text</strong>: Use <code>**&lt;text&gt;**</code>.</li>
+<li><strong>Italic text</strong>: Use <code>*&lt;text&gt;*</code>.</li>
+<li><strong>Bullet Points</strong>: Use <code>-</code> followed by a space (and then start a new bullet point on the next line).</li>
+<li><strong>Numbered Lists</strong>: Simply use numbers followed by a period and space, e.g.&nbsp;<code>1. &lt;text&gt;</code> on one line and <code>2. &lt;text&gt;</code> on the next.</li>
+<li><strong>Code Inline</strong>: Use backticks around your code.</li>
+<li><strong>Code in its own paragraph</strong> (display code): Use triple back-ticks, skip a line, write your code and then close off with triple backticks again.</li>
+<li><strong>Math inline</strong>: Use <code>$</code> around the text, e.g.&nbsp;<code>$y_i=\beta_0 + x_{1_i}\beta_1+\epsilon_i$</code> becomes <span class="math inline">\(y_i=\beta_0 + x_{1_i}\beta_1+\epsilon_i\)</span>.
+<ul>
+<li>Other points about that equation:
+<ul>
+<li><code>y_i</code> returns <code>y</code> with <code>i</code> as the subscript, i.e.&nbsp;<span class="math inline">\(y_i\)</span>.</li>
+<li><code>x_{1_i}</code> returns <code>x_1</code> with <code>i</code> as the subscript to <code>1</code> (so, as sub-subscript), i.e.&nbsp;<span class="math inline">\(x_{1_i}\)</span>.</li>
+<li><code>\beta</code> and <code>\epsilon</code> are Greek symbols, i.e.&nbsp;<span class="math inline">\(\beta\)</span> and <span class="math inline">\(\epsilon\)</span>. They have a back-slash before them beecause they’re actually commands. If you remove the backslashes, you get just the letters back, e.g.&nbsp;<code>beta</code> becomes <span class="math inline">\(beta\)</span> whereas <code>\beta</code> becomes <span class="math inline">\(\beta\)</span>.</li>
+</ul></li>
+<li>Note that the above points about the equation (such as <code>_</code> denoting subscript and <code>\&lt;greek_letter_name&gt;</code> becoming a Greek letter) only apply within math mode, i.e.&nbsp;for anything in between the <code>$</code>.</li>
+<li>A common source of errors is forgetting the second dollar sign.</li>
+</ul></li>
+<li><strong>Math in its own paragraph</strong> (display math): Use double dollar signs (i.e.&nbsp;<code>$$</code>) to start, skip a line, write the math, and then close off with <code>$$</code> again.
+<ul>
+<li>A common error is using a single <code>$</code> on one side of the equation and <code>$$</code> on the other (or vice versa).</li>
+</ul></li>
+</ul>
+<p>For more information (over and above what you’ll need to complete this tutorial), see <a href="https://quarto.org/docs/authoring/markdown-basics.html">Quarto’s Markdown Basics document</a>. It also gives more visual representations of what the Markdown translates into, i.e.&nbsp;how the final product looks.</p>
+</section>
+</section>
+<section id="part-2-introducing-quarto" class="level1">
+<h1>Part 2: Introducing Quarto</h1>
+<p>Quarto is a powerful tools that allows you to blend the simplicity of Markdown with the analytical capabilities of R. Essentially, it is Markdown + code. You can give background, describe the results and provide discusion using Markdown, and perform the actual analysis using R - all in the same plain text file. The code is run, and a document of your chosen type (e.g.&nbsp;HTML, PDF, Word) will be created.</p>
+<section id="relationship-to-rmarkdown" class="level2">
+<h2 class="anchored" data-anchor-id="relationship-to-rmarkdown">Relationship to <code>RMarkdown</code></h2>
+<p>Quarto is the successor to RMarkdown (which you may have heard of), and as such we focus on it here. Only minor adjustments are needed to transform a Quarto document to an RMarkdown document, but it will be confusing to do both and Quarto is what is being actively developed. If you are comfortable with RMarkdown and don’t want to learn Quarto, that’s completely fine.</p>
+</section>
+<section id="setting-up-quarto" class="level2">
+<h2 class="anchored" data-anchor-id="setting-up-quarto">Setting up Quarto</h2>
+<p>Note that to get <code>Quarto</code> running, you need not only to install the <code>R</code> package <code>quarto</code>, but also to install the <code>Quarto</code> program itself. Go here for the precise walkthrough: https://quarto.org/docs/get-started/.</p>
+<section id="quarto-in-rstudio" class="level3">
+<h3 class="anchored" data-anchor-id="quarto-in-rstudio">Quarto in RStudio</h3>
+<p>See <a href="https://quarto.org/docs/computations/r.html#rendering">here</a> for exactly which buttons to click to render Quarto documents in RStudio. Note that by “render”, I mean convert from plain text (i.e.&nbsp;your source code, what you wrote) into the desired document (e.g.&nbsp;PDF, Word, HTML).</p>
+</section>
+<section id="additional-syntax-to-run-code" class="level3">
+<h3 class="anchored" data-anchor-id="additional-syntax-to-run-code">Additional syntax to run code</h3>
+<p>There are two main additions to plain Markdown:</p>
+<ul>
+<li>YAML frontmatter</li>
+<li>Code chunks</li>
+</ul>
+</section>
+<section id="yaml-frontmatter" class="level3">
+<h3 class="anchored" data-anchor-id="yaml-frontmatter">YAML Frontmatter</h3>
+<p>The YAML frontmatter is metadata at the beginning of your Quarto document. It is used to set various options for rendering the document. For example, <code>title</code> sets the title of the document and <code>format</code> determines the format of the output (e.g., HTML, PDF, Word).</p>
+<p>Copy and paste the following YAML frontmatter at the very beginning of your <code>qmd</code> document (<code>PracReg2RmdInfStarter.qmd</code>):</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"STA2005S Regression Practical Two - RMarkdown and Inference"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span><span class="at"> html</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Note that you need to include the triple dash, <code>---</code>, at the start and at the end. Also note that this needs to go at the very top, i.e.&nbsp;there must be no code or blank lines above the first <code>---</code>.</p>
+<p>With this setting, your Quarto document will be rendered as an HTML page when you knit it. If you instead, for example, set <code>format</code> to <code>pdf</code> you would create a PDF document. If you set <code>format</code> to <code>docx</code>, you would create a a Word document.</p>
+<p>For more details on YAML options for Quarto, refer to <a href="https://quarto.org/docs/output-formats/html-basics.html">Quarto’s frontmatter documentation</a>.</p>
+</section>
+<section id="code-chunks" class="level3">
+<h3 class="anchored" data-anchor-id="code-chunks">Code Chunks</h3>
+<section id="syntax" class="level4">
+<h4 class="anchored" data-anchor-id="syntax">Syntax</h4>
+<p>To insert R code into your document, use code chunks. A code chunk begins with three bacticks followed by <code>{r}</code>, skips a line to start code and ends with three backticks again (on a new line). The <code>{r}</code> ensures that the code is run as code (and not, for example, python).</p>
+<p>For example, we can display data:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="in">data("cars")</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="in">head(cars)</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  speed dist
+1     4    2
+2     4   10
+3     7    4
+4     7   22
+5     8   16
+6     9   10</code></pre>
+</div>
+</div>
+<p>We can display a plot:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="in">plot(cars)</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Prac2_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="chunk-options" class="level4">
+<h4 class="anchored" data-anchor-id="chunk-options">Chunk options</h4>
+<p>This will embed the plot directly in your output document. Code chunks are useful for both displaying code and showing the output of the analysis directly in the document.</p>
+<p>In Quarto, the syntax for code chunks is to place <code>#| &lt;option_name&gt;: &lt;option_value&gt;</code> on new lines immediately following the initial three back ticks to start the chunk.</p>
+<p>For example, we can create a better looking table than that produced above by using R code that turns the dataframe into format. To do that, we use the option <code>results</code> and give it the value <code>asis</code>:</p>
+<div style="page-break-after: always;"></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="in">#| results: asis</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="in">xtable::xtable(head(cars))</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+% latex table generated in R 4.4.1 by xtable 1.8-4 package % Sun Sep 29 18:18:52 2024
+<p>If you did not do that (use <code>results: asis</code>), the code would not processed and you will get the raw back:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="in">xtable::xtable(head(cars))</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>% latex table generated in R 4.4.1 by xtable 1.8-4 package
+% Sun Sep 29 18:18:52 2024
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrr}
+  \hline
+ &amp; speed &amp; dist \\ 
+  \hline
+1 &amp; 4.00 &amp; 2.00 \\ 
+  2 &amp; 4.00 &amp; 10.00 \\ 
+  3 &amp; 7.00 &amp; 4.00 \\ 
+  4 &amp; 7.00 &amp; 22.00 \\ 
+  5 &amp; 8.00 &amp; 16.00 \\ 
+  6 &amp; 9.00 &amp; 10.00 \\ 
+   \hline
+\end{tabular}
+\end{table}</code></pre>
+</div>
+</div>
+<p>Quick note - you cannot use in HTML documents, so the above code will cause an error there. I just wanted to create an example where you might want to use <code>results: asis</code>.</p>
+<p>Other useful options are:</p>
+<ul>
+<li><code>echo</code>: Set <code>false</code> to not display the code, and <code>true</code> to display the code.</li>
+<li><code>include</code>: Set <code>false</code> to run the code, but suppress all output, including all warnings and messages. Useful if you run code that tends to generate a lot of warnings and messages you’re not interested in (such as attaching many packages using <code>library</code>).</li>
+<li><code>eval</code>: Set <code>false</code> to not run a code chunk. Sometimes you want code not to run but don’t want to delete it (a bug you’ll get to later, perhaps), or else it’s demonstration code that you merely want to display.</li>
+</ul>
+<p>There are many more! See <a href="https://quarto.org/docs/computations/execution-options.html">here</a> for more options.</p>
+<p>In the hypothesis testing section, we will give you code that you can copy into <code>PracReg2RmdInfStarter.qmd</code> to get started on answering the assignment in Quarto.</p>
+</section>
+</section>
+<section id="debugging-advice" class="level3">
+<h3 class="anchored" data-anchor-id="debugging-advice">Debugging advice</h3>
+<p>ChatGPT is especially useful when you are new to a language. A quick and easy way to debug your code is to copy it, along with your error messages, into ChatGPT. It won’t necessarily be accurate or even helpful, but it’s easy to do and often will point you in the right direction.</p>
+</section>
+</section>
+</section>
+<section id="part-3-hypothesis-testing" class="level1">
+<h1>Part 3: Hypothesis testing</h1>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Suppose we are analysing the advertising data again, using which we wish to assess how sales depend on TV, radio and newspaper advertising spend. We posit the model</p>
+<p><span class="math display">\[
+\symbf{Y} = \symbf{X\beta} + \symbf{\epsilon},
+\]</span></p>
+<p>where <span class="math inline">\(\symbf{e} \sim \mathcal{N}(\symbf{0}, \sigma^2\symbf{I})\)</span> and <span class="math inline">\(\symbf{\beta}' = \begin{bmatrix} \beta_0 &amp; \beta_{\mathrm{TV}} &amp; \beta_{\mathrm{Radio}} &amp; \beta_{\mathrm{Newspaper}} \end{bmatrix}\)</span>.</p>
+</section>
+<section id="questions" class="level2">
+<h2 class="anchored" data-anchor-id="questions">Questions</h2>
+<p>As part of hypothesis testing, we will conduct three tests:</p>
+<ol type="1">
+<li>Check whether we detect an effect of radio spend on advertising sales (<span class="math inline">\(H_0: \beta_{\mathrm{Radio}} = 0\)</span>).</li>
+<li>Check whether we detect of the sum of TV and newspaper spend on sales (<span class="math inline">\(H_0: \beta_{\mathrm{TV}} +  \beta_{\mathrm{Newspaper}} = 0\)</span>).</li>
+<li>Check whether we detect an effect of any of TV, radio and newspaper spend on sales (<span class="math inline">\(H_0: \beta_{\mathrm{TV}} = 0, \beta_{\mathrm{Radio}} = 0, \beta_{\mathrm{Newspaper}} = 0\)</span>)</li>
+</ol>
+<p>We will answer the first question in this practical, and you will do the next two.</p>
+<section id="quarto-note" class="level3">
+<h3 class="anchored" data-anchor-id="quarto-note">Quarto note</h3>
+<p>For those using Quarto, the code is printed inside the fences (i.e.&nbsp;the triple backtick pairs), so that you can copy it directly into your Quarto document. For those not using Quarto - do not copy the triple backtick lines.</p>
+<p>If you are using <code>Quarto</code>, I suggest carrying on working in that <code>PracReg2RmdInfStarter.qmd</code> file. But up to you.</p>
+<p>I have also uploaded the file that generated this questions sheet - <code>PracReg2RmdInfQuestions.qmd</code> - which may be useful for copying mathematical notation across. The only difference you may find to what is usual is that I use <code>\symbf</code> instead of the more usual <code>\mathbf</code> and <code>\bm</code> for creating bold math notation - it just seems to work better in my setup. You can use <code>Find and Replace</code> to replace all instances of <code>\symbf</code> with <code>\mathbf</code>, if you like.</p>
+</section>
+</section>
+<section id="answers" class="level2">
+<h2 class="anchored" data-anchor-id="answers">Answers</h2>
+<p>First we read in and load our data:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="in">if (!requireNamespace("DataTidy23RodoSTA2005S", quietly = TRUE)) {</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="in">  if (!requireNamespace("remotes", quietly = TRUE)) {</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="in">    utils::install.packages("remotes")</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="in">  }</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="in">  remotes::install_github("MiguelRodo/DataTidy23RodoSTA2005S")</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="in">library(tibble) </span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="in">data("data_tidy_ad", package = "DataTidy23RodoSTA2005S")</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We print the first six rows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="in">data_tidy_ad |&gt;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="in">  head() |&gt;</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="in">  knitr::kable()</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">TV</th>
+<th style="text-align: right;">radio</th>
+<th style="text-align: right;">newspaper</th>
+<th style="text-align: right;">sales</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">230.1</td>
+<td style="text-align: right;">37.8</td>
+<td style="text-align: right;">69.2</td>
+<td style="text-align: right;">22.1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">44.5</td>
+<td style="text-align: right;">39.3</td>
+<td style="text-align: right;">45.1</td>
+<td style="text-align: right;">10.4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">17.2</td>
+<td style="text-align: right;">45.9</td>
+<td style="text-align: right;">69.3</td>
+<td style="text-align: right;">9.3</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">151.5</td>
+<td style="text-align: right;">41.3</td>
+<td style="text-align: right;">58.5</td>
+<td style="text-align: right;">18.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">180.8</td>
+<td style="text-align: right;">10.8</td>
+<td style="text-align: right;">58.4</td>
+<td style="text-align: right;">12.9</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8.7</td>
+<td style="text-align: right;">48.9</td>
+<td style="text-align: right;">75.0</td>
+<td style="text-align: right;">7.2</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<section id="hypothesis-i-effect-of-radio-advertising-on-sales" class="level3">
+<h3 class="anchored" data-anchor-id="hypothesis-i-effect-of-radio-advertising-on-sales">Hypothesis I: Effect of radio advertising on sales</h3>
+<p>We wish to test for the effect of radio advertising on sales. Specifically, we wish to test the null hypothesis</p>
+<p><span class="math display">\[
+H_0: \beta_{\mathrm{Radio}} = 0
+\]</span></p>
+<p>against the alternate hypothesis</p>
+<p><span class="math display">\[
+H_0: \beta_{\mathrm{Radio}} \neq 0.
+\]</span></p>
+<p>We will use the <span class="math inline">\(t\)</span> statistic, which is</p>
+<p><span class="math display">\[
+\frac{\hat{\beta}_{\mathrm{Radio}} - \beta_{\mathrm{Radio}}}{\sqrt{s^2(\symbf{X}'\symbf{X})_{33}^{-1}}} \sim t_{n-p},
+\]</span></p>
+<p>for <span class="math inline">\(s^2=\frac{(\symbf{Y} - \symbf{X\beta})'(\symbf{Y} - \symbf{X\beta})}{n-p}\)</span> the unbiased estimator for <span class="math inline">\(\sigma^2\)</span>.</p>
+<p>We have that <span class="math inline">\(n=200\)</span> and <span class="math inline">\(p=4\)</span>. In addition, under <span class="math inline">\(H_0\)</span>, <span class="math inline">\(\beta_{\mathrm{Radio}} = 0\)</span>, which means that we will compare <span class="math inline">\(\frac{|\hat{\beta}_{\mathrm{Radio}}|}{\sqrt{s^2(\symbf{X}'\symbf{X})_{33}^{-1}}}\)</span> against <span class="math inline">\(t^{0.975}_{196}\approx1.97\)</span> (using a significance threshold of 0.05). Should the test statistic exceed the specific quantile of the <span class="math inline">\(t\)</span>-distribution, we will reject the null hypthesis that <span class="math inline">\(\beta_{\mathrm{Radio}} = 0\)</span>.</p>
+<p>First, we create our vector (single-column matrix) of response values and our design matrix of explanatory variable values:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="in">Y_vec &lt;- matrix(data_tidy_ad[["sales"]], ncol = 1)</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="in">X_mat &lt;- data_tidy_ad |&gt;</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="in">  dplyr::select(-sales) |&gt;</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="in">  dplyr::mutate(intercept = 1) |&gt;</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="in">  dplyr::select(intercept, everything()) |&gt;</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="in">  as.matrix()</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Secondly, we estimate <span class="math inline">\(\beta_{\mathrm{Radio}}\)</span>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="in">beta_vec_hat &lt;- solve(t(X_mat) %*% X_mat) %*% t(X_mat) %*% Y_vec</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="in">beta_vec_hat |&gt; signif(2)</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            [,1]
+intercept  2.900
+TV         0.046
+radio      0.190
+newspaper -0.001</code></pre>
+</div>
+</div>
+<p>This yields the following value (rounded) for <span class="math inline">\(\beta_{\mathrm{Radio}}\)</span>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="in">beta_radio_hat &lt;- beta_vec_hat[3] </span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="in">beta_radio_hat |&gt; signif(2)</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.19</code></pre>
+</div>
+</div>
+<p>Thirdly, we calculate <span class="math inline">\(s^2\)</span> and then the standard error for <span class="math inline">\(\hat{\beta}_{\mathrm{Radio}}\)</span>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="in">s2 &lt;- t((Y_vec - X_mat %*% beta_vec_hat)) %*% (Y_vec - X_mat %*% beta_vec_hat) / (196)</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="in">sqrt(s2) |&gt; signif(4)</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      [,1]
+[1,] 1.686</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="in">beta_radio_hat_se &lt;- sqrt(s2 * solve(t(X_mat) %*% X_mat)[3, 3])</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="in">beta_radio_hat_se |&gt; signif(4)</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         [,1]
+[1,] 0.008611</code></pre>
+</div>
+</div>
+<p>Then, we calculate the test statistic:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="in">test_stat_radio &lt;- beta_radio_hat / beta_radio_hat_se</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="in">test_stat_radio |&gt; signif(5)</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       [,1]
+[1,] 21.893</code></pre>
+</div>
+</div>
+<p>This is clearly far greater than the threshold for significance, 1.97.</p>
+<p>In any case, we calculate the the p-value:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="in">pt(abs(test_stat_radio), df = 196, lower.tail = FALSE)</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             [,1]
+[1,] 7.526695e-55</code></pre>
+</div>
+</div>
+<p>There is clearly a statistically significant effect.</p>
+<p>We can check our results by fitting a linear model using the <code>lm</code> function in R:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="in">fit &lt;- lm(sales ~ radio + newspaper + TV, data = data_tidy_ad)</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="in">summary(fit)</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = sales ~ radio + newspaper + TV, data = data_tidy_ad)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-8.8277 -0.8908  0.2418  1.1893  2.8292 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  2.938889   0.311908   9.422   &lt;2e-16 ***
+radio        0.188530   0.008611  21.893   &lt;2e-16 ***
+newspaper   -0.001037   0.005871  -0.177     0.86    
+TV           0.045765   0.001395  32.809   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1.686 on 196 degrees of freedom
+Multiple R-squared:  0.8972,    Adjusted R-squared:  0.8956 
+F-statistic: 570.3 on 3 and 196 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>The estimate, standard error and test statistic match exactly, and the the p-value is essentially the same. In addition, note that the <code>Residual standard error</code> from the <code>lm</code> fit is 1.686, which is exactly the square root of our unbiased estimator for the variance.</p>
+<p>Your answer to to the third question of this practical should essentially reproduce the final line of the <code>summary</code> output above (beginning <code>F-statistic:</code>).</p>
+</section>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

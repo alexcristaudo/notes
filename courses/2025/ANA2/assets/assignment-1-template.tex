@@ -1,0 +1,253 @@
+% --- LaTeX Homework Template - S. Venkatraman ---
+
+% --- Set document class and font size ---
+
+\documentclass[letterpaper, 11pt]{article}
+
+% --- Package imports ---
+
+\usepackage{
+  amsmath, amsthm, amssymb, mathtools, dsfont,	  % Math typesetting
+  graphicx, wrapfig, subfig, float,                  % Figures and graphics formatting
+  listings, color, inconsolata, pythonhighlight,     % Code formatting
+  fancyhdr, sectsty, hyperref, enumerate, enumitem } % Headers/footers, section fonts, links, lists
+
+% --- Page layout settings ---
+
+% Set page margins
+\usepackage[left=0.7in, right=0.7in, bottom=1in, top=1.1in, headsep=0.2in]{geometry}
+
+% Anchor footnotes to the bottom of the page
+\usepackage[bottom]{footmisc}
+
+
+
+% Set line spacing
+\renewcommand{\baselinestretch}{1.2}
+
+% Set spacing between paragraphs
+\setlength{\parskip}{1.5mm}
+
+% Allow multi-line equations to break onto the next page
+\allowdisplaybreaks
+
+% Enumerated lists: make numbers flush left, with parentheses around them
+\setlist[enumerate]{wide=0pt, leftmargin=21pt, labelwidth=0pt, align=left}
+\setenumerate[1]{label={(\arabic*)}}
+
+% --- Page formatting settings ---
+
+% Set link colors for labeled items (blue) and citations (red)
+\hypersetup{colorlinks=true, linkcolor=blue, citecolor=red}
+
+% Make reference section title font smaller
+\renewcommand{\refname}{\large\bf{References}}
+
+% --- Settings for printing computer code ---
+
+% Define colors for green text (comments), grey text (line numbers),
+% and green frame around code
+\definecolor{greenText}{rgb}{0.5, 0.7, 0.5}
+\definecolor{greyText}{rgb}{0.5, 0.5, 0.5}
+\definecolor{codeFrame}{rgb}{0.5, 0.7, 0.5}
+
+% Define code settings
+\lstdefinestyle{code} {
+  frame=single, rulecolor=\color{codeFrame},            % Include a green frame around the code
+  numbers=left,                                         % Include line numbers
+  numbersep=8pt,                                        % Add space between line numbers and frame
+  numberstyle=\tiny\color{greyText},                    % Line number font size (tiny) and color (grey)
+  commentstyle=\color{greenText},                       % Put comments in green text
+  basicstyle=\linespread{1.1}\ttfamily\footnotesize,    % Set code line spacing
+  keywordstyle=\ttfamily\footnotesize,                  % No special formatting for keywords
+  showstringspaces=false,                               % No marks for spaces
+  xleftmargin=1.95em,                                   % Align code frame with main text
+  framexleftmargin=1.6em,                               % Extend frame left margin to include line numbers
+  breaklines=true,                                      % Wrap long lines of code
+  postbreak=\mbox{\textcolor{greenText}{$\hookrightarrow$}\space} % Mark wrapped lines with an arrow
+}
+
+% Set all code listings to be styled with the above settings
+\lstset{style=code}
+
+% --- Math/Statistics commands ---
+
+% Add a reference number to a single line of a multi-line equation
+% Usage: "\numberthis\label{labelNameHere}" in an align or gather environment
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+% Shortcut for bold text in math mode, e.g. $\b{X}$
+\let\b\mathbf
+
+% Shortcut for bold Greek letters, e.g. $\bg{\beta}$
+\let\bg\boldsymbol
+
+% Shortcut for calligraphic script, e.g. %\mc{M}$
+\let\mc\mathcal
+
+% \mathscr{(letter here)} is sometimes used to denote vector spaces
+\usepackage[mathscr]{euscript}
+
+% Convergence: right arrow with optional text on top
+% E.g. $\converge[w]$ for weak convergence
+\newcommand{\converge}[1][]{\xrightarrow{#1}}
+
+% Normal distribution: arguments are the mean and variance
+% E.g. $\normal{\mu}{\sigma}$
+\newcommand{\normal}[2]{\mathcal{N}\left(#1,#2\right)}
+
+% Uniform distribution: arguments are the left and right endpoints
+% E.g. $\unif{0}{1}$
+\newcommand{\unif}[2]{\text{Uniform}(#1,#2)}
+
+% Independent and identically distributed random variables
+% E.g. $ X_1,...,X_n \iid \normal{0}{1}$
+\newcommand{\iid}{\stackrel{\smash{\text{iid}}}{\sim}}
+
+% Equality: equals sign with optional text on top
+% E.g. $X \equals[d] Y$ for equality in distribution
+\newcommand{\equals}[1][]{\stackrel{\smash{#1}}{=}}
+
+% Math mode symbols for common sets and spaces. Example usage: $\R$
+\newcommand{\R}{\mathbb{R}}   % Real numbers
+\newcommand{\C}{\mathbb{C}}   % Complex numbers
+\newcommand{\Q}{\mathbb{Q}}   % Rational numbers
+\newcommand{\Z}{\mathbb{Z}}   % Integers
+\newcommand{\N}{\mathbb{N}}   % Natural numbers
+\newcommand{\F}{\mathcal{F}}  % Calligraphic F for a sigma algebra
+\newcommand{\El}{\mathcal{L}} % Calligraphic L, e.g. for L^p spaces
+
+% Math mode symbols for probability
+\newcommand{\pr}{\mathbb{P}}    % Probability measure
+\newcommand{\E}{\mathbb{E}}     % Expectation, e.g. $\E(X)$
+\newcommand{\var}{\text{Var}}   % Variance, e.g. $\var(X)$
+\newcommand{\cov}{\text{Cov}}   % Covariance, e.g. $\cov(X,Y)$
+\newcommand{\corr}{\text{Corr}} % Correlation, e.g. $\corr(X,Y)$
+\newcommand{\B}{\mathcal{B}}    % Borel sigma-algebra
+
+% Other miscellaneous symbols
+\newcommand{\tth}{\text{th}}	% Non-italicized 'th', e.g. $n^\tth$
+\newcommand{\Oh}{\mathcal{O}}	% Big-O notation, e.g. $\O(n)$
+\newcommand{\1}{\mathds{1}}	% Indicator function, e.g. $\1_A$
+
+% Additional commands for math mode
+\DeclareMathOperator*{\argmax}{argmax}    % Argmax, e.g. $\argmax_{x\in[0,1]} f(x)$
+\DeclareMathOperator*{\argmin}{argmin}    % Argmin, e.g. $\argmin_{x\in[0,1]} f(x)$
+\DeclareMathOperator*{\spann}{Span}       % Span, e.g. $\spann\{X_1,...,X_n\}$
+\DeclareMathOperator*{\bias}{Bias}        % Bias, e.g. $\bias(\hat\theta)$
+\DeclareMathOperator*{\ran}{ran}          % Range of an operator, e.g. $\ran(T) 
+\DeclareMathOperator*{\dv}{d\!}           % Non-italicized 'with respect to', e.g. $\int f(x) \dv x$
+\DeclareMathOperator*{\diag}{diag}        % Diagonal of a matrix, e.g. $\diag(M)$
+\DeclareMathOperator*{\trace}{trace}      % Trace of a matrix, e.g. $\trace(M)$
+
+% Numbered theorem, lemma, etc. settings - e.g., a definition, lemma, and theorem appearing in that 
+% order in Section 2 will be numbered Definition 2.1, Lemma 2.2, Theorem 2.3. 
+% Example usage: \begin{theorem}[Name of theorem] Theorem statement \end{theorem}
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+
+% Un-numbered theorem, lemma, etc. settings
+% Example usage: \begin{lemma*}[Name of lemma] Lemma statement \end{lemma*}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem*{proposition*}{Proposition}
+\newtheorem*{lemma*}{Lemma}
+\newtheorem*{corollary*}{Corollary}
+\newtheorem*{definition*}{Definition}
+\newtheorem*{example*}{Example}
+\newtheorem*{remark*}{Remark}
+\newtheorem*{claim}{Claim}
+\newcommand{\Tau}{\mathcal{T}}
+\newcommand{\PSet}{\mathcal{P}}
+
+
+% --- Left/right header text (to appear on every page) ---
+
+% Include a line underneath the header, no footer line
+\pagestyle{fancy}
+\renewcommand{\footrulewidth}{0pt}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% Left header text: course name/assignment number
+\lhead{MAM4000W, Analysis II -- Assignment 1}
+
+% Right header text: your name
+\rhead{Alex Cristaudo, CRSALE010}
+
+% --- Document starts here ---
+
+\begin{document}
+\subsection*{Question 1}
+\begin{itemize}
+    \item \textbf{Positivity:} We can always cover $E$ with itself, and choose some $i \in I$ and let $ J = \{i\}$ and $E_i = E$, then $E = \bigcup \limits _{j \in J} E_j$, and thus $\mu (E) \ge \mu _i (E) \ge 0$ since $\mu _i$ is a positive measure.     \item \textbf{Empty Set:} Clearly, as in Positivity, this supremum set is not empty so suppose $(E_i)_{i \in J} \subset \mathcal{E}$ is pairwise disjoint and $\emptyset = \bigcup \limits _{i \in J} E_i$ and $J \subset I$ is at most countable. Since $\emptyset = \bigcup \limits _{i \in J} E_i$, we must have $E_i = \emptyset$ for all $i \in J$. So \[
+            \sum \limits _{i \in J} \mu _i (E_i) = \sum \limits _{i\in J} \underbrace{\mu _i (\emptyset)}_{=0} = 0
+        \] since each $\mu _i$ is a positive measure. Thus $\mu (\emptyset) = 0$
+    \item $\mathbf{\sigma}$\textbf{-additivity:} Suppose that $(E_n)_{n\in \mathbb{N}} \subset \mathcal{E}$ is pairwise disjoint. Let $\varepsilon > 0$. Then, for each $n\in \mathbb{N}$, we have a family $(E_{nm})_{m \in J_n} \subset \mathcal{E}$ that is pairwise disjoint and $E_n = \bigcup \limits _{m \in J_n} E_{nm}$ and $J_m \subset I$ is at most countable, and \[\mu (E_n) - \varepsilon 2^{-n} < \sum \limits_{m \in J_n} (\mu _m(E_{nm}))  \] so \[
+    	\sum \limits _{n \in \mathbb{N}} (\mu (E_n)) - \varepsilon < \sum \limits _{n\in \mathbb{N}}  \sum \limits _{m \in J_n} (\mu _m (E_{nm})) 
+    \]
+    
+    
+    Since the summands are nonnegative, we can use Tonelli's Theorem for sums and swap indices. To do so, let $J = \bigcup \limits _{n\in \mathbb{N}} J_n$,  $N_j = \{n \in \mathbb{N} : j \in J_n\}$ for $j \in J$ and $A_j := \bigcup \limits _{n \in N_j} E_{nj}$. $J$ is at most countable, as a countable union of at most countable sets. Since $(E_{nm})_{n \in \mathbb{N}, m \in J_n}$ is pairwise disjoint, so is $(A_j)_{j \in J}$. Moreover, \[\bigcup \limits _{n\in \mathbb{N}}E_n = \bigcup \limits _{n\in \mathbb{N}, j \in J_n} E_{nm} = \bigcup \limits _{j \in J} A_j\] 
+ \[ \text{So }
+    \mu \left ( \bigcup \limits _{n \in \mathbb{N}} E_n \right ) \ge \sum \limits _{j \in J}\mu _j (A_j) = \sum \limits _{j \in J} \mu _j \left ( \bigcup \limits _{n \in N_j} E_{nj} \right)= \sum \limits _{j \in J} \sum \limits _{n \in N_j} \mu _j(E_{nj)} = \sum \limits _{n \in \mathbb{N}} \sum \limits _{j \in J_n} \mu _j(E_{nj)}> \sum \limits _{n \in \mathbb{N}} (\mu (E_n)) - \varepsilon 
+    \]
+    
+    This is true for all $\varepsilon > 0$ and thus\[
+     \mu \left ( \bigcup \limits _{n \in \mathbb{N}} E_n \right ) \ge \sum \limits _{n \in \mathbb{N}} (\mu (E_n)) 
+    \]
+To show the other inequality, let $E = \bigcup \limits _{n \in \mathbb{N}} E_n = \bigcup \limits _{j \in J} B_j$ for $(B_j)_{j \in J} \subset \mathcal{E}$ pairwise disjoint and $J \subset I$ is at most countable. Now, noticing that $(B_j \cap E_n)_{j \in J}$ is p.d. and  \[
+\sum \limits _{ j\in J} \mu _j(B_j) = \sum \limits _{ j\in J} \mu _j \left (\bigcup \limits _{n\in \mathbb{N}}B_j \cap E_n \right) = \sum \limits _{ j\in J} \sum  _{n \in \mathbb{N}} \mu _j(B_j \cap E_n) = \sum \limits _{n \in \mathbb{N}} \sum \limits _{ j \in J} \mu _j(B_j \cap E_n) 
+\]Then, since $E_n = \bigcup \limits _{j \in J} (B_j \cap E_n)$, with $(B_j \cap E_n)_{j \in J}$ being pairwise disjoint, we get \[\sum \limits _{j \in J} \mu _j (B_j \cap E_n) \le \mu (E_n)\]
+So finally,
+\[
+\sum \limits _{j \in J} \mu _j (B_j) \le  \sum \limits _{n \in \mathbb{N}} \mu (E_n)
+\]
+meaning
+ \[
+\mu \left ( \bigcup \limits _{n \in \mathbb{N}} E_n \right ) \le \sum \limits _{n \in \mathbb{N}} (\mu (E_n)) 
+\]
+making $\mu$ $\sigma$-additive and thus a positive measure
+    
+    \end{itemize}
+\subsection*{Question 2}
+
+\begin{enumerate}[label=(\alph*)]
+\item {\begin{itemize}
+\item \textbf{Empty set:} For any set $A \in \mathcal{B}(X)$, clearly $\mu (A) \ge 0$ so $\Phi (E) \ge 0$ for all $E \subset X$ (note that $X$ itself is open, so $\{\mu (A): A \text{ is open}, A \supset E\}$ is nonempty). On the other hand, $\emptyset$ is open and $\mu (\emptyset) = 0$, so $\Phi (\emptyset) = 0$
+
+\item $\mathbf{\sigma}$\textbf{-subadditivity:} Let $A  \subset X$, $(A_n)_{n \in \mathbb{N}} \subset \mathcal{P}(X)$ such that $A \subset \bigcup _{n \in \mathbb{N}}A_n$. Let $\varepsilon > 0$. For each $n \in \mathbb{N}$, there exists an open set $O_n \supset A_n$ such that, since $\Phi$ is an infimum, and that $\mu$ is finite, \[\Phi (A_n) + \varepsilon 2^{-n} > \mu (O_n)\] Then $\bigcup \limits _{n \in \mathbb{N}} O_n \supset \bigcup \limits _{n\in \mathbb{N}} A_n \supset A$ and $\bigcup \limits _{n \in \mathbb{N}} O_n$ is open. So, since $\mu$ is $\sigma$-subadditive, \[
+\Phi  ( A ) \le \mu \left ( \bigcup \limits _{n\in \mathbb{N}} O_n\right ) \le \sum \limits _{n \in \mathbb{N}} \mu (O_n) \le \sum \limits _{n \in \mathbb{N}} (\Phi (A_n)) + \varepsilon
+\]  
+This is true for all $\varepsilon > 0$ and so
+\[
+\Phi (A) \le  \sum \limits _{n \in \mathbb{N}} \Phi (A_n)
+\]
+
+
+\end{itemize}
+}
+
+
+\item {Let $E_1, E_2 \subset X$ with $d(E_1, E_2) = r > 0$. From $\sigma$-subadditivity, $\Phi(E_1 \cup E_2) \le \Phi (E_1) + \Phi (E_2)$. Now $d(E_1, E_2) =  \inf \limits _{(e_1, e_2) \in E_1 \times E_2} d(e_1, e_2)$. For each $e_1 \in E_1$, clearly $B(e_1; \frac{1}{2}r) \cap E_2 = \emptyset$. Consider the open sets $U_1 = \bigcup \limits _{e_1 \in E_1} B(e_1; \frac{1}{2}r)$ and $U_2 = \bigcup \limits _{e_2 \in E_2} B(e_2; \frac{1}{2}r)$. Then $E_1 \cup E_2 \subset U_1 \cup U_2$ and $U_1 \cap U_2 = \emptyset$ (as if $x \in U_1 \cap U_2$, then there exist some $e_1 \in E_1, e_2 \in E_2$ such that $d(e_1,x) < \frac{1}{2}r$ and $d(e_2, x) < \frac{1}{2}r$, then $d(e_1, e_2) < r$, a contradiction).  Let $O \supset E_1 \cup E_2$ be open. Then $O \cap U_1 \supset E_1$ and $O \cap U_2 \supset E_2$ and both are open, so, using the additivity of the measure $\mu$,
+\[
+\mu (O) \ge \mu (O \cap (U_1 \cup U_2)) = \mu ((O \cap U_1) \cup (O \cap U_2)) = \mu (O \cap U_1) + \mu (O \cap U_2) \ge \Phi (E_1) + \Phi (E_2)
+\]
+So $\Phi (E_1 \cup E_2 ) \ge \Phi (E_1) + \Phi (E_2)$ and
+\[
+\Phi(E_1) + \Phi (E_2) = \Phi(E_1 \cup E_2)
+\]
+}
+\end{enumerate}
+
+
+\subsection*{Question 3}
+$(\Rightarrow )$ Suppose $f$ is measurable. $f^2$ is measurable since $f^2 = f\cdot f$, as the product of measurable functions, and $\{x \in X: f(x) > 0\} = f^{-1}((0, \infty )) \in \mathcal{E}$ since $(0, \infty)$ is a Borel set. \\
+$(\Leftarrow)$ Let $t \in \mathbb{R}$. We need to show that $\{x \in X: f(x) > t\} \in \mathcal{E}$. The case $t=0$ is given.\\ If $t  > 0$, then we have that $f(x)>t \iff f(x) > 0 \text{ and } |f(x)| > |t| \iff f(x) > 0 \text{ and } f(x)^2 > t^2 $, giving \\ $\{x \in X: f(x) > t\} = \{x \in X: f(x) > 0\} \cap \{x \in X: f(x)^2 > t^2\} ) \in \mathcal{E}$. \\ If $ t < 0$, then we have that $f(x) > t \iff f(x) > 0 \text{ or } (f(x) \le 0 \text{ and } |f(x)| < |t|) \iff f(x) > 0 \text{ or } (f(x) \le 0 \text{ and } f(x)^2 < t^2)  $, giving \\$\{x \in X:f(x) > t\} = \{x \in X: f(x) > 0\} \cup (\{x \in X: f(x) \le 0\} \cap \{x \in X: f(x)^2  < t^2\}) \in \mathcal{E}$ \\ So for all $t\in \mathbb{R}$, $f^{-1}((t, \infty)) \in \mathcal{E}$ making $f$ is measurable
+
+
+\end{document}
