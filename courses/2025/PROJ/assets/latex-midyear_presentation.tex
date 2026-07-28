@@ -1,0 +1,521 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Welcome to Overleaf --- just edit your LaTeX on the left,
+% and we'll compile it for you on the right. If you open the
+% 'Share' menu, you can invite other users to edit at the same
+% time. See www.overleaf.com/learn for more info. Enjoy!
+
+% WEBSITE:
+% https://www.overleaf.com/learn/latex/Beamer
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{beamer}
+\usepackage{tikz}
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage[export]{adjustbox}
+
+\title[Hausdorff Measure and Dimension] %optional
+{The Size of Sets}
+\subtitle{The Hausdorff Measure and Dimension}
+
+\DeclareMathOperator{\diam}{diam}
+
+\author{Alex Cristaudo}
+
+
+
+\date{April 2025}
+
+%End of title page configuration block
+%------------------------------------------------------------
+%The next block of commands puts the table of contents at the 
+%beginning of each section and highlights the current section:
+%------------------------------------------------------------
+\begin{document}
+\frame{\titlepage}
+%---------------------------------------------------------
+
+\begin{frame}{Outline}
+    \tableofcontents
+\end{frame}
+
+
+\section{Motivation}
+
+\begin{frame}{Motivation}
+    \begin{itemize}
+        \item The Lebesgue measure works well for common sets, such as intervals, squares, cubes
+        \item But how do we measure sets with complicated geometry? We need a new way to measure the size of these complicated sets, and assign them dimensions
+        \item Examples:
+            \begin{itemize}
+                \item Fractals 
+                \item Sets with non-natural dimensionality 
+                \item The Cantor Set is an example of both
+                
+                
+                
+            \end{itemize}
+        \item The Lebesgue measure has limitations
+                \begin{itemize}
+                    % \item For $\lambda _n$ in $\mathbb{R}^n$, this works well for sets of full dimension, but for lower-dimensional sets, $\lambda _n(A)=0$ 
+                    % \item We can't use $\lambda _{n-1}$ to measure $A$, because $\lambda _{n-1}$ is not defined in $\mathbb{R}^n$
+                    \item Take the following example
+                \end{itemize}
+
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Motivation}
+\begin{center}
+    \begin{tikzpicture}
+% Ejes coordenados
+\draw[->] (-1,0) -- (3,0) node[right] {$x$};
+\draw[->] (0,-1) -- (0,3) node[above] {$y$};
+
+% Curvas en el primer cuadrante
+\draw[smooth] (0.5,2) .. controls (1,2.2) and (1.5,2) .. (2,2);
+\draw[smooth] (1,1) .. controls (1.5,1.5) and (2,1.5) .. (2.5,1);
+\draw[smooth] (1.5,0.5) .. controls (2,0.5) and (2.5,0.5) .. (3,0.5);
+\end{tikzpicture}
+\end{center}
+\begin{itemize}
+    \item Let $A$ be this curve. This curve has no area, so $\lambda_2(A)= 0$. This is because the dimension of this curve is not 2. On the other hand, $\lambda _1(A)$ is not defined. So, how can we measure this set? We use the Hausdorff measure
+\end{itemize}
+\end{frame}
+
+\section{Hausdorff Measure}
+
+% \begin{frame}{Idea behind the Hausdorff Measure}
+%     \begin{itemize}
+%         \item As an example, take a set $A \subseteq \mathbb{R}^n$ that is $n$-dimensional:
+%             \begin{itemize}
+%             \item Our goal is to measure the volume of the set $A$
+%                 \item We could use $\diam A$ as "the longest side length" of $A$ and estimate the volume as $\diam (A)^n$ (an n-dimensional cube covering $A$ with side $\diam A$)
+%                 \item This estimation will be bad. So instead, we can cover $A$ with countably many sets $\{E_i\} \subseteq \mathbb{R}^n$ and these sets we estimate with this idea
+%                 \item Our approximation of the size of $A$ is then the sum of the approximations of each $E_i$
+%                 \item But our specific covering may not be ideal, we may be including unwanted size in our estimation
+%                 \item So we take the infimum over all possible covers
+
+%                 \item Additionally, we want the sizes of our sets to become smaller and smaller, so our value becomes more accurate
+%             \end{itemize}
+%         \item This notion can be generalised to any metric space. In this case, $\diam (X) = \sup \{d(x,y):x,y \in X\}$
+%     \end{itemize}
+% \end{frame}
+
+
+\begin{frame}{Intuitive Understanding}
+    The idea is if $A$ is $n$-dimensional, $\diam A$ represents the longest side length of $A$ so $(\diam A)^n$ is the volume of an $n$-dimensional cube covering $A$. \\ 
+    \begin{enumerate}
+        \item If we cover $A$ with a covering $\{E_i\}_{i\in \mathbb{N}}$, then $\sum \limits _{i=1}^\infty \diam (E_i)^n$ is the sum of all $n$-dimensional cubes covering each $E_i$ and thus also $A$.
+        \item As the length of the cubes gets smaller, this sum converges to the volume of $A$. This accounts for "roughness" in a set
+    \end{enumerate} 
+\begin{figure}
+    \begin{minipage}{0.4\textwidth}
+        \includegraphics[scale = 0.3]{assets/cover_sphere_big_cube.png}
+    \end{minipage}
+    \begin{minipage}{0.05\textwidth}
+            $\to$
+    \end{minipage}
+    \begin{minipage}{0.4\textwidth}
+        \includegraphics[scale = 0.3]{assets/cover_sphere_small_cubes.png}
+    \end{minipage}
+\end{figure}
+    
+\end{frame}
+
+
+
+\begin{frame}{Hausdorff Measure: Definition}
+\scriptsize{
+    \begin{definition}[Hausdorff $d$-measure]
+        Let $(X, d)$ be a metric space with $\diam (\emptyset) :=0$. For $d \geq 0$ and $\delta > 0$, define:
+        \begin{align}
+            \mathcal{H}_\delta^d(A) := \inf\left\{\sum \limits _{i =1}^\infty (\diam (E_i))^d : A \subseteq \bigcup \limits _{i=1}^\infty E_i \text { and} \diam(E_i) \le \delta \right\}
+        \end{align}
+        If $A$ does not possess any covering, we have $\mathcal{H}_\delta ^d(A) := \inf \emptyset =\infty $.
+        \\ The $d$-dimensional Hausdorff measure is then:
+        \begin{align}
+            \mathcal{H}^d(A) := \lim_{\ \delta \to 0^+} \mathcal{H}_\delta^d(A) = \sup_{\delta > 0} \mathcal{H}_\delta^d(A)
+        \end{align}
+         If $ d=0$: Define $\mathcal{H}^0(\emptyset)=0$ and use the interpretation $0^0=1$ for any other sets so $\mathcal{H}^0$ is the counting measure. 
+    \end{definition}
+    }
+    \begin{itemize}
+        \item All we require is $\diam (E_i) \le \delta $ for each $i \in \mathbb{N}$, so if $\delta \le \delta'$, then $ \mathcal{H}_\delta ^d(A) \ge \mathcal{H}_{\delta'}^d(A) $. The supremum form above is thus valid
+        \item An alternative definition allows us to normalise the Hausdorff measure: $\mathcal{H}^d(A) = c_d \cdot \lim \limits _{\ \delta \to 0^+} \mathcal{H}_\delta^d(A)$, but we will use (2)
+        
+        
+    \end{itemize}
+\end{frame}
+
+% \begin{frame}{$\delta $-approximation underestimates}
+% \small{
+% \begin{itemize}
+%     \item For any $\delta >0$, $\mathcal{H}_{\delta}^d$ can underestimate the true value.
+%     % \item This is especially important in fractals (like the Cantor Set we will discuss later) to fully measure the set
+%     \item Consider the following example:
+%         \begin{itemize}
+%         \item Let $A \subseteq X$ be compact. If we have a covering $\{E_n\}$ of $A$, then by compactness, there is a finite subcovering $\{E_{n_k}\}$. But then $\sum \limits _{n=1}^N\diam (E_{n_k})^d <\infty$ for every $d$ (if each $\diam (E_{n_k})$ is finite) ~\\ ~\\
+%         \begin{minipage}{0.6 \textwidth}
+%             \item Take the square $[0,1] \times [0,1]$. This is 2-dimensional, so we expect the 1-dimensional measure of this set to be $\infty$. But by above, this set is compact and if we considered $\mathcal{H}_\delta ^1$ instead of $\mathcal{H}^1$, we would get a finite value. Sending $\delta \to 0^+$ is important.
+%         \end{minipage}
+%         \begin{minipage} {0.25 \textwidth}
+%             \includegraphics[scale = 0.25]{assets/square_inf_measure.png}
+%         \end{minipage}
+        
+%                \end{itemize}
+    
+% \end{itemize}
+% }
+    
+% \end{frame}
+
+\begin{frame}{Hausdorff Measure: Properties}
+    For the $d$-dimensional Hausdorff measure $\mathcal{H}^d$:
+    \begin{itemize}
+        \item It is Borel measure (all Borel sets are Hausdorff measurable)
+        \item Connection to Lebesgue: If $c_d = \frac{\pi^{d/2}}{2^d\Gamma(d/2+1)}$ then $\mathcal{H}^d$ equals the Lebesgue measure when $d$ is an integer. So the Hausdorff measure is the Lebesgue measure, simply scaled by a constant with $c_1 = 1$
+        \item It is an outer measure on $X$. By Carathéodory's Extension Theorem, it is a measure on the $\sigma$-algebra of Hausdorff measurable sets
+        
+
+        \item Scaling property: For $\lambda > 0$, $\mathcal{H}^d(\lambda A) = \lambda^d \mathcal{H}^d(A)$ where $\lambda A:=\{\lambda a:a\in A\}$
+
+
+    \end{itemize}
+\end{frame}
+
+
+% \begin{frame}{Worked Example}
+% To prove that $\mathcal{H}^1((a,b]) = b-a$, we first prove the following Lemma:
+
+% \begin{block}{Lemma}
+% For a set $A \subseteq \mathbb{R}$, we have that $\lambda_1 (A) \le \diam (A)$
+% \end{block}
+% \begin{block}{Proof}
+%         The case when $\diam (A)=\infty$ is trivial. If $\diam (A) < \infty$, then $A$ 
+%  is bounded, so both $\inf \limits _{a\in A}a, \sup \limits _{a\in A}a$ exist and are finite, and $A \subseteq \left[\inf \limits _{a\in A}a, \sup \limits _{a\in A}A \right]$ and so $\lambda (A) \le \lambda \left(\left[\inf \limits _{a\in A}a, \sup \limits _{a\in A}a\right]\right) = \sup \limits _{a\in A}a - \inf \limits_{a\in A}a = \diam (A)$
+% \end{block}
+
+% \end{frame}
+
+
+% \begin{frame}{Proof}
+% \small{
+% We will show that $\mathcal{H}^1((a,b]) = b-a$: \\
+% Let $\delta >0$. We can divide $(a,b]$ into $m=\lceil \frac{b-a}{\delta} \rceil \le \frac{b-a}{\delta }+1 $ intervals with $(a,b] = \bigg (\bigcup \limits _{n=1}^{m-1}(a+(n-1)\delta , a+n\delta ] \bigg) \cup (a+(m-1)\delta, b]$. Labeling each interval as $E_n$, each interval satisfies $\diam (E_n) \le \delta $, and so $\mathcal{H}_\delta ^1((a,b]) \le  m\delta \le (b-a)+\delta$. Sending $\delta \to 0$ yields $\mathcal{H}^1((a,b])\le b-a$ \\ ~\\ On the other hand, let $\{A_n\}_{n\in \mathbb{N}}$ be a covering for $(a,b]$ (with $A_n = \emptyset$ for $n$ large enough if the covering is finite). By defining $E_n :=A_n \setminus A_{n-1}$ for $n > 1$, and $E_1 = A_1$, we get that $\{E_n\}_{n\in \mathbb{N}}$ are pairwise disjoint, and $E_n=\emptyset$ for $n$ large enough if the covering is finite. Then $(a,b]=\bigcup \limits _{n=1}^\infty((a,b] \cap E_n) \implies \lambda_1 ((a,b]) =\sum \limits _{n=1}^\infty \lambda_1 ((a,b] \cap E_n)$, so $\sum \limits _{n=1}^\infty \lambda_1 ((a,b]\cap E_n)=b-a$ and $\sum \limits _{n=1}^ {\infty} \lambda_1 (E_n) \ge b-a$. But then $\sum \limits _{n=1}^\infty \diam (A_n) \ge \sum \limits _{n=1}^\infty \diam (E_n) \ge b-a$, so $\mathcal{H}^1((a,b])=b-a$.}
+% \end{frame}
+
+
+\begin{frame}{Behavior Across Dimensions}
+ The following theorem is crucial to define the dimension of a set
+ \small{
+ \begin{block}{Theorem}
+    For $0 \le s<t<\infty$ and $A \subseteq X$
+    \begin{enumerate}
+        \item $\mathcal{H}^s(A) < \infty \implies \mathcal{H}^t(A) = 0$
+        \item $\mathcal{H}^t(A)>0 \implies \mathcal{H}^s(A)=\infty$
+    \end{enumerate}
+ \end{block}
+}
+% \small{
+%  \begin{block}{Proof}
+%     \begin{enumerate}
+%         \item Let $\delta >0$ such that $\mathcal{H}_\delta ^s(A)<\infty.$
+%         Then there exists some covering $\{E_i\}_{i \in \mathbb{N}} $ of $A$, with $\diam(E_i) \le \delta$ for each $i \in \mathbb{N}$ and $\sum \limits _{i\in \mathbb{N}}\diam (E_i)^s <\mathcal{H}^s_\delta (A)+1$. Then $\mathcal{H}_\delta ^t(A) \le \sum \limits _{i \in \mathbb{N}}\diam (E_i)^t = \sum \limits _{i \in \mathbb{N}} (\diam (E_i)^s \diam (E_i)^{t/s}) \le \delta ^{t/s} \sum \limits _{i \in \mathbb{N}}\diam(E_i)^s <\delta ^{t/s}(\mathcal{H}_\delta ^s(A)+1) \to 0$ as $\delta \to 0^+$
+        
+%         \item This follows as the contrapositive of (1), since $\mathcal{H}^t(A) \ge 0$
+%     \end{enumerate}
+% \end{block} }
+
+ \end{frame}
+ 
+ \begin{frame}{Threshold Behaviour}
+    \begin{itemize}
+        \item This creates a "threshold behaviour" for any set $A$
+        \item If $\mathcal{H}^d(A)$ is a finite, nonzero value, then for every $s \in [0,\infty)$ with $s \ne d$, we either have $\mathcal{H}^s(A)$ is infinite, or zero. More specifically, \\ ~\\ \begin{center}
+    $\mathcal{H}^s(A) = \begin{cases}
+        \infty  & \text { if }s < d \\ \text{finite, nonzero number} & \text { if } s = d \\ 0   & \text { if }s > d
+    \end{cases}$
+    \end{center}
+    ~\\ ~\\ ~\\
+    \begin{center}
+        
+        \begin{tikzpicture}[scale=0.3]
+    % Axes
+    \draw[->] (0,0) -- (10,0) node[right] {$s$ (dimension parameter)};
+    \draw[->] (0,0) -- (0,7) node[left] {$H^s(A)$};
+    
+    % x-axis labels
+    \draw (0,-0.1) node[below] {$0$};
+    \draw (3,-0.1) node[below] {$d$};
+
+    
+    % Vertical dotted line at s=d
+    \draw[dashed] (3,0) -- (3,6);
+    
+    % Horizontal line segments
+    \draw[blue, thick] (0,6) -- (3,6);  % H^s(A) = ∞ for s < d
+    \draw[blue, thick] (3,0) -- (10,0); % H^s(A) = 0 for s ≥ d
+    
+    % Points
+    \filldraw[blue] (3,3) circle (0.1) node[right=1cm] {$0 < H^d(A) < \infty$};
+    \draw[blue] (3,0) circle (0.15);
+    
+    % Labels for the line segments
+    \node[blue] at (3.5,6.5) {$H^s(A) = \infty$};
+    \node[blue] at (6.5,0.7) {$H^s(A) = 0$};
+    
+    
+\end{tikzpicture}
+    \end{center}
+    \end{itemize}
+\end{frame}
+
+\section{Hausdorff Dimension}
+
+\begin{frame}{Hausdorff Dimension: Definition}
+    \begin{definition}[Hausdorff dimension]
+        For a set $A \subseteq X$, the Hausdorff dimension is:
+        \begin{align}
+            \dim(A) = \inf\{d \geq 0 : \mathcal{H}^d(A) = 0\} = \sup\{d \geq 0 : \mathcal{H}^d(A) = \infty\}
+        \end{align}
+        For this definition, we take $\sup \emptyset =0$
+    \end{definition}
+    
+    \begin{itemize}
+        \item At the critical dimension $d = \dim(A)$, three cases are possible:
+            \begin{itemize}
+                \item $\mathcal{H}^d(A) = 0$
+
+                \item $0 < \mathcal{H}^d(A) < \infty$
+
+                \item $\mathcal{H}^d(A) = \infty$
+
+            \end{itemize}
+        \item The dimension can be infinity or zero
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Properties of Hausdorff Dimension}
+    For sets $A, B \subseteq X$:
+    \begin{itemize}
+        \item Monotonicity: If $A \subseteq B$, then $\dim(A) \leq \dim(B)$
+        \item Countable stability: $\dim\left(\bigcup\limits _{n \in \mathbb{N}} A_n\right) = \sup \limits _{n \in \mathbb{N}} \dim(A_n)$
+        \item For $\lambda > 0$, $\dim(\lambda A) = \dim(A)$
+        \item It is possible for $\mathcal{H}^d(A)=\infty$ for every $d \in [0, \infty)$. An example is $\mathbb{R}$ are infinite dimensional in $(\mathbb{R}, d_D)$
+        \item $\dim \mathbb{R}^n=n$ for the normal metric
+        % \item Consider metric space $(\mathbb{R}, d_E)$. 
+        % \small{
+        % \begin{itemize}
+        %     \item $\dim ((a,b])=1$, for any $(a,b] \subseteq \mathbb{R}$, because $\mathcal{H}^1((a,b])=b-a$
+        %     \item $\dim A \in [0,1]$ for any $A \subseteq \mathbb{R}$
+        %     \item If $A\subseteq \mathbb{R}$ is countable, then $\dim A=0$
+        % \end{itemize} 
+        % }
+        % \begin{itemize}
+        %     \item Take metric space $(\mathbb{R}, d_D)$ with the discrete metric. Let $\delta <1$. Now $\diam (A)<1 \iff A = \{a\}$ for some $a \in \mathbb{R}$. But we cannot cover $\mathbb{R}$ with countably many such sets, so $\mathcal{H}_\delta ^d(\mathbb{R}) = \inf \emptyset =\infty$ for every $d$. In this case, $\mathbb{R}$ is infinite dimensional
+        % \end{itemize} 
+    \end{itemize}
+\end{frame}
+\section{The Cantor Set}
+
+\begin{frame}{Example: Cantor Set}
+% \small{
+%     There are some sets contained in the real numbers that have an irrational dimension. We will consider the middle-thirds Cantor set $\mathcal{C}$:
+%     \begin{itemize}
+%         \item Start with the interval $C_0 = I_{0,1} =[0,1]$. We split $[0,1]$ into $[0, \frac{1}{3}], (\frac{1}{3}, \frac{2}{3}), [\frac{2}{3}, 1]$ and delete the middle third $(\frac{1}{3}, \frac{2}{3})$ and letting $I_{1,1} = [0, \frac{1}{3}], I_{1,2}=[\frac{2}{3}, 1]$ gives $C_1 = I_{1,1} \cup I_{1,2}$. To get $C_2$, we continue this process with each interval, that is, delete the middle third from $I_{1,1}$ to give intervals $I_{2,1}, I_{2,2}$, and delete the middle third from $I_{1,2}$, giving $I_{2,3}, I_{2,4}$. Then $C_2 = \bigcup \limits _{k=1}^4 I_{2,k}$. Then $C_n$ is the result of the $n$-th iteration
+%         \item $C_n$ consists of $2^n$ intervals of length $3^{-n}$, denoted $I_{n,1}, ..., I_{n, 2^n}$ and $C_n = \bigcup \limits _{k=1}^{2^n}I_{n, k}$.
+%         \item The Cantor set is the set as $n \to \infty$, that is, $\mathcal{C} := \lim _{n \to \infty}C_n= \bigcap \limits _{n\in \mathbb{N}}C_n$
+%         \item It can be shown that $\dim(\mathcal{C}) = d= \frac{\ln 2}{\ln 3} \approx 0.631$
+%         \item For any $\delta > 0$, $\mathcal{H}_\delta^d(\mathcal{C}) < \mathcal{H}^d(\mathcal{C})$. We need $\delta \to 0$ to fully measure $\mathcal{C}$.
+%         \item $\mathcal{H}^d(\mathcal{C}) =1$
+
+        
+        
+%     \end{itemize}}
+
+\begin{minipage}{0.6 \textwidth}
+\small{
+\begin{itemize}
+        \item Begin with the interval $C_0 =[0,1]$
+    \item Remove the middle third $(\frac{1}{3}, \frac{2}{3})$ to get $C_1 = [0, \frac{1}{3}] \cup [\frac{2}{3}, 1]$
+    \item Remove the middle third from each remaining interval to get $C_2 = [0, \frac{1}{9}]\cup [\frac{2}{9}, \frac{1}{3}] \cup [\frac{2}{3}, \frac{7}{9}] \cup [\frac{8}{9}, 1]$
+    \item Continue this process indefinitely, with $C_n$ the result at the $n$th iteration
+    \item The Cantor set is the set as $n \to \infty$, that is, $\mathcal{C} := \lim _{n \to \infty}C_n= \bigcap \limits _{n\in \mathbb{N}}C_n$
+    
+\end{itemize}}
+\end{minipage}%
+\begin{minipage}{0.39 \textwidth}
+  \begin{center}
+\includegraphics[width = \textwidth]{assets/cantor.png}    
+\end{center}
+\end{minipage}
+
+\end{frame}
+\begin{frame}{Cantor Set Properties}
+This Cantor Set is interesting because:
+\begin{itemize}
+    \item It is uncountable
+    \item It contains no intervals
+    \item It has dimension $d = \frac{\ln 2}{\ln 3} \approx0.631 $ (this also means it has zero Lebesgue measure)
+    \item $\mathcal{H}^d(\mathcal{C})=1$
+    \item $\mathcal{H}^d_\delta (\mathcal{C})<\mathcal{H}^d(\mathcal{C})$ for any $\delta >0$
+    
+\end{itemize}
+      
+\end{frame}
+
+% Ease of notation, use I_{i, j} as thte intervals, use the A idea to define C
+% \begin{frame}{Dimension of the Cantor Set}
+% We will prove that $\dim \mathcal{C} = \frac{\ln 2}{\ln 3}$
+% \begin{block}{Proof: The Dimension of the Cantor Set}
+% By construction, $\mathcal{C} \subseteq C_n$ for each $n \in \mathbb{N}$. $C_n$ contains  $2^n$ intervals $\{I_{n, m}\}_{m=1}^{2^n}$ with $\diam(I_{n, m}) = 3^{-n}$ and $C_n = \bigcup \limits _{m=1}^{2^{n}}I_{n,m}$. Take $\delta >0$ and $n$ large enough such that $3^{-n} \le \delta $. Thus
+
+% \small{$\mathcal{H}_{\delta}^d(\mathcal{C})  \le \mathcal{H}_\delta ^d(C_n) \le \sum \limits _{m=1}^{2^{n}} (\diam (I_{n,m}))^d=\sum \limits  _{m=1}^{2^{n}} (3^{-n})^d= (3^{-nd})(2^{n})=(\frac{2}{3^d})^{n}$}. If $\frac{2}{3^d} < 1$, then as $n \to \infty$, $(\frac{2}{3^d})^n \to 0$ and so $\mathcal{H} ^d(\mathcal{C})=0$. So we require $\frac{2}{3^d} \ge  1\iff 3^d \le 2\iff d\le \frac{\ln 2}{\ln 3}$.
+
+% \end{block}
+% \end{frame}
+
+% \begin{frame}{Dimension of the Cantor Set}
+% % Show Cantor Set is isolated points
+% % THat is uncountable
+% % So each at least one E_n contains uncountable many points of C
+% \begin{block}{Continued}
+% \small{
+% Let $d = \frac{\ln 2}{\ln 3}$ and let $\{E_n\}_{n\in \mathbb{N}}$ be a countable covering for $\mathcal{C}$ with $\diam (E_{n})< \frac{1}{3}$. Since $C_n$ is compact, as a union of finite compact sets, it follows that $\mathcal{C} = \bigcap \limits _{n=1}^\infty C_n$ is compact. So, $\{E_n\}_{n\in \mathbb{N}}$ has a finite subcovering $\{E_{n_k}\}_{k=1}^N$. We may also assume that $E_{n_k} \cap \mathcal{C} \ne \emptyset $, otherwise we remove $E_{n_k}$. Clearly \begin{center}
+% $\sum \limits _{n\in \mathbb{N}}\diam (E_n)^d \ge \sum \limits _{k=1 }^N \diam (E_{n_k})^d$.
+% \end{center} For each $k=1,...,N$, let $m_k \in \mathbb{N}$ such that $3^{-(m_k+1)} \le \diam (E_{n_k})< 3^{-m_k}$. In this case, $E_{n_k}$ intersects exactly one $I_{m_k, p}$ for some $p \in \{1,2,...,2^{m_k}\}$. This follows because there exists some $c \in \mathcal{C}$ such that $c \in E_{n_k}$, and $c \in I_{m_k, p}$ for some $p \in \{1,2,...,2^{m_k}\}$. There cannot be more one interval, as if there were points $x \in I_{m_j, p}, y \in I_{m_j, p'}$ and $x,y \in E_{n_k}$, then $\diam (E_{n_k}) \ge |x-y| \ge 3^{-m_j}$ with each interval being at least $3^{-m_j}$ away from each other. 
+% }
+% \end{block}
+% \end{frame}
+
+% \begin{frame}{Dimension of the Cantor Set}
+% \begin{block}{Continued}
+% But then in iteration $m_k+1$, interval $I_{m_k, p}$ splits into 2 smaller intervals, and thus $E_{n_k}$ intersects at most $2^{1}$ intervals. Then for any $x \ge m_k, x \in \mathbb{N}$, $E_{n_k}$ intersects at most $2^{x-m_k}$ intervals on iteration $x$. Notice that $\diam(E_{n_k})^d \ge 3^{-d(m_k+1)}=(3^{d})^{-1}(3^{d})^{-m_k}=2^{-1}2^{-m_k}$ so $2^x \diam (E_{n_k})^{d} \ge 2^{x-m_k} 2^{-1}$.
+% Now let $M = \max \{m_k:k=1,2,...,N\}$. Then, for each $k$, $\diam (E_{n_k})\ge 2^{-(M+1)}$. Let $M_k$ be the number of intervals $E_{n_k}$ intersects with in iteration $M$. Clearly $M_k \le 2^{M-m_k}$ and $\sum\limits _{k=1}^{N} M_k \ge 2^{M}$. Now $\sum \limits _{k=1}^N(\diam (E_{n_k}))^d =\sum \limits _{k=1}^N2^M \diam (E_{n_k})^d \cdot 2^{-M} \ge 2^{-1} 2^{-M}\sum \limits _{k=1}^N2^{M-m_k}\ge2^{-1}2^{-M}\sum \limits _{k=1}^NM_k \ge 2^{-1}2^{-M}2^M = \frac{1}{2}$. Thus $\mathcal{H}^d(\mathcal{C}) \ne 0$ and so $d = \dim \mathcal{C}$ 
+% \end{block}
+% \end{frame}
+
+% \begin{frame}{Example: von Koch Curve}
+%     The von Koch curve $K$:
+%     \begin{itemize}
+%         \item Construction: Repeatedly replace segments with 4 segments, each $1/3$ the length
+%         \item At stage $n$, consists of $4^n$ segments of length $3^{-n}$
+%         \item Hausdorff dimension: $\dim_H(K) = \frac{\log 4}{\log 3} \approx 1.262$
+%         \item At critical dimension $d = \frac{\log 4}{\log 3}$:
+%             \begin{itemize}
+%                 \item $\mathcal{H}^d(K)$ is positive and finite
+%             \end{itemize}
+%         \item For any $\delta > 0$, $\mathcal{H}_\delta^d(K) < \mathcal{H}^d(K)$
+%     \end{itemize}
+% \end{frame}
+
+% \begin{frame}{Example: Sierpiński Gasket}
+%     The Sierpiński gasket $S$:
+%     \begin{itemize}
+%         \item Construction: Repeatedly remove middle triangles
+%         \item At stage $n$, consists of $3^n$ triangles with side length $2^{-n}$
+%         \item Hausdorff dimension: $\dim_H(S) = \frac{\log 3}{\log 2} \approx 1.585$
+%         \item At critical dimension $d = \frac{\log 3}{\log 2}$:
+%             \begin{itemize}
+%                 \item $\mathcal{H}^d(S)$ is positive and finite
+%             \end{itemize}
+%     \end{itemize}
+% \end{frame}
+
+% \begin{frame}{Self-similar Sets: General Formula}
+%     For a self-similar set with:
+%     \begin{itemize}
+%         \item $N$ copies of itself
+%         \item Each scaled by factor $r < 1$
+%     \end{itemize}
+%     The Hausdorff dimension is given by:
+%     \begin{align}
+%         d = \frac{\log N}{\log(1/r)}
+%     \end{align}
+    
+%     This applies when:
+%     \begin{itemize}
+%         \item The pieces satisfy the open set condition
+%         \item All scaling factors are equal
+%     \end{itemize}
+% \end{frame}
+
+
+% \begin{frame}{Box-counting Dimension}
+%     Alternative notion of dimension:
+%     \begin{align}
+%         \dim_B(A) = \lim_{\delta \to 0} \frac{\log N_\delta(A)}{-\log\delta}
+%     \end{align}
+%     where $N_\delta(A)$ is the minimum number of sets of diameter $\delta$ needed to cover $A$.
+    
+%     \begin{itemize}
+%         \item Sometimes easier to compute than Hausdorff dimension
+%         \item For "nice" fractals: $\dim_H(A) = \dim_B(A)$
+%         \item In general: $\dim_H(A) \leq \dim_B(A)$
+%     \end{itemize}
+% \end{frame}
+
+% \begin{frame}{Packing Dimension}
+%     Packing measure $\mathcal{P}^d$ is defined using separated balls:
+%     \begin{itemize}
+%         \item Dual notion to Hausdorff measure
+%         \item Packing dimension: $\dim_P(A) = \inf\{d : \mathcal{P}^d(A) = 0\}$
+%         \item In general: $\dim_H(A) \leq \dim_P(A) \leq \dim_B(A)$
+%     \end{itemize}
+% \end{frame}
+
+% \begin{frame}{Applications in Analysis}
+%     Hausdorff dimension provides insights into:
+%     \begin{itemize}
+%         \item Singular sets of functions and measures
+%         \item Dynamics of chaotic systems
+%         \item Properties of random walks
+%         \item Solutions to PDEs and diffusion processes
+%         \item Geometric structure of limit sets
+%         \item Capacity theory
+%         \item Harmonic analysis
+%     \end{itemize}
+% \end{frame}
+
+
+% \begin{frame}{Summary and Further Reading}
+%     \begin{itemize}
+%         \item Hausdorff measure extends notion of "volume" to any dimension
+%         \item Hausdorff dimension captures the "true" dimension of sets
+%         \item Key properties:
+%             \begin{itemize}
+%                 \item Well-defined for any set
+%                 \item Invariant under isometries and bi-Lipschitz maps
+%                 \item Compatible with classical notions for regular sets
+%             \end{itemize}
+%     \end{itemize}
+    
+%     Further Reading:
+%     \begin{itemize}
+%         \item Falconer, K. J. "The Geometry of Fractal Sets"
+%         \item Mattila, P. "Geometry of Sets and Measures in Euclidean Spaces"
+%         \item Evans, L. C. and Gariepy, R. F. "Measure Theory and Fine Properties of Functions"
+%     \end{itemize}
+% \end{frame}
+
+\begin{frame}{Questions?}
+    \begin{center}
+        \Huge Thank you for your attention! \\ ~ \\ Please ask any questions
+    \end{center}
+\end{frame}
+
+\end{document}
+
+---
+\begin{alertblock}{Important theorem}
+Sample text in red box
+\end{alertblock}
+
+\begin{examples}
+Sample text in green box. The title of the block is ``Examples".
+\end{examples}
+
+In this slide, some important text will be
+\alert{highlighted} because it's important.
+---
