@@ -3,6 +3,7 @@ title: Assignment 4
 type: tutorial
 status: needs-review
 source: onedrive
+assets: [assignment-4-CRSALE010_HandIn4.pdf, assignment-4-Assignment-4.tex]
 ---
 Imported from OneDrive (`First Year/MAM1019H/Second Semester/Assignments/Assignment 4`). Original file(s) attached:
 

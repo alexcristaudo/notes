@@ -5,6 +5,7 @@ week: 1
 tags: [2IA]
 status: needs-review
 source: onedrive
+assets: [Solutions-Proving-Problems-Week-1.pdf]
 ---
 Imported from OneDrive (`Second Year/MAM2000W/2IA/Vula Resources/PROVING Workshops/SOLUTIONS/Solutions Proving Problems Week 1.pdf`). Original file(s) attached:
 

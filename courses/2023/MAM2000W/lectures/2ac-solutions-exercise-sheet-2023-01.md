@@ -4,6 +4,7 @@ type: lecture
 tags: [2AC]
 status: needs-review
 source: onedrive
+assets: [Solutions-Exercise-sheet-2023-01.pdf]
 ---
 Imported from OneDrive (`Second Year/MAM2000W/2AC/Vula Resources/Exercise sheets/Solutions-Exercise sheet 2023-01.pdf`). Original file(s) attached:
 

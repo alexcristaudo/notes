@@ -3,6 +3,7 @@ title: Theorems
 type: lecture
 status: needs-review
 source: onedrive
+assets: [theorems.pdf]
 ---
 Imported from OneDrive (`Honours/Galois Theory/Theorems/theorems.pdf`). Original file(s) attached:
 

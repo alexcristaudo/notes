@@ -4,6 +4,7 @@ type: test
 tags: [2IA]
 status: needs-review
 source: onedrive
+assets: [2022-Solution_Class-test-2.pdf]
 ---
 Imported from OneDrive (`Second Year/MAM2000W/2IA/Vula Resources/ClASS TESTS/2022 Solution_Class test 2.pdf`). Original file(s) attached:
 

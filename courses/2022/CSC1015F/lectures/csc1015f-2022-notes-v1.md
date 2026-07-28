@@ -3,6 +3,7 @@ title: Csc1015f 2022 notes-v1
 type: lecture
 status: needs-review
 source: onedrive
+assets: [csc1015f_2022_notes-v1.pdf]
 ---
 Imported from OneDrive (`First Year/CSC1015F/csc1015f_2022_notes-v1.pdf`). Original file(s) attached:
 

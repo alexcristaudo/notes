@@ -3,6 +3,7 @@ title: Assignment 2
 type: tutorial
 status: needs-review
 source: onedrive
+assets: [assignment-2-CRSALE010_Assignment2.pdf, assignment-2-template.tex]
 ---
 Imported from OneDrive (`Honours/Analysis II/Assignments/Assignment 2`). Original file(s) attached:
 

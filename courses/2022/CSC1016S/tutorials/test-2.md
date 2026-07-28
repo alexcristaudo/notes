@@ -3,6 +3,7 @@ title: Test 2
 type: tutorial
 status: needs-review
 source: onedrive
+assets: [test-2-CurrentAccount.java, test-2-Practical-2.docx]
 ---
 Imported from OneDrive (`First Year/CSC1016S/CSC1016S Practicals/Test 2`). Original file(s) attached:
 

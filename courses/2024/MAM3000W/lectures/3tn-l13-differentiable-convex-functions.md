@@ -4,6 +4,7 @@ type: lecture
 tags: [3TN]
 status: needs-review
 source: onedrive
+assets: [L13-Differentiable-convex-functions.pdf]
 ---
 Imported from OneDrive (`Third Year/MAM3000W/3TN/Amathuba Resources/Lecture notes/L13-Differentiable convex functions.pdf`). Original file(s) attached:
 

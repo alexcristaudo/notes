@@ -4,6 +4,7 @@ type: lecture
 tags: [2AC]
 status: needs-review
 source: onedrive
+assets: [Lecture-21.pdf]
 ---
 Imported from OneDrive (`Second Year/MAM2000W/2AC/Vula Resources/Weekly content/Week 9 _17 - 21 Apr_/Lecture 21.pdf`). Original file(s) attached:
 

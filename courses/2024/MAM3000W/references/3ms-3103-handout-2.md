@@ -4,6 +4,7 @@ type: reference
 tags: [3MS]
 status: needs-review
 source: onedrive
+assets: [3103_handout_2.pdf]
 ---
 Imported from OneDrive (`Third Year/MAM3000W/3MS/3103_handout_2.pdf`). Original file(s) attached:
 

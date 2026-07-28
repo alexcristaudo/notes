@@ -4,6 +4,7 @@ type: lecture
 tags: [2LA]
 status: needs-review
 source: onedrive
+assets: [template.pdf]
 ---
 Imported from OneDrive (`Second Year/MAM2000W/2LA/Notes/Eigenvectors/template.pdf`). Original file(s) attached:
 

@@ -36,6 +36,19 @@ Two ways, both fine:
 New material can also be dropped onto the app's **Import** page (markdown, .docx, PDFs) — then
 exported and committed the same way.
 
+## Reading PDFs
+
+Notes that have a PDF attached (most of the imported ones) get two buttons in the header:
+
+- **📄 View PDF** — opens the original inline, full height, without leaving the note.
+- **⤓ Extract notes** — pulls the PDF's text into the note body so it reads like a normal
+  note: rendered markdown, section headings per page, searchable via ⌘K, navigable from the
+  outline sidebar. The original PDF stays attached.
+
+Extraction is best-effort — layout, equations, and symbols usually need a cleanup pass, so
+edit the result and then **Export all** → replace `courses/` → push to keep it. Until you do,
+the course Health tab lists the note as "not committed to GitHub".
+
 ## Note format
 
 YAML frontmatter (`title`, `type`, `week`, `tags`, `status`, `difficulty`) + markdown with:

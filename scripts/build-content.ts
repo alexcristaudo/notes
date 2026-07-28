@@ -149,5 +149,11 @@ if (existsSync(SRC)) {
   }
 }
 
+// pdf.js worker for the in-app PDF text extractor
+copyFileSync(
+  join(ROOT, "node_modules", "pdfjs-dist", "build", "pdf.worker.min.mjs"),
+  join(ROOT, "public", "pdf.worker.min.mjs"),
+);
+
 writeFileSync(OUT_JSON, JSON.stringify({ generatedAt: Date.now(), courses, notes }, null, 2));
 console.log(`content.json: ${courses.length} course(s), ${notes.length} note(s), ${courses.reduce((n, c) => n + c.assets.length, 0)} asset(s)`);

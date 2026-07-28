@@ -4,6 +4,7 @@ type: lecture
 tags: [2IA]
 status: needs-review
 source: onedrive
+assets: [Properties-of-cosets.pdf]
 ---
 Imported from OneDrive (`Second Year/MAM2000W/2IA/Vula Resources/WEEK 10/Lecture notes/Properties of cosets.pdf`). Original file(s) attached:
 

@@ -4,6 +4,7 @@ type: lecture
 tags: [2IA]
 status: needs-review
 source: onedrive
+assets: [3.1-What-is-a-group.pdf]
 ---
 Imported from OneDrive (`Second Year/MAM2000W/2IA/Vula Resources/WEEK 5/Lecture notes/3.1 What is a group.pdf`). Original file(s) attached:
 

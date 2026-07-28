@@ -3,6 +3,7 @@ title: Test 1
 type: tutorial
 status: needs-review
 source: onedrive
+assets: [test-1-test.py]
 ---
 Imported from OneDrive (`First Year/CSC1015F/CSC1015F Practicals/Test 1`). Original file(s) attached:
 

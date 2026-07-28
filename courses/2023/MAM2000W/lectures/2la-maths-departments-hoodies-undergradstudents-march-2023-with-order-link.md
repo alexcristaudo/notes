@@ -4,6 +4,7 @@ type: lecture
 tags: [2LA]
 status: needs-review
 source: onedrive
+assets: [Maths-Departments-Hoodies_UndergradStudents_March-2023_with-order-link.pdf]
 ---
 Imported from OneDrive (`Second Year/MAM2000W/2LA/Vula Resources/Maths Departments Hoodies_UndergradStudents_March 2023_with order link.pdf`). Original file(s) attached:
 

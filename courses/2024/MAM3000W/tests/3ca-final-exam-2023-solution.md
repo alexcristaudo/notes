@@ -4,6 +4,7 @@ type: test
 tags: [3CA]
 status: needs-review
 source: onedrive
+assets: [final_exam_2023_solution.pdf]
 ---
 Imported from OneDrive (`Third Year/MAM3000W/3CA/Amathuba Resources/Old Tests and Exams/final_exam_2023_solution.pdf`). Original file(s) attached:
 

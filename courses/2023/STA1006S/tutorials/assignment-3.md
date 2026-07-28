@@ -3,6 +3,7 @@ title: Assignment 3
 type: tutorial
 status: needs-review
 source: onedrive
+assets: [assignment-3-Q1.1.pdf]
 ---
 Imported from OneDrive (`Second Year/STA1006S/Assignments/Assignment 3`). Original file(s) attached:
 

@@ -3,6 +3,7 @@ title: Devore Appendix of Tables
 type: lecture
 status: needs-review
 source: onedrive
+assets: [Devore-Appendix-of-Tables.pdf]
 ---
 Imported from OneDrive (`Second Year/STA1006S/Devore Appendix of Tables.pdf`). Original file(s) attached:
 

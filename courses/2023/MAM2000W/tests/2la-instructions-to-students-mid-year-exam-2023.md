@@ -4,6 +4,7 @@ type: test
 tags: [2LA]
 status: needs-review
 source: onedrive
+assets: [Instructions-to-students-Mid-year-Exam-2023.pdf]
 ---
 Imported from OneDrive (`Second Year/MAM2000W/2LA/Vula Resources/Instructions to students Mid-year Exam 2023.pdf`). Original file(s) attached:
 

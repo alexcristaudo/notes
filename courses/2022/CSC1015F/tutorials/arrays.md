@@ -3,6 +3,7 @@ title: Arrays
 type: tutorial
 status: needs-review
 source: onedrive
+assets: [arrays-8.-Arrays.pdf, arrays-2048.py, arrays-histogram.py, arrays-push.py, arrays-right-align.py, arrays-util.py, arrays-testutil.py]
 ---
 Imported from OneDrive (`First Year/CSC1015F/CSC1015F Assignments/arrays`). Original file(s) attached:
 

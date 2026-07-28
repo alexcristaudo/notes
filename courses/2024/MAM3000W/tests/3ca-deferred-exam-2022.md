@@ -4,6 +4,7 @@ type: test
 tags: [3CA]
 status: needs-review
 source: onedrive
+assets: [deferred_exam_2022.pdf]
 ---
 Imported from OneDrive (`Third Year/MAM3000W/3CA/Amathuba Resources/Old Tests and Exams/deferred_exam_2022.pdf`). Original file(s) attached:
 

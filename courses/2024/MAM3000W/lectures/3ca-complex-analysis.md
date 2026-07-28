@@ -4,6 +4,7 @@ type: lecture
 tags: [3CA]
 status: needs-review
 source: onedrive
+assets: [Complex_Analysis.pdf]
 ---
 Imported from OneDrive (`Third Year/MAM3000W/3CA/Amathuba Resources/Lecture Notes/Complex_Analysis.pdf`). Original file(s) attached:
 

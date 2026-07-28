@@ -3,6 +3,7 @@ title: Calculus cheat sheet all
 type: summary
 status: needs-review
 source: onedrive
+assets: [calculus_cheat_sheet_all.pdf]
 ---
 Imported from OneDrive (`First Year/MAM1000W/calculus_cheat_sheet_all.pdf`). Original file(s) attached:
 

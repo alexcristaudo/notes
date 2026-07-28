@@ -3,6 +3,7 @@ title: 04.0 pp xii xii Basic notation
 type: reference
 status: needs-review
 source: onedrive
+assets: [04.0_pp_xii_xii_Basic_notation.pdf]
 ---
 Imported from OneDrive (`Honours/Project/Research Resources/Textbooks/Geometry of Sets and Measures in Euclidean Spaces/04.0_pp_xii_xii_Basic_notation.pdf`). Original file(s) attached:
 

@@ -4,6 +4,7 @@ type: test
 tags: [3TN]
 status: needs-review
 source: onedrive
+assets: [L4-Some-Examples-of-Banach-Spaces.pdf]
 ---
 Imported from OneDrive (`Third Year/MAM3000W/3TN/Amathuba Resources/L4-Some Examples of Banach Spaces.pdf`). Original file(s) attached:
 

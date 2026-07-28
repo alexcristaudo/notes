@@ -4,6 +4,7 @@ type: lecture
 tags: [3CA]
 status: needs-review
 source: onedrive
+assets: [Test2Theorems.pdf]
 ---
 Imported from OneDrive (`Third Year/MAM3000W/3CA/Test2Theorems.pdf`). Original file(s) attached:
 

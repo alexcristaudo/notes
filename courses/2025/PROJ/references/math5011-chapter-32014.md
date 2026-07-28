@@ -3,6 +3,7 @@ title: MATH5011 Chapter 3.2014
 type: reference
 status: needs-review
 source: onedrive
+assets: [MATH5011_Chapter_3.2014.pdf]
 ---
 Imported from OneDrive (`Honours/Project/Research Resources/PDFs/MATH5011_Chapter_3.2014.pdf`). Original file(s) attached:
 

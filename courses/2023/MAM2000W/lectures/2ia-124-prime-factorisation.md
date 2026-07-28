@@ -4,6 +4,7 @@ type: lecture
 tags: [2IA]
 status: needs-review
 source: onedrive
+assets: [1.2.4-Prime-Factorisation.pdf]
 ---
 Imported from OneDrive (`Second Year/MAM2000W/2IA/Vula Resources/WEEK 2/Lecture notes/1.2.4 Prime Factorisation.pdf`). Original file(s) attached:
 

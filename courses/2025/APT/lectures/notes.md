@@ -3,6 +3,7 @@ title: Notes
 type: lecture
 status: needs-review
 source: onedrive
+assets: [notes.pdf]
 ---
 Imported from OneDrive (`Honours/Advanced Probability Theory/LaTeX Notes/notes.pdf`). Original file(s) attached:
 

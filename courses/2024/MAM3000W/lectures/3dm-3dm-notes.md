@@ -4,6 +4,7 @@ type: lecture
 tags: [3DM]
 status: needs-review
 source: onedrive
+assets: [3DM-Notes.pdf]
 ---
 Imported from OneDrive (`Third Year/MAM3000W/3DM/3DM Notes.pdf`). Original file(s) attached:
 

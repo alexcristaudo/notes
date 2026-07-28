@@ -3,6 +3,7 @@ title: Cantor-set
 type: reference
 status: needs-review
 source: onedrive
+assets: [cantor-set.pdf]
 ---
 Imported from OneDrive (`Honours/Project/Research Resources/PDFs/cantor-set.pdf`). Original file(s) attached:
 

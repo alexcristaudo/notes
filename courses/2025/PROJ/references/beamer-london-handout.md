@@ -3,6 +3,7 @@ title: Beamer-london-handout
 type: reference
 status: needs-review
 source: onedrive
+assets: [beamer-london-handout.pdf]
 ---
 Imported from OneDrive (`Honours/Project/Research Resources/Slides/beamer-london-handout.pdf`). Original file(s) attached:
 

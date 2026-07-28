@@ -4,6 +4,7 @@ type: lecture
 tags: [3MS]
 status: needs-review
 source: onedrive
+assets: [Notes-Chapter-1-to-3.pdf]
 ---
 Imported from OneDrive (`Third Year/MAM3000W/3MS/Vula Resources/Notes/Notes Chapter 1 to 3.pdf`). Original file(s) attached:
 

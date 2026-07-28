@@ -4,6 +4,7 @@ type: lecture
 tags: [2LA]
 status: needs-review
 source: onedrive
+assets: [course_information_mam_2.pdf]
 ---
 Imported from OneDrive (`Second Year/MAM2000W/2LA/Vula Resources/course_information_mam_2.pdf`). Original file(s) attached:
 

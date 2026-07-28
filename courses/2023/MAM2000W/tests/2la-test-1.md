@@ -4,6 +4,7 @@ type: test
 tags: [2LA]
 status: needs-review
 source: onedrive
+assets: [Test-1.pdf]
 ---
 Imported from OneDrive (`Second Year/MAM2000W/2LA/Vula Resources/2LA Resources/Class tests/Test 1.pdf`). Original file(s) attached:
 

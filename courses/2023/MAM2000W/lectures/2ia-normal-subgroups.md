@@ -4,6 +4,7 @@ type: lecture
 tags: [2IA]
 status: needs-review
 source: onedrive
+assets: [normal-subgroups.pdf]
 ---
 Imported from OneDrive (`Second Year/MAM2000W/2IA/Vula Resources/WEEK 11/Lecture notes/normal subgroups.pdf`). Original file(s) attached:
 

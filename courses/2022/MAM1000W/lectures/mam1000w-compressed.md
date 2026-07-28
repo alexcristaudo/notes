@@ -3,6 +3,7 @@ title: MAM1000W compressed
 type: lecture
 status: needs-review
 source: onedrive
+assets: [MAM1000W_compressed.pdf]
 ---
 Imported from OneDrive (`First Year/MAM1000W/MAM1000W_compressed.pdf`). Original file(s) attached:
 

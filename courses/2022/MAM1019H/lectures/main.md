@@ -3,6 +3,7 @@ title: Main
 type: lecture
 status: needs-review
 source: onedrive
+assets: [Main.pdf]
 ---
 Imported from OneDrive (`First Year/MAM1019H/Main.pdf`). Original file(s) attached:
 

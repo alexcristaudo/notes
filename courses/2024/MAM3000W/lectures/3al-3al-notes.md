@@ -4,6 +4,7 @@ type: lecture
 tags: [3AL]
 status: needs-review
 source: onedrive
+assets: [3AL-Notes.pdf]
 ---
 Imported from OneDrive (`Third Year/MAM3000W/3AL/Vula Resources/Lecture Notes/3AL Notes.pdf`). Original file(s) attached:
 

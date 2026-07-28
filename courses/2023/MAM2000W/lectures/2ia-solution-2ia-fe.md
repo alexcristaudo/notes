@@ -4,6 +4,7 @@ type: lecture
 tags: [2IA]
 status: needs-review
 source: onedrive
+assets: [Solution-2IA-FE.pdf]
 ---
 Imported from OneDrive (`Second Year/MAM2000W/2IA/Vula Resources/Solution 2IA FE.pdf`). Original file(s) attached:
 

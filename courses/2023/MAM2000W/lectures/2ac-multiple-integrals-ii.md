@@ -4,6 +4,7 @@ type: lecture
 tags: [2AC]
 status: needs-review
 source: onedrive
+assets: [Multiple-Integrals-II.pdf]
 ---
 Imported from OneDrive (`Second Year/MAM2000W/2AC/Vula Resources/Lecture notes/Multiple Integrals-II.pdf`). Original file(s) attached:
 

@@ -4,6 +4,7 @@ type: lecture
 tags: [2IA]
 status: needs-review
 source: onedrive
+assets: [3.1.1-Cayley-tables.pdf]
 ---
 Imported from OneDrive (`Second Year/MAM2000W/2IA/Vula Resources/WEEK 6/Lecture notes/3.1.1 Cayley tables.pdf`). Original file(s) attached:
 

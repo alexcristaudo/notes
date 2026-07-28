@@ -238,6 +238,7 @@ async function assignmentNote(ctx: Ctx, dir: string, module?: string, type: Note
   const prefix = slugify(basename(dir)).slice(0, 30);
   const assetNames = files.map((f) => addAsset(ctx, f, prefix));
   writeNote(ctx, type, title, stubBody(assetNames, dir.replace(INBOX + "/", "")), {
+    assets: assetNames,
     tags: module ? [module] : [],
   });
   stubNotes++;
@@ -291,6 +292,7 @@ async function handleFile(ctx: Ctx, full: string, module?: string, dirHint?: Not
     const type = guessNoteType(name, dirHint ?? ctx.spec.defaultType);
     const asset = addAsset(ctx, full);
     writeNote(ctx, type, cleanTitle(name, module), stubBody([asset], origin), {
+      assets: [asset],
       week: weekOf(name),
       tags: module ? [module] : [],
     });

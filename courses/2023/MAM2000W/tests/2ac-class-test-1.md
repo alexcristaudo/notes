@@ -4,6 +4,7 @@ type: test
 tags: [2AC]
 status: needs-review
 source: onedrive
+assets: [Class-Test-1.pdf]
 ---
 Imported from OneDrive (`Second Year/MAM2000W/2AC/Vula Resources/Class test memos/Class-Test-1.pdf`). Original file(s) attached:
 

@@ -4,6 +4,7 @@ type: lecture
 tags: [2IA]
 status: needs-review
 source: onedrive
+assets: [Non-iso-groups-and-iso-cyclic-groups.pdf]
 ---
 Imported from OneDrive (`Second Year/MAM2000W/2IA/Vula Resources/WEEK 9/Lecture notes/Non iso groups and iso cyclic groups.pdf`). Original file(s) attached:
 

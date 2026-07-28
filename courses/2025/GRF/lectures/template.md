@@ -3,6 +3,7 @@ title: Template
 type: lecture
 status: needs-review
 source: onedrive
+assets: [template.pdf]
 ---
 Imported from OneDrive (`Honours/Graph Theory/Questions/Chapter 2/template.pdf`). Original file(s) attached:
 

@@ -4,6 +4,7 @@ type: lecture
 tags: [3TN]
 status: needs-review
 source: onedrive
+assets: [L9---Differentiablity.pdf]
 ---
 Imported from OneDrive (`Third Year/MAM3000W/3TN/Amathuba Resources/Lecture notes/L9 - Differentiablity.pdf`). Original file(s) attached:
 

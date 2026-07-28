@@ -3,6 +3,7 @@ title: RegressionTheorems
 type: lecture
 status: needs-review
 source: onedrive
+assets: [RegressionTheorems.pdf]
 ---
 Imported from OneDrive (`Third Year/STA2005S/RegressionTheorems.pdf`). Original file(s) attached:
 

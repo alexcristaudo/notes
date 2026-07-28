@@ -4,6 +4,7 @@ type: tutorial
 tags: [3CA]
 status: needs-review
 source: onedrive
+assets: [complex_analysis_tut4.pdf]
 ---
 Imported from OneDrive (`Third Year/MAM3000W/3CA/Amathuba Resources/Tutorials/complex_analysis_tut4.pdf`). Original file(s) attached:
 

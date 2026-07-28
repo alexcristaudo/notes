@@ -8,6 +8,7 @@ import { db, uid } from "@/lib/db";
 import { saveNoteBody, updateNoteMeta, deleteNote, backlinksTo } from "@/lib/notes";
 import { addToQueue } from "@/lib/study";
 import { extractHeadings } from "@/lib/markdown/extract";
+import { extractPdfMarkdown } from "@/lib/pdfExtract";
 import { Markdown } from "@/components/Markdown";
 import { NOTE_TYPE_LABEL, type Note, type NoteStatus } from "@/lib/types";
 import { useRouter } from "next/navigation";
@@ -31,6 +32,8 @@ function NoteInner() {
   const [draft, setDraft] = useState<string | null>(null);
   const [backlinks, setBacklinks] = useState<Note[]>([]);
   const [toast, setToast] = useState("");
+  const [pdfOpen, setPdfOpen] = useState(false);
+  const [extracting, setExtracting] = useState(false);
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const body = draft ?? note?.body ?? "";
@@ -85,6 +88,32 @@ function NoteInner() {
 
   if (!note || !course) return null;
 
+  const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+  const repoPdf = note.repoAssetPaths?.find((p) => p.toLowerCase().endsWith(".pdf"));
+  const localPdf = assets.find((a) => a.mime === "application/pdf" || a.name.toLowerCase().endsWith(".pdf"));
+  const hasPdf = !!repoPdf || !!localPdf;
+  const pdfName = repoPdf ? repoPdf.split("/").pop()! : localPdf?.name ?? "";
+
+  const extract = async () => {
+    if (extracting) return;
+    const isStub = body.includes("Imported from OneDrive");
+    if (!isStub && !confirm("Extract PDF text and REPLACE this note's body? Your current body will be overwritten.")) return;
+    setExtracting(true);
+    try {
+      const buf = repoPdf
+        ? await (await fetch(`${base}/${repoPdf}`)).arrayBuffer()
+        : await localPdf!.blob.arrayBuffer();
+      const md = await extractPdfMarkdown(buf, pdfName);
+      await saveNoteBody(note.id, md);
+      setDraft(null);
+      flash("Text extracted — review and clean up, then export & commit to keep it");
+    } catch (err) {
+      flash(`Extraction failed: ${err instanceof Error ? err.message : "unknown error"}`);
+    } finally {
+      setExtracting(false);
+    }
+  };
+
   return (
     <div className="mx-auto flex max-w-6xl gap-8">
       <article className="min-w-0 flex-1">
@@ -99,6 +128,16 @@ function NoteInner() {
         <div className="mb-3 flex items-start justify-between gap-3">
           <h1 className="text-2xl font-bold tracking-tight">{note.title}</h1>
           <div className="flex shrink-0 items-center gap-1.5">
+            {hasPdf && (
+              <button className={`btn btn-sm ${pdfOpen ? "btn-primary" : ""}`} onClick={() => setPdfOpen((v) => !v)}>
+                📄 {pdfOpen ? "Hide PDF" : "View PDF"}
+              </button>
+            )}
+            {hasPdf && (
+              <button className="btn btn-sm" onClick={extract} disabled={extracting} title="Pull the PDF's text into this note so it reads like a normal note">
+                {extracting ? "Extracting…" : "⤓ Extract notes"}
+              </button>
+            )}
             <button
               className="btn btn-sm"
               onClick={async () => {
@@ -160,6 +199,17 @@ function NoteInner() {
             Delete
           </button>
         </div>
+
+        {/* Full-height PDF viewer (header toggle) */}
+        {pdfOpen && hasPdf && (
+          <div className="card mb-4 p-2">
+            {repoPdf ? (
+              <iframe src={`${base}/${repoPdf}`} className="h-[80vh] w-full rounded-lg" title={pdfName} />
+            ) : (
+              <LocalPdfFrame blob={localPdf!.blob} name={pdfName} />
+            )}
+          </div>
+        )}
 
         {/* Attached assets */}
         {((note.repoAssetPaths?.length ?? 0) > 0 || assets.length > 0) && (
@@ -272,6 +322,16 @@ function EditorToolbar({ onInsert }: { onInsert: (snippet: string) => void }) {
       ))}
     </div>
   );
+}
+
+function LocalPdfFrame({ blob, name }: { blob: Blob; name: string }) {
+  const [url, setUrl] = useState("");
+  useEffect(() => {
+    const u = URL.createObjectURL(blob);
+    setUrl(u);
+    return () => URL.revokeObjectURL(u);
+  }, [blob]);
+  return url ? <iframe src={url} className="h-[80vh] w-full rounded-lg" title={name} /> : null;
 }
 
 /** A file living in the repo's course assets folder, served from the site. */

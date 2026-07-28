@@ -4,6 +4,7 @@ type: test
 tags: [2LA]
 status: needs-review
 source: onedrive
+assets: [Hints-for-HW-Test-7,-3rd-question.pdf]
 ---
 Imported from OneDrive (`Second Year/MAM2000W/2LA/Vula Resources/2LA Resources/Tutorials and Solutions/Hints for HW Test 7, 3rd question.pdf`). Original file(s) attached:
 

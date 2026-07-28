@@ -3,6 +3,7 @@ title: Math6210Hausdorff
 type: reference
 status: needs-review
 source: onedrive
+assets: [math6210Hausdorff.pdf]
 ---
 Imported from OneDrive (`Honours/Project/Research Resources/PDFs/math6210Hausdorff.pdf`). Original file(s) attached:
 

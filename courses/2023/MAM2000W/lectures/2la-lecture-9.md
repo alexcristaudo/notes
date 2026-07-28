@@ -4,6 +4,7 @@ type: lecture
 tags: [2LA]
 status: needs-review
 source: onedrive
+assets: [Lecture-9.pdf]
 ---
 Imported from OneDrive (`Second Year/MAM2000W/2LA/Vula Resources/2LA Resources/M304 Lectures/Lecture 9.pdf`). Original file(s) attached:
 

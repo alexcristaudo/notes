@@ -4,6 +4,7 @@ type: lecture
 tags: [2IA]
 status: needs-review
 source: onedrive
+assets: [2IA-Course-Notes.pdf]
 ---
 Imported from OneDrive (`Second Year/MAM2000W/2IA/2IA Course Notes.pdf`). Original file(s) attached:
 

@@ -3,6 +3,7 @@ title: Laborator Report Writing
 type: tutorial
 status: needs-review
 source: onedrive
+assets: [Laborator_Report_Writing.pdf]
 ---
 Imported from OneDrive (`First Year/PHY1004W/Lab Reports/Laborator_Report_Writing.pdf`). Original file(s) attached:
 

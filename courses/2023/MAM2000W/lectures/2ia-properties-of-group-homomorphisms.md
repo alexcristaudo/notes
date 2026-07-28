@@ -4,6 +4,7 @@ type: lecture
 tags: [2IA]
 status: needs-review
 source: onedrive
+assets: [Properties-of-group-homomorphisms.pdf]
 ---
 Imported from OneDrive (`Second Year/MAM2000W/2IA/Vula Resources/WEEK 9/Lecture notes/Properties of group homomorphisms.pdf`). Original file(s) attached:
 

@@ -3,6 +3,7 @@ title: Negation, Exercise 2.10
 type: lecture
 status: needs-review
 source: onedrive
+assets: [Negation,-Exercise-2.10.pdf]
 ---
 Imported from OneDrive (`First Year/MAM1019H/First Semester/Wooclaps/Week 4 (Quantifiers)/Negation, Exercise 2.10.pdf`). Original file(s) attached:
 

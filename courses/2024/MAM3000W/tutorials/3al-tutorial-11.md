@@ -4,6 +4,7 @@ type: tutorial
 tags: [3AL]
 status: needs-review
 source: onedrive
+assets: [Tutorial-11.pdf]
 ---
 Imported from OneDrive (`Third Year/MAM3000W/3AL/Vula Resources/Tutorials/Tutorial 11.pdf`). Original file(s) attached:
 

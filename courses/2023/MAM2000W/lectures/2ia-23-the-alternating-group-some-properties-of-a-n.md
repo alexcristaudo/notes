@@ -4,6 +4,7 @@ type: lecture
 tags: [2IA]
 status: needs-review
 source: onedrive
+assets: [2.3-The-alternating-group-_some-properties-of-A_n_.pdf]
 ---
 Imported from OneDrive (`Second Year/MAM2000W/2IA/Vula Resources/WEEK 5/Lecture notes/2.3 The alternating group _some properties of A_n_.pdf`). Original file(s) attached:
 

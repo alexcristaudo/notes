@@ -3,6 +3,7 @@ title: Orientation
 type: tutorial
 status: needs-review
 source: onedrive
+assets: [orientation-hello.py]
 ---
 Imported from OneDrive (`First Year/CSC1015F/CSC1015F Assignments/orientation`). Original file(s) attached:
 

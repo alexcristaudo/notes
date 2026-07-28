@@ -4,6 +4,7 @@ type: tutorial
 tags: [2RA]
 status: needs-review
 source: onedrive
+assets: [real_analysis_tut2_solution.pdf]
 ---
 Imported from OneDrive (`Second Year/MAM2000W/2RA/Vula Resources/Solutions/real_analysis_tut2_solution.pdf`). Original file(s) attached:
 

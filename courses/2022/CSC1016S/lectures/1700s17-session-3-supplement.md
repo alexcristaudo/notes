@@ -3,6 +3,7 @@ title: 1700s17-session-3-supplement
 type: lecture
 status: needs-review
 source: onedrive
+assets: [1700s17-session-3-supplement.pdf]
 ---
 Imported from OneDrive (`First Year/CSC1016S/SIPP/1700s17-session-3-supplement.pdf`). Original file(s) attached:
 

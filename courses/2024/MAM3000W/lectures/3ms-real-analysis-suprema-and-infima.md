@@ -4,6 +4,7 @@ type: lecture
 tags: [3MS]
 status: needs-review
 source: onedrive
+assets: [Real-analysis--suprema-and-infima.pdf]
 ---
 Imported from OneDrive (`Third Year/MAM3000W/3MS/Vula Resources/Notes/Real analysis- suprema and infima.pdf`). Original file(s) attached:
 

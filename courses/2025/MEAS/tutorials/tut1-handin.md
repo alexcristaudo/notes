@@ -3,6 +3,7 @@ title: Tut1 HandIn
 type: tutorial
 status: needs-review
 source: onedrive
+assets: [CRSALE010_Tut1_HandIn.pdf]
 ---
 Imported from OneDrive (`Honours/Measure Theory/Tutorials/CRSALE010_Tut1_HandIn.pdf`). Original file(s) attached:
 

@@ -3,6 +3,7 @@ title: ExamNotes
 type: test
 status: needs-review
 source: onedrive
+assets: [ExamNotes.pdf]
 ---
 Imported from OneDrive (`First Year/MAM1019H/Second Semester/Exam 2 Notes/ExamNotes.pdf`). Original file(s) attached:
 

@@ -4,6 +4,7 @@ type: tutorial
 tags: [3TN]
 status: needs-review
 source: onedrive
+assets: [SOL-TUT2024-02.pdf]
 ---
 Imported from OneDrive (`Third Year/MAM3000W/3TN/Amathuba Resources/Tutorials/Solutions/SOL-TUT2024-02.pdf`). Original file(s) attached:
 

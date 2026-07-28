@@ -3,6 +3,7 @@ title: Lecture+1.1+Notes
 type: lecture
 status: needs-review
 source: onedrive
+assets: [Lecture+1.1+Notes.pdf]
 ---
 Imported from OneDrive (`First Year/CSC1016S/Lecture Notes/Lecture+1.1+Notes.pdf`). Original file(s) attached:
 

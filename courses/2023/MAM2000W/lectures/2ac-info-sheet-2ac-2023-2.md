@@ -4,6 +4,7 @@ type: lecture
 tags: [2AC]
 status: needs-review
 source: onedrive
+assets: [Info-sheet-2AC-2023-2.pdf]
 ---
 Imported from OneDrive (`Second Year/MAM2000W/2AC/Vula Resources/Info-sheet-2AC-2023-2.pdf`). Original file(s) attached:
 

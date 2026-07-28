@@ -59,6 +59,23 @@ All three gaps from the entry above are done:
    avoid theme flash, theme-aware Mermaid rendering, and the link accent moved to a `--link`
    variable for contrast in both themes.
 
+## 2026-07-28 — PDF viewer + in-app PDF text extraction
+
+- **View PDF** button on any note with an attached PDF: full-height inline viewer for both
+  repo assets (served from the site) and locally-attached files (blob URLs).
+- **Extract notes** button: pdf.js runs in the browser, pulls the text layer out page by page
+  (`## Page N` headings, line/paragraph reconstruction from text-item Y positions) and saves it
+  as the note body, so imported PDFs become readable, searchable, outline-navigable notes like
+  hand-written ones. The original stays attached; a warning callout marks the text as
+  auto-extracted; overwriting a non-stub body asks for confirmation first.
+- The pdf.js worker is copied into `public/` by the content build and loaded from the site
+  (base-path aware), so extraction works on GitHub Pages with no server.
+- **Bug fixed:** the OneDrive organizer never wrote the `assets:` frontmatter field, so notes
+  didn't know which file was theirs — both buttons would have been invisible on all 793
+  imported notes. `scripts/link-assets.ts` repairs existing notes from the file list in their
+  bodies (760 updated, PDFs sorted first); the organizer now writes the field directly.
+  722 notes now have a viewable/extractable PDF.
+
 ## 2026-07-27 — GitHub-hosted: static export + repo-based notes
 
 Pivot on where things live: the app deploys to **GitHub Pages** and the **notes live in the

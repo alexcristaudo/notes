@@ -3,6 +3,7 @@ title: PHY1004W lab information 2022
 type: lecture
 status: needs-review
 source: onedrive
+assets: [PHY1004W_lab_information_2022.pdf]
 ---
 Imported from OneDrive (`First Year/PHY1004W/PHY1004W_lab_information_2022.pdf`). Original file(s) attached:
 

@@ -5,6 +5,7 @@ week: 11
 tags: [2IA]
 status: needs-review
 source: onedrive
+assets: [Week-11.pdf]
 ---
 Imported from OneDrive (`Second Year/MAM2000W/2IA/Vula Resources/PROVING Workshops/Week 11.pdf`). Original file(s) attached:
 

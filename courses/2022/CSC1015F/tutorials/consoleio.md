@@ -3,6 +3,7 @@ title: ConsoleIO
 type: tutorial
 status: needs-review
 source: onedrive
+assets: [consoleio-circle.py, consoleio-comSci.py, consoleio-side.py, consoleio-time.py]
 ---
 Imported from OneDrive (`First Year/CSC1015F/CSC1015F Assignments/consoleIO`). Original file(s) attached:
 

@@ -3,6 +3,7 @@ title: INF2009F CRSALE010 Exercise 4 2023
 type: lecture
 status: needs-review
 source: onedrive
+assets: [INF2009F__CRSALE010_Exercise-4_2023.pdf]
 ---
 Imported from OneDrive (`Second Year/INF2009F/Exercises/INF2009F__CRSALE010_Exercise 4_2023.pdf`). Original file(s) attached:
 

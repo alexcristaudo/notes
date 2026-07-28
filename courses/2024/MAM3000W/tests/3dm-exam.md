@@ -4,6 +4,7 @@ type: test
 tags: [3DM]
 status: needs-review
 source: onedrive
+assets: [exam.pdf]
 ---
 Imported from OneDrive (`Third Year/MAM3000W/3DM/exam.pdf`). Original file(s) attached:
 

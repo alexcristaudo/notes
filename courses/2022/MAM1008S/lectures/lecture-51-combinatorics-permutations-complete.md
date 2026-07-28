@@ -3,6 +3,7 @@ title: Lecture 5.1 - Combinatorics - Permutations complete
 type: lecture
 status: needs-review
 source: onedrive
+assets: [Lecture-5.1---Combinatorics---Permutations-_complete_.pdf]
 ---
 Imported from OneDrive (`First Year/MAM1008S/Notes/Lecture 5.1 - Combinatorics - Permutations _complete_.pdf`). Original file(s) attached:
 

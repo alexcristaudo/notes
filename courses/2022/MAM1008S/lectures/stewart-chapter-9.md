@@ -3,6 +3,7 @@ title: Stewart Chapter 9
 type: lecture
 status: needs-review
 source: onedrive
+assets: [Stewart-Chapter-9.pdf]
 ---
 Imported from OneDrive (`First Year/MAM1008S/Stewart Chapter 9.pdf`). Original file(s) attached:
 

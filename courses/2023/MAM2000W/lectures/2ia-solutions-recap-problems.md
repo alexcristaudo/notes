@@ -4,6 +4,7 @@ type: lecture
 tags: [2IA]
 status: needs-review
 source: onedrive
+assets: [Solutions-Recap-problems.pdf]
 ---
 Imported from OneDrive (`Second Year/MAM2000W/2IA/Vula Resources/Practice problems/Solutions Recap problems.pdf`). Original file(s) attached:
 

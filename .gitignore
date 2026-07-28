@@ -3,6 +3,7 @@ node_modules/
 out/
 public/content.json
 public/repo-assets/
+public/pdf.worker.min.mjs
 *.tsbuildinfo
 next-env.d.ts
 .env*

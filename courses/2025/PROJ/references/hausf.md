@@ -3,6 +3,7 @@ title: HAUSF
 type: reference
 status: needs-review
 source: onedrive
+assets: [HAUSF.pdf]
 ---
 Imported from OneDrive (`Honours/Project/Research Resources/PDFs/HAUSF.pdf`). Original file(s) attached:
 

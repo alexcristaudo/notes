@@ -3,6 +3,7 @@ title: SIPP Lecture Notes
 type: lecture
 status: needs-review
 source: onedrive
+assets: [SIPP-Lecture-Notes.pdf]
 ---
 Imported from OneDrive (`First Year/CSC1016S/SIPP/SIPP Lecture Notes.pdf`). Original file(s) attached:
 

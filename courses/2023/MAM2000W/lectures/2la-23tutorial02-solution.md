@@ -4,6 +4,7 @@ type: lecture
 tags: [2LA]
 status: needs-review
 source: onedrive
+assets: [23Tutorial02---Solution.pdf]
 ---
 Imported from OneDrive (`Second Year/MAM2000W/2LA/Vula Resources/2LA Resources/Tutorials and Solutions/23Tutorial02 - Solution.pdf`). Original file(s) attached:
 

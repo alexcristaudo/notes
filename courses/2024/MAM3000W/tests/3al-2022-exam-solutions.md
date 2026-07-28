@@ -4,6 +4,7 @@ type: test
 tags: [3AL]
 status: needs-review
 source: onedrive
+assets: [2022-Exam-solutions.pdf]
 ---
 Imported from OneDrive (`Third Year/MAM3000W/3AL/Vula Resources/Past Papers/2022 Exam solutions.pdf`). Original file(s) attached:
 

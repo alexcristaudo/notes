@@ -4,6 +4,7 @@ type: lecture
 tags: [2IA]
 status: needs-review
 source: onedrive
+assets: [Practice-problems-Ch1-1.pdf]
 ---
 Imported from OneDrive (`Second Year/MAM2000W/2IA/Vula Resources/Practice problems/Practice problems Ch1-1.pdf`). Original file(s) attached:
 

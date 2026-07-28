@@ -4,6 +4,7 @@ type: test
 tags: [2LA]
 status: needs-review
 source: onedrive
+assets: [Instructions-to-students-SuppDE-Exam-2024---updated.pdf]
 ---
 Imported from OneDrive (`Second Year/MAM2000W/2LA/Vula Resources/Instructions to students SuppDE Exam 2024 - updated.pdf`). Original file(s) attached:
 

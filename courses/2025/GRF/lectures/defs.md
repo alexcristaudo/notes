@@ -3,6 +3,7 @@ title: Defs
 type: lecture
 status: needs-review
 source: onedrive
+assets: [defs.pdf]
 ---
 Imported from OneDrive (`Honours/Graph Theory/Theorems/defs.pdf`). Original file(s) attached:
 

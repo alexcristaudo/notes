@@ -4,6 +4,7 @@ type: test
 tags: [2AC]
 status: needs-review
 source: onedrive
+assets: [Exam_syllabus_2023.pdf]
 ---
 Imported from OneDrive (`Second Year/MAM2000W/2AC/Vula Resources/Exam_syllabus_2023.pdf`). Original file(s) attached:
 

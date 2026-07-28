@@ -4,6 +4,7 @@ type: tutorial
 tags: [3MS]
 status: needs-review
 source: onedrive
+assets: [assignment-2-CRSALE010_A2.pdf, assignment-2-template.tex]
 ---
 Imported from OneDrive (`Third Year/MAM3000W/3MS/Assignments/Assignment 2`). Original file(s) attached:
 

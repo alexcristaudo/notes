@@ -3,6 +3,7 @@ title: Equivalence Relations
 type: lecture
 status: needs-review
 source: onedrive
+assets: [Equivalence-Relations.pdf]
 ---
 Imported from OneDrive (`First Year/MAM1019H/First Semester/Equivalence Relations.pdf`). Original file(s) attached:
 

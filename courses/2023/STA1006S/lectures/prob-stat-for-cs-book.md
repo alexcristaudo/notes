@@ -3,6 +3,7 @@ title: Prob Stat for CS Book
 type: lecture
 status: needs-review
 source: onedrive
+assets: [Prob_Stat_for_CS_Book.pdf]
 ---
 Imported from OneDrive (`Second Year/STA1006S/Prob_Stat_for_CS_Book.pdf`). Original file(s) attached:
 

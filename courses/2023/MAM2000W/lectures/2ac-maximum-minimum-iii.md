@@ -4,6 +4,7 @@ type: lecture
 tags: [2AC]
 status: needs-review
 source: onedrive
+assets: [Maximum-Minimum-III.pdf]
 ---
 Imported from OneDrive (`Second Year/MAM2000W/2AC/Vula Resources/Lecture notes/Maximum-Minimum-III.pdf`). Original file(s) attached:
 

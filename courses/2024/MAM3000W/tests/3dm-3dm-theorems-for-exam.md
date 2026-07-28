@@ -4,6 +4,7 @@ type: test
 tags: [3DM]
 status: needs-review
 source: onedrive
+assets: [3DM-Theorems-for-Exam.pdf]
 ---
 Imported from OneDrive (`Third Year/MAM3000W/3DM/3DM Theorems for Exam.pdf`). Original file(s) attached:
 

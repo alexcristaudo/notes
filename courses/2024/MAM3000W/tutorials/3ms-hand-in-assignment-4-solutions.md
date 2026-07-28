@@ -4,6 +4,7 @@ type: tutorial
 tags: [3MS]
 status: needs-review
 source: onedrive
+assets: [Hand-in-assignment-4-solutions.pdf]
 ---
 Imported from OneDrive (`Third Year/MAM3000W/3MS/Vula Resources/Hand-in assignments and solutions/Hand-in assignment 4 solutions.pdf`). Original file(s) attached:
 

@@ -4,6 +4,7 @@ type: test
 tags: [3AL]
 status: needs-review
 source: onedrive
+assets: [Test-1.pdf]
 ---
 Imported from OneDrive (`Third Year/MAM3000W/3AL/Vula Resources/Tests _ Exams/Test 1.pdf`). Original file(s) attached:
 

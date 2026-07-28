@@ -4,6 +4,7 @@ type: test
 tags: [2IA]
 status: needs-review
 source: onedrive
+assets: [Exam-syllabus.pdf]
 ---
 Imported from OneDrive (`Second Year/MAM2000W/2IA/Vula Resources/Exam syllabus.pdf`). Original file(s) attached:
 

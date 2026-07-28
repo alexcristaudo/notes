@@ -3,6 +3,7 @@ title: Orientation
 type: tutorial
 status: needs-review
 source: onedrive
+assets: [orientation-README.md, orientation-helloworld.java]
 ---
 Imported from OneDrive (`First Year/CSC1016S/CSC1016S Assignments/Orientation`). Original file(s) attached:
 
