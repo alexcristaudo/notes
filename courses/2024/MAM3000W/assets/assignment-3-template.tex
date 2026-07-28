@@ -1,0 +1,217 @@
+% --- LaTeX Homework Template - S. Venkatraman ---
+
+% --- Set document class and font size ---
+
+\documentclass[letterpaper, 11pt]{article}
+
+% --- Package imports ---
+
+\usepackage{
+  amsmath, amsthm, amssymb, mathtools, dsfont,	  % Math typesetting
+  graphicx, wrapfig, subfig, float,                  % Figures and graphics formatting
+  listings, color, inconsolata, pythonhighlight,     % Code formatting
+  fancyhdr, sectsty, hyperref, enumerate, enumitem } % Headers/footers, section fonts, links, lists
+
+% --- Page layout settings ---
+
+% Set page margins
+\usepackage[left=1.35in, right=1.35in, bottom=1in, top=1.1in, headsep=0.2in]{geometry}
+
+% Anchor footnotes to the bottom of the page
+\usepackage[bottom]{footmisc}
+
+% Set line spacing
+\renewcommand{\baselinestretch}{1.2}
+
+% Set spacing between paragraphs
+\setlength{\parskip}{1.5mm}
+
+% Allow multi-line equations to break onto the next page
+\allowdisplaybreaks
+
+% Enumerated lists: make numbers flush left, with parentheses around them
+\setlist[enumerate]{wide=0pt, leftmargin=21pt, labelwidth=0pt, align=left}
+\setenumerate[1]{label={(\arabic*)}}
+
+% --- Page formatting settings ---
+
+% Set link colors for labeled items (blue) and citations (red)
+\hypersetup{colorlinks=true, linkcolor=blue, citecolor=red}
+
+% Make reference section title font smaller
+\renewcommand{\refname}{\large\bf{References}}
+
+% --- Settings for printing computer code ---
+
+% Define colors for green text (comments), grey text (line numbers),
+% and green frame around code
+\definecolor{greenText}{rgb}{0.5, 0.7, 0.5}
+\definecolor{greyText}{rgb}{0.5, 0.5, 0.5}
+\definecolor{codeFrame}{rgb}{0.5, 0.7, 0.5}
+
+% Define code settings
+\lstdefinestyle{code} {
+  frame=single, rulecolor=\color{codeFrame},            % Include a green frame around the code
+  numbers=left,                                         % Include line numbers
+  numbersep=8pt,                                        % Add space between line numbers and frame
+  numberstyle=\tiny\color{greyText},                    % Line number font size (tiny) and color (grey)
+  commentstyle=\color{greenText},                       % Put comments in green text
+  basicstyle=\linespread{1.1}\ttfamily\footnotesize,    % Set code line spacing
+  keywordstyle=\ttfamily\footnotesize,                  % No special formatting for keywords
+  showstringspaces=false,                               % No marks for spaces
+  xleftmargin=1.95em,                                   % Align code frame with main text
+  framexleftmargin=1.6em,                               % Extend frame left margin to include line numbers
+  breaklines=true,                                      % Wrap long lines of code
+  postbreak=\mbox{\textcolor{greenText}{$\hookrightarrow$}\space} % Mark wrapped lines with an arrow
+}
+
+% Set all code listings to be styled with the above settings
+\lstset{style=code}
+
+% --- Math/Statistics commands ---
+
+% Add a reference number to a single line of a multi-line equation
+% Usage: "\numberthis\label{labelNameHere}" in an align or gather environment
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+% Shortcut for bold text in math mode, e.g. $\b{X}$
+\let\b\mathbf
+
+% Shortcut for bold Greek letters, e.g. $\bg{\beta}$
+\let\bg\boldsymbol
+
+% Shortcut for calligraphic script, e.g. %\mc{M}$
+\let\mc\mathcal
+
+% \mathscr{(letter here)} is sometimes used to denote vector spaces
+\usepackage[mathscr]{euscript}
+
+% Convergence: right arrow with optional text on top
+% E.g. $\converge[w]$ for weak convergence
+\newcommand{\converge}[1][]{\xrightarrow{#1}}
+
+% Normal distribution: arguments are the mean and variance
+% E.g. $\normal{\mu}{\sigma}$
+\newcommand{\normal}[2]{\mathcal{N}\left(#1,#2\right)}
+
+% Uniform distribution: arguments are the left and right endpoints
+% E.g. $\unif{0}{1}$
+\newcommand{\unif}[2]{\text{Uniform}(#1,#2)}
+
+% Independent and identically distributed random variables
+% E.g. $ X_1,...,X_n \iid \normal{0}{1}$
+\newcommand{\iid}{\stackrel{\smash{\text{iid}}}{\sim}}
+
+% Equality: equals sign with optional text on top
+% E.g. $X \equals[d] Y$ for equality in distribution
+\newcommand{\equals}[1][]{\stackrel{\smash{#1}}{=}}
+
+% Math mode symbols for common sets and spaces. Example usage: $\R$
+\newcommand{\R}{\mathbb{R}}   % Real numbers
+\newcommand{\C}{\mathbb{C}}   % Complex numbers
+\newcommand{\Q}{\mathbb{Q}}   % Rational numbers
+\newcommand{\Z}{\mathbb{Z}}   % Integers
+\newcommand{\N}{\mathbb{N}}   % Natural numbers
+\newcommand{\F}{\mathcal{F}}  % Calligraphic F for a sigma algebra
+\newcommand{\El}{\mathcal{L}} % Calligraphic L, e.g. for L^p spaces
+
+% Math mode symbols for probability
+\newcommand{\pr}{\mathbb{P}}    % Probability measure
+\newcommand{\E}{\mathbb{E}}     % Expectation, e.g. $\E(X)$
+\newcommand{\var}{\text{Var}}   % Variance, e.g. $\var(X)$
+\newcommand{\cov}{\text{Cov}}   % Covariance, e.g. $\cov(X,Y)$
+\newcommand{\corr}{\text{Corr}} % Correlation, e.g. $\corr(X,Y)$
+\newcommand{\B}{\mathcal{B}}    % Borel sigma-algebra
+
+% Other miscellaneous symbols
+\newcommand{\tth}{\text{th}}	% Non-italicized 'th', e.g. $n^\tth$
+\newcommand{\Oh}{\mathcal{O}}	% Big-O notation, e.g. $\O(n)$
+\newcommand{\1}{\mathds{1}}	% Indicator function, e.g. $\1_A$
+
+% Additional commands for math mode
+\DeclareMathOperator*{\argmax}{argmax}    % Argmax, e.g. $\argmax_{x\in[0,1]} f(x)$
+\DeclareMathOperator*{\argmin}{argmin}    % Argmin, e.g. $\argmin_{x\in[0,1]} f(x)$
+\DeclareMathOperator*{\spann}{Span}       % Span, e.g. $\spann\{X_1,...,X_n\}$
+\DeclareMathOperator*{\bias}{Bias}        % Bias, e.g. $\bias(\hat\theta)$
+\DeclareMathOperator*{\ran}{ran}          % Range of an operator, e.g. $\ran(T) 
+\DeclareMathOperator*{\dv}{d\!}           % Non-italicized 'with respect to', e.g. $\int f(x) \dv x$
+\DeclareMathOperator*{\diag}{diag}        % Diagonal of a matrix, e.g. $\diag(M)$
+\DeclareMathOperator*{\trace}{trace}      % Trace of a matrix, e.g. $\trace(M)$
+
+% Numbered theorem, lemma, etc. settings - e.g., a definition, lemma, and theorem appearing in that 
+% order in Section 2 will be numbered Definition 2.1, Lemma 2.2, Theorem 2.3. 
+% Example usage: \begin{theorem}[Name of theorem] Theorem statement \end{theorem}
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+
+% Un-numbered theorem, lemma, etc. settings
+% Example usage: \begin{lemma*}[Name of lemma] Lemma statement \end{lemma*}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem*{proposition*}{Proposition}
+\newtheorem*{lemma*}{Lemma}
+\newtheorem*{corollary*}{Corollary}
+\newtheorem*{definition*}{Definition}
+\newtheorem*{example*}{Example}
+\newtheorem*{remark*}{Remark}
+\newtheorem*{claim}{Claim}
+\newcommand{\Tau}{\mathcal{T}}
+\newcommand{\PSet}{\mathcal{P}}
+
+
+% --- Left/right header text (to appear on every page) ---
+
+% Include a line underneath the header, no footer line
+\pagestyle{fancy}
+\renewcommand{\footrulewidth}{0pt}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% Left header text: course name/assignment number
+\lhead{MAM3000W, 3MS -- Hand-in 3}
+
+% Right header text: your name
+\rhead{Alex Cristaudo, CRSALE010}
+
+% --- Document starts here ---
+
+\begin{document}
+\subsection*{Question 1}
+
+\begin{enumerate}[label=(\alph*)]
+\item False. Consider metric space $(\R, d_E)$. A set $\{\frac{1}{n}\}$ for some $n \in \N$ is complete as every sequence in $\{\frac{1}{n}\}$ is constant and thus converges to $\frac{1}{n}$ and so every Cauchy sequence converges to $\frac{1}{n}$ and so $\{\frac{1}{n}\}$ is complete. But now $\bigcup \limits _{n \in \N} \{\frac{1}{n}\}$ is not complete, as Cauchy sequence $(\frac{1}{n})$ does not converge in $\bigcup \limits _{n \in \N} \{\frac{1}{n}\}$ (since it converges to $0$ in metric space $(\R, d_E)$ but $0 \notin \bigcup \limits _{n \in \N} \{\frac{1}{n}\}$) and is thus not complete
+
+\item True. Let $(x_n)$ be a Cauchy sequence in $\bigcap \limits _{i \in I}A_i$. Then $x_n \in A_i$ for all $n \in \N$ and for all $i \in I$. But then $(x_n)$ is Cauchy in $A_i$ and since $A_i$ is complete, $x_n$ converges to some $x \in A_i$. Since this is true for all $i \in I$, we get $x \in \bigcap \limits _{i \in I}A_i$ and so $\bigcap \limits _{i\in I}A_i$ is complete.
+
+\item False. Consider metric spaces $(\R, d_D)$ and $(\R, d_E)$ and continuous function $f: (\R, d_D) \to (\R, d_E)$ defined as $f(x)=x$. This is continuous because $f$ maps from a set equipped with the discrete metric. Now consider $(0,1]$. Under $d_D$, a sequence $(x_n)$ in $(0,1]$ is Cauchy if and only if it is eventually constant and thus $(0,1]$ is complete. But then $f((0,1])=(0,1]$ which is not complete under $(\R, d_E)$ by considering Cauchy sequence $(\frac{1}{n})$ which converges to $0 \notin (0,1]$. 
+
+\item True. Let $(x_n)$ be a Cauchy sequence in $f^{-1}(B)$. Then $(f(x_n))$ is a sequence in $B$. Since $(X, d_X)$ is complete, $x_n \to x$ for some $x \in X$. Then because $f$ is continuous, $f(x_n) \to f(x)$ for $f(x) \in Y$. Then $(f(x_n))$ is convergent, and so is Cauchy. Then because $B$ is complete, $f(x) \in B $ which implies that $x \in f^{-1}(B)$ and so $f^{-1}(B)$ is a complete subset of $X$
+
+\item False. Consider metric space $(\R, d_D)$. Since every Cauchy sequence is eventually constant, $(\R, d_D)$ is complete. Now let $A_n = (0,\frac{1}{n})$. Then for $m > n$, $\frac{1}{m} < \frac{1}{n}$ and so $(0, \frac{1}{m}) \subset (0, \frac{1}{n})$ but $(0, \frac{1}{m}) \ne (0, \frac{1}{n})$ as, for example, $\frac{1}{m}$ is in $(0, \frac{1}{n})$ but not $(0, \frac{1}{m})$. So $(A_n)_{n \in \N}$ is a strictly decreasing sequence of subsets of $X$. Now $\overline{A_n} = A_n$ as every set is closed under $d_D$. But then $\bigcap \limits _{n \in \N} \overline{A_n} = \bigcap \limits _{n \in \N} (0,\frac{1}{n}) = \emptyset$. 
+
+To show this, suppose $x \in \bigcap \limits _{n \in \N} (0,\frac{1}{n})$. Then since $x \in A_1 = (0,1)$, we get $x > 0$. But then by the Archimedean property there exists some $n \in \N$ such that $\frac{1}{n} < x$ so $x \notin (0, \frac{1}{n})$ which is a contradiction. Thus there cannot be any $x \in \bigcap \limits _{n \in \N} (0,\frac{1}{n})$ and so $\bigcap \limits _{n \in \N} (0,\frac{1}{n}) = \emptyset$
+
+\end{enumerate}
+\newpage
+\subsection*{Question 2}
+
+\begin{enumerate}[label=(\alph*)]
+
+\item Notice if $y \in Y$, then since $X$ is dense in $Y$, we get $\overline{X} = Y$ and so there exists a sequence $(x_n)$ in $X$ such that $x_n \to y$. \\ So define $g:Y \to Z$ as: $g(x) = \lim _{n \to \infty} (f(x_n)) $
+
+We first show $g$ is well-defined. Let $(x_n)$ and $(x_n')$ be sequences in $X$ such that $x_n \to y$ and $x_n' \to y$. Then because $f$ is continuous, $f(x_n) \to f(x)$ and $f(x_n') \to f(x)$ and because $(Z,d_Z)$ is complete, $f(x) \in Z$ and thus $g$ is well defined. 
+
+Now if $x \in X$, then the sequence $(x_n)$ converges to $x$ and so $g(x) = \lim _{n \to \infty} (f(x_n)) = f(x)$ since $f$ is continuous. 
+
+Now we show $g$ is uniformly continuous. Let $\epsilon > 0$. Since $f$ is uniformly continuous, there exists some $\delta _f > 0$ such that for all $x, x' \in X$, $d_X(x, x') < \delta _f \Rightarrow d_Z(f(x), f(x')) < \frac{\epsilon}{2}$. Let $\delta = \frac{\delta_f}{3}$ and suppose that $y, y' \in Y$ such that $d_Y(y, y') < \delta$. Then there exists sequences $(x_n)$ and $(x_n')$ in $X$ such that $x_n \to y$ and $x_n' \to y'$ under $d_Y$. Now $d_X (x_n, x_n ') = d_Y(x_n, x_n')$ since $(X, d_X)$ is a subspace of $(Y, d_Y)$. Then, by the Triangle Inequality, $d_Y (x_n, x_n') \le d_Y (x_n, y) + d_Y (y, y') + d_Y(x_n', y')$. Because $x_n \to y$ and $x_n' \to y'$, there is some $N \in \N$ such that for all $n \ge N$, $d_Y (x_n, y) < \delta$ and $d_Y (x_n ' , y') < \delta$. So $d_X (x_n, x_n') = d_Y (x_n, x_n') < 3\delta = \delta _f$. Thus $d_Z(f(x_n), f(x_n')) < \frac{\epsilon}{2}$. Now $d_Z(g(y), g(y')) = d_Z(\lim _{n \to \infty}(f(x_n)), \lim _{n \to \infty} (f(x_n'))) = \lim _{n \to \infty}d_Z(f(x_n), f(x_n'))$, by continuity of a metric. Then $\lim _{n \to \infty}d_Z(f(x_n), f(x_n')) \le \frac{\epsilon}{2} < \epsilon$ as required.
+
+
+\item Consider $X = (\Q, d_E), Y = (\R, d_E), Z = (\Q, d_E)$. Then $f: (\Q, d_E) \to (\Q, d_E)$ defined by $f(x) = x$ is uniformly continuous. If we define $g: (\R, d_E) \to (\Q, d_E)$ as above, it will not be well-defined. Consider $e \in \R$. A sequence $((1+\frac{1}{n})^n)$ converges to $e$, but then $f((1+\frac{1}{n})^n) = (1+\frac{1}{n})^n$ and since $e \notin \Q$, $g(e)$ is not defined and thus $g$ cannot be a valid function
+
+\end{enumerate}
+
+\end{document}

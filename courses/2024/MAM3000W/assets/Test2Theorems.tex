@@ -1,0 +1,357 @@
+% --- LaTeX Homework Template - S. Venkatraman ---
+
+% --- Set document class and font size ---
+
+\documentclass[letterpaper, 11pt]{article}
+
+% --- Package imports ---
+
+\usepackage{
+  amsmath, amsthm, amssymb, mathtools, dsfont,	  % Math typesetting
+  graphicx, wrapfig, subfig, float,                  % Figures and graphics formatting
+  listings, color, inconsolata, pythonhighlight,     % Code formatting
+  fancyhdr, sectsty, hyperref, enumerate, enumitem } % Headers/footers, section fonts, links, lists
+
+% --- Page layout settings ---
+
+% Set page margins
+\usepackage[left=1.35in, right=1.35in, bottom=1in, top=1.1in, headsep=0.2in]{geometry}
+
+% Anchor footnotes to the bottom of the page
+\usepackage[bottom]{footmisc}
+
+% Set line spacing
+\renewcommand{\baselinestretch}{1.2}
+
+% Set spacing between paragraphs
+\setlength{\parskip}{1.5mm}
+
+% Allow multi-line equations to break onto the next page
+\allowdisplaybreaks
+
+% Enumerated lists: make numbers flush left, with parentheses around them
+\setlist[enumerate]{wide=0pt, leftmargin=21pt, labelwidth=0pt, align=left}
+\setenumerate[1]{label={(\arabic*)}}
+
+% --- Page formatting settings ---
+
+% Set link colors for labeled items (blue) and citations (red)
+\hypersetup{colorlinks=true, linkcolor=blue, citecolor=red}
+
+% Make reference section title font smaller
+\renewcommand{\refname}{\large\bf{References}}
+
+% --- Settings for printing computer code ---
+
+% Define colors for green text (comments), grey text (line numbers),
+% and green frame around code
+\definecolor{greenText}{rgb}{0.5, 0.7, 0.5}
+\definecolor{greyText}{rgb}{0.5, 0.5, 0.5}
+\definecolor{codeFrame}{rgb}{0.5, 0.7, 0.5}
+
+% Define code settings
+\lstdefinestyle{code} {
+  frame=single, rulecolor=\color{codeFrame},            % Include a green frame around the code
+  numbers=left,                                         % Include line numbers
+  numbersep=8pt,                                        % Add space between line numbers and frame
+  numberstyle=\tiny\color{greyText},                    % Line number font size (tiny) and color (grey)
+  commentstyle=\color{greenText},                       % Put comments in green text
+  basicstyle=\linespread{1.1}\ttfamily\footnotesize,    % Set code line spacing
+  keywordstyle=\ttfamily\footnotesize,                  % No special formatting for keywords
+  showstringspaces=false,                               % No marks for spaces
+  xleftmargin=1.95em,                                   % Align code frame with main text
+  framexleftmargin=1.6em,                               % Extend frame left margin to include line numbers
+  breaklines=true,                                      % Wrap long lines of code
+  postbreak=\mbox{\textcolor{greenText}{$\hookrightarrow$}\space} % Mark wrapped lines with an arrow
+}
+
+% Set all code listings to be styled with the above settings
+\lstset{style=code}
+
+% --- Math/Statistics commands ---
+
+% Add a reference number to a single line of a multi-line equation
+% Usage: "\numberthis\label{labelNameHere}" in an align or gather environment
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+% Shortcut for bold text in math mode, e.g. $\b{X}$
+\let\b\mathbf
+
+% Shortcut for bold Greek letters, e.g. $\bg{\beta}$
+\let\bg\boldsymbol
+
+% Shortcut for calligraphic script, e.g. %\mc{M}$
+\let\mc\mathcal
+
+% \mathscr{(letter here)} is sometimes used to denote vector spaces
+\usepackage[mathscr]{euscript}
+
+% Convergence: right arrow with optional text on top
+% E.g. $\converge[w]$ for weak convergence
+\newcommand{\converge}[1][]{\xrightarrow{#1}}
+
+% Normal distribution: arguments are the mean and variance
+% E.g. $\normal{\mu}{\sigma}$
+\newcommand{\normal}[2]{\mathcal{N}\left(#1,#2\right)}
+
+% Uniform distribution: arguments are the left and right endpoints
+% E.g. $\unif{0}{1}$
+\newcommand{\unif}[2]{\text{Uniform}(#1,#2)}
+
+% Independent and identically distributed random variables
+% E.g. $ X_1,...,X_n \iid \normal{0}{1}$
+\newcommand{\iid}{\stackrel{\smash{\text{iid}}}{\sim}}
+
+% Equality: equals sign with optional text on top
+% E.g. $X \equals[d] Y$ for equality in distribution
+\newcommand{\equals}[1][]{\stackrel{\smash{#1}}{=}}
+
+% Math mode symbols for common sets and spaces. Example usage: $\R$
+\newcommand{\R}{\mathbb{R}}   % Real numbers
+\newcommand{\C}{\mathbb{C}}   % Complex numbers
+\newcommand{\Q}{\mathbb{Q}}   % Rational numbers
+\newcommand{\Z}{\mathbb{Z}}   % Integers
+\newcommand{\N}{\mathbb{N}}   % Natural numbers
+\newcommand{\F}{\mathcal{F}}  % Calligraphic F for a sigma algebra
+\newcommand{\El}{\mathcal{L}} % Calligraphic L, e.g. for L^p spaces
+
+% Math mode symbols for probability
+\newcommand{\pr}{\mathbb{P}}    % Probability measure
+\newcommand{\E}{\mathbb{E}}     % Expectation, e.g. $\E(X)$
+\newcommand{\var}{\text{Var}}   % Variance, e.g. $\var(X)$
+\newcommand{\cov}{\text{Cov}}   % Covariance, e.g. $\cov(X,Y)$
+\newcommand{\corr}{\text{Corr}} % Correlation, e.g. $\corr(X,Y)$
+\newcommand{\B}{\mathcal{B}}    % Borel sigma-algebra
+
+% Other miscellaneous symbols
+\newcommand{\tth}{\text{th}}	% Non-italicized 'th', e.g. $n^\tth$
+\newcommand{\Oh}{\mathcal{O}}	% Big-O notation, e.g. $\O(n)$
+\newcommand{\1}{\mathds{1}}	% Indicator function, e.g. $\1_A$
+
+% Additional commands for math mode
+\DeclareMathOperator*{\argmax}{argmax}    % Argmax, e.g. $\argmax_{x\in[0,1]} f(x)$
+\DeclareMathOperator*{\argmin}{argmin}    % Argmin, e.g. $\argmin_{x\in[0,1]} f(x)$
+\DeclareMathOperator*{\spann}{Span}       % Span, e.g. $\spann\{X_1,...,X_n\}$
+\DeclareMathOperator*{\bias}{Bias}        % Bias, e.g. $\bias(\hat\theta)$
+\DeclareMathOperator*{\ran}{ran}          % Range of an operator, e.g. $\ran(T) 
+\DeclareMathOperator*{\dv}{d\!}           % Non-italicized 'with respect to', e.g. $\int f(x) \dv x$
+\DeclareMathOperator*{\diag}{diag}        % Diagonal of a matrix, e.g. $\diag(M)$
+\DeclareMathOperator*{\trace}{trace}      % Trace of a matrix, e.g. $\trace(M)$
+
+% Numbered theorem, lemma, etc. settings - e.g., a definition, lemma, and theorem appearing in that 
+% order in Section 2 will be numbered Definition 2.1, Lemma 2.2, Theorem 2.3. 
+% Example usage: \begin{theorem}[Name of theorem] Theorem statement \end{theorem}
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+
+% Un-numbered theorem, lemma, etc. settings
+% Example usage: \begin{lemma*}[Name of lemma] Lemma statement \end{lemma*}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem*{proposition*}{Proposition}
+\newtheorem*{lemma*}{Lemma}
+\newtheorem*{corollary*}{Corollary}
+\newtheorem*{definition*}{Definition}
+\newtheorem*{example*}{Example}
+\newtheorem*{remark*}{Remark}
+\newtheorem*{claim}{Claim}
+
+% --- Left/right header text (to appear on every page) ---
+
+% Include a line underneath the header, no footer line
+\pagestyle{fancy}
+\renewcommand{\footrulewidth}{0pt}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% Left header text: course name/assignment number
+\lhead{3CA Theorems}
+
+% Right header text: your name
+\rhead{ }
+
+% --- Document starts here ---
+
+\begin{document}
+\begin{theorem} (Goursat's Lemma) \\
+Let $f$ be holomorphic on an open set $G \subseteq \C$, and let $\triangle$ be a closed triangle in $G$. Let $\gamma$ be the path along the edges of $\triangle$. Then
+\begin{align}
+\int \limits _{\gamma} f(z)dz & = 0 \notag
+\end{align}
+
+\end{theorem}
+
+\begin{theorem} ~\\
+Let $f$ be a continuous function on a star-shaped region $G \subseteq \C$ such that
+\begin{align}
+\int \limits _{\gamma} f(z)dz & = 0 \notag
+\end{align}
+for any triangle $\gamma$ in $G$. Let $a$ be such that $[a,z]\subseteq G$ for any $z \in G$. Then the function $F : G \to \C$ defined by:
+\begin{align}
+F(z) = \int \limits _{[a,z]} f(w) & dw \notag
+\end{align}
+is holomorphic in $G$, with $F' = f$
+\end{theorem}
+
+\begin{theorem} (Cauchy's Integral Theorem for star-shaped regions) \\
+Let $G$ be a star-shaped region and let $f$ be holomorphic on $G$. Then
+\begin{align}
+\int \limits _{\gamma} f(z) dz & = 0 \notag
+\end{align}
+for every closed path $\gamma$ in $G$
+\end{theorem}
+
+\begin{theorem} (Cauchy's Integral Formula) \\
+Let $G$ be a region with $f$ holomorphic on $G$. Let $z_0 \in G$ and let $\overline{D}(z_0; r) \subseteq G$. Let $\gamma$ be the circle that forms the boundary of $\overline{D}(z_0; r)$ with the positive orientation. Then for any $z \in D(z_0; r)$, 
+\begin{align}
+f(z) = \frac{1}{2 \pi i} & \int _ {\gamma} \frac{f(w)}{w-z}dw \notag
+\end{align}
+
+\end{theorem}
+
+\begin{theorem} ~\\
+Let $G \subseteq \C$ be an open set and $\triangle$ a closed triangle in $G$. Let $\gamma$ denote the path along the edges of $\triangle$. Suppose that $f$ is continuous on $G$ and holomorphic on $G \setminus \{z_0\}$ where $z_0 \in \triangle$. Then
+\begin{align}
+\int \limits _{\gamma} f(z) dz & = 0 \notag
+\end{align}
+
+\end{theorem}
+
+\newpage
+
+\begin{theorem} ~\\
+Let $G \subseteq \C$ be a star-shaped region. Let $\gamma$ be a closed path in $G$. Suppose that $f$ is continuous on $G$ and holomorphic on $G \setminus \{z_0\}$ where $z_0 \in G$. Then
+\begin{align}
+\int \limits _{\gamma} f(z) dz & = 0 \notag
+\end{align}
+\end{theorem}
+
+\begin{theorem} (Cauchy's formula for derivatives) \\
+Let $G$ be a region, $z_0 \in G$ and $\overline{D}(z_0; r) \subseteq G$. Let $\gamma$ be the circle that form the boundary of $\overline{D}(z_0; r)$, with positive orientation. Let $f$ be a holomorphic function on $G$. Then $f^{(n)}(z)$ exists for any $z \in D(z_0; r)$ and 
+\begin{align}
+f^{(n)}(z) = \frac{n!}{2\pi i}\int \limits _{\gamma} & \frac{f(w)}{(w-z)^{n+1}} dw, \ \ \ \ n = 0, 1, 2, ... \notag
+\end{align}
+\end{theorem}
+
+\begin{theorem} ~\\
+If $f$ is holomorphic on an open set $G$, then $f$ has derivatives of all orders in $G$, and all derivatives are holomorphic in $G$
+\end{theorem}
+
+\begin{theorem} (Taylor's Theorem) \\
+Let $f$ be a holomorphic function in $D(z_0; R)$ for some $R > 0$. Then there exists unique numbers $a_n \in \C, n = 0, 1, 2, ...$ such that
+\begin{align}
+a_n = \frac{1}{2\pi i}\int \limits _{\gamma} & \frac{f(w)}{(w-z_0)^{n+1}} dw = \frac{f^{(n)}(z_0)}{n!} \notag
+\end{align}
+\end{theorem}
+
+\begin{theorem} (Cauchy's Inequalities) \\
+Assume that $|f(z)| \le M$ for all $z$ on the circle with center $z_0$ and radius $r$. Then the coefficients of Taylor's series $f(z) = \sum \limits _{n=0} ^{\infty} a_n(z-z_0)^n$ satisfy Cauchy's inequalities:
+\begin{align}
+|a_n| \le \frac{M}{r^n}, & \ \ \ n = 0,1,2,... \notag
+\end{align}
+\end{theorem}
+
+\begin{theorem} ~\\
+Let $f$ be an entire function. Assume there are constants $n \in \N \cup \{0\}, M,R > 0$ such that
+\begin{align}
+|f(z)| \le M|z|^n, \ & \ \ \text{ for all } |z| \ge R \notag
+\end{align}
+Then $f$ is a polynomial of degree at most $n$
+\end{theorem}
+
+\begin{theorem} (Liouville's Theorem) \\
+An entire function that is bounded on $\C$ is constant
+\end{theorem}
+
+\newpage
+
+\begin{theorem} (Fundamental Theorem of Algebra) \\
+Let $p$ be a non-constant polynomial with constant coefficients. Then $p$ has a zero in $\C$
+\end{theorem}
+
+\begin{theorem}
+Let $(f_n)_{n=1} ^\infty$ be a sequence of functions holomorphic in a region $G \subseteq \C$ that converges to $f: G \to \C$, and the convergence is uniform on any compact subset of $G$. Then $f$ is holomorphic in $G$, the sequence of derivatives $(f_n ^{(k)})_{n=1} ^ \infty$ converges to $f^{(k)}$ for any $k \in \N$ and for every $z\in G$ there is a closed disc $\overline{D}(z; r) \subseteq G$ with some $r > 0$ such that the convergence is uniform in $\overline{D}(z; r) \subseteq G$
+\end{theorem}
+
+\begin{theorem} ~\\
+Assume that $f$ is holomorphic in an open disc $D(z_0; r)$ with some $z_0 \in \C$ and $r>0$. If $z_0$ is a limit point of the set $\{\xi \in D(z_0; r) : f(\xi) = 0\}$, then $f(z) = 0$ for all $z \in D(z_0; r)$
+\end{theorem}
+
+\begin{theorem} (The Identity Theorem)
+Suppose that $f$ is a holomorphic function in a region $G \subseteq \C$. If the set $\{\xi \in G: f(\xi) = 0\}$ has a limit point in $G$, then $f \equiv 0$ in $G$
+\end{theorem}
+
+\begin{theorem} ~\\
+If $f$ is holomorphic in a region $G$ and not constant, then the set $\{\xi \in G: f(\xi) = 0\}$ has no limit points in $G$
+\end{theorem}
+
+\begin{theorem} (The Coincidence Principle) \\
+Let $f$ and $g$ be holomorphic in a region $G$. If the set $\{\xi \in G: f(\xi) = g(\xi)\}$ has a limit point in $G$, then $f \equiv g$ in $G$
+
+\end{theorem}
+
+\begin{theorem} (Gauss' Mean Value Theorem) \\
+Let $f$ be holomorphic in $D(z;R)$ for some $z \in \C$ and $R>0$. Let $0 < r < R$. Then
+\begin{align}
+f(z) = \frac{1}{2 \pi} \int _{0} ^ {2 \pi} & f(z+re^{i \theta})d\theta \notag
+\end{align}
+\end{theorem}
+
+\begin{theorem} (The Maximum Modulus Principle) \\
+Let $G$ be a bounded region and $f$ holomorphic in $G$ and continuous in $\overline{G}$. Then $|f|$ attains its maximum on the boundary of $G$. If $f$ is non-constant, then
+\begin{align}
+|f(z)| < \max _{w \in \partial G} & |f(w)| \ \text{ for any } z\in G \notag
+\end{align}
+\end{theorem}
+
+\begin{theorem} (Riemann's Extension Theorem) \\
+If a function $f$ is holomorphic and bounded in a punctured disc $D'(z_0; r)$ with some $z_0 \in \C$ and $r > 0$, then the limit $L = \lim _{z \to z_0} f(z)$ exists and the new function
+\begin{align}
+\hat{f}(z) = \begin{cases} f(z) \ \ \ z \in D'(z_0; r) \\ L \ \ \ \ \ \ \ z=z_0 \end{cases} \notag
+\end{align}
+is holomorphic in $D(z_0; r)$
+\end{theorem}
+
+\newpage
+
+\begin{theorem} (The Casorati-Weierstrass Theorem) \\
+Suppose thatt $f$ is holomorphic in $D'(z_0; R)$ for some $R>0$ and has an essential singularity at $z_0$. Then for any number $w_0 \in \C$, there exists a sequence $(z_n)_{n=1} ^ \infty$ such that $\lim _{n \to \infty} z_n = z_0$ and $\lim _{n \to \infty} f(z_n) = w_0$
+
+\end{theorem}
+
+\begin{theorem} ~\\
+Suppose that $f$ is holomorphic in a punctured disc $D'(z_0; R)$ with some $R>0$ and $z_0$ is a pole of $f$. Then there exists a natural number $n \in \N$ and a function $h$ that is holomorphic in $D(z_0; r)$ with some $0 < r \le R$ such that $h(z_0) \ne 0$ and 
+\begin{align}
+f(z) = \frac{1}{(z-z_0)^n h(z)}, & \ \ \ z \in D'(z_0; r) \notag
+\end{align}
+Then the number $n$ and the function $h$ are unique
+\end{theorem}
+
+\begin{theorem} (The Residue Theorem) \\
+Let $f$ be holomorphic in $\C$ except possibly for isolated singularities. Let $\gamma$ be a positively oriented simple closed path in $\C$, and no singularities lie on $\gamma$. Let $z_1, z_2, ..., z_n$ be singularities of $f$ that lie inside of $\gamma$. Then
+\begin{align}
+\int _{\gamma} f(z)dz = 2 \pi i & \sum _{k=1} ^n \text{Res}(f, z_k) \notag
+\end{align}
+\end{theorem}
+
+\begin{theorem} ~\\
+Let $f$ be holomorphic in $D'(z_0; r)$ with some $r > 0$ and let $z_0$ be a pole of $f$.
+\begin{enumerate}
+\item If $z_0$ is a simple pole of $f$, then $\text{Res}(f, z_0) = \lim _{z \to z_0} (z-z_0)f(z)$
+\item If $f(z) = \frac{g(z)}{h(z)}$ with $h(z_0) = 0, h'(z_0) \ne 0$ and $g(z_0) \ne 0$. Then $\text{Res}(f, z_0) = \frac{g(z_0)}{h'(z_0)}$
+\item If $z_0$ is a pole of order $n$, then $\text{Res}(f, z_0) = \frac{1}{(n-1)!} \frac{d^{n-1}}{dz^{n-1}}((z-z_0)^n f(z)) \vert _{z=z_0}$
+\end{enumerate}
+\end{theorem}
+
+\begin{theorem} ~\\
+Let $f$ be a function holomorphic in $D'(\infty, R)$ with some $R > 0$. Then 
+\begin{align}
+\text{Res}(f, \infty) = -\text{Res}\bigg(\frac{\hat{f}(z)}{z^2}, 0\bigg) \notag
+\end{align}
+
+\end{theorem}
+\end{document}
