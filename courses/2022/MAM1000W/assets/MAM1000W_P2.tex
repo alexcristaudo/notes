@@ -1,0 +1,281 @@
+\documentclass[10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mhchem}
+\usepackage{stmaryrd}
+
+\title{P2 Proofs }
+
+\author{}
+\date{}
+
+
+\begin{document}
+\maketitle
+\section{$\int k f(x) d x=k \int f(x) d x$ where $k$ is any number. }
+Suppose that $F(x)$ is an anti-derivative of $f(x)$, i.e. $F^{\prime}(x)=f(x)$. Then by the basic properties of derivatives we also have that,
+$$
+(k F(x))^{\prime}=k F^{\prime}(x)=k f(x)
+$$
+and so $k F(x)$ is an anti-derivative of $k f(x)$, i.e. $(k F(x))^{\prime}=k f(x)$. In other words,
+$$
+\int k f(x) d x=k F(x)+c=k \int f(x) d x
+$$
+
+\section{$\int f(x) \pm g(x) d x=\int f(x) d x \pm \int g(x) d x$}
+Suppose that $F(x)$ is an anti-derivative of $f(x)$ and that $G(x)$ is an anti-derivative of $g(x)$. So we have that $F^{\prime}(x)=f(x)$ and $G^{\prime}(x)=g(x)$. Basic properties of derivatives also tell us that
+$$
+(F(x) \pm G(x))^{\prime}=F^{\prime}(x) \pm G^{\prime}(x)=f(x) \pm g(x)
+$$
+and so $F(x)+G(x)$ is an anti-derivative of $f(x)+g(x)$ and $F(x)-G(x)$ is an anti-derivative of $f(x)-g(x)$. In other words,
+$$
+\int f(x) \pm g(x) d x=F(x) \pm G(x)+c=\int f(x) d x \pm \int g(x) d x
+$$
+
+\section{$\int_{a}^{b} f(x) d x=-\int_{b}^{a} f(x) d x$}
+From the definition of the definite integral we have,
+$$
+\int_{a}^{b} f(x) d x=\lim _{n \rightarrow \infty} \sum_{i=1}^{n} f\left(x_{i}^{*}\right) \Delta x \quad \Delta x=\frac{b-a}{n}
+$$
+and we also have,
+$$
+\int_{b}^{a} f(x) d x=\lim _{n \rightarrow \infty} \sum_{i=1}^{n} f\left(x_{i}^{*}\right) \Delta x \quad \Delta x=\frac{a-b}{n}
+$$
+Therefore,
+$$
+\begin{aligned}
+\int_{a}^{b} f(x) d x &=\lim _{n \rightarrow \infty} \sum_{i=1}^{n} f\left(x_{i}^{*}\right) \frac{b-a}{n} \\
+&=\lim _{n \rightarrow \infty} \sum_{i=1}^{n} f\left(x_{i}^{*}\right) \frac{-(a-b)}{n} \\
+&=\lim _{n \rightarrow \infty}\left(-\sum_{i=1}^{n} f\left(x_{i}^{*}\right) \frac{a-b}{n}\right) \\
+&=-\lim _{n \rightarrow \infty} \sum_{i=1}^{n} f\left(x_{i}^{*}\right) \frac{a-b}{n}=-\int_{b}^{a} f(x) d x
+\end{aligned}
+$$
+
+\section{$\int_{a}^{a} f(x) d x=0$}
+From the definition of the definite integral we have,
+$$
+\begin{aligned}
+\int_{a}^{a} f(x) d x &=\lim _{n \rightarrow \infty} \sum_{i=1}^{n} f\left(x_{i}^{*}\right) \Delta x \quad \Delta x=\frac{a-a}{n}=0 \\
+&=\lim _{n \rightarrow \infty} \sum_{i=1}^{n} f\left(x_{i}^{*}\right)(0) \\
+&=\lim _{n \rightarrow \infty} 0 \\
+&=0
+\end{aligned}
+$$
+
+\section{$\int_{a}^{b} c f(x) d x=c \int_{a}^{b} f(x) d x$}
+From the definition of the definite integral we have,
+$$
+\begin{aligned}
+\int_{a}^{b} c f(x) d x &=\lim _{n \rightarrow \infty} \sum_{i=1}^{n} c f\left(x_{i}^{*}\right) \Delta x \\
+&=\lim _{n \rightarrow \infty} c \sum_{i=1}^{n} f\left(x_{i}^{*}\right) \Delta x \\
+&=c \lim _{n \rightarrow \infty} \sum_{i=1}^{n} f\left(x_{i}^{*}\right) \Delta x \\
+&=c \int_{a}^{b} f(x) d x
+\end{aligned}
+$$
+Remember that we can pull constants out of summations and out of limits.
+
+\section{$\int_{a}^{b} f(x) \pm g(x) d x=\int_{a}^{b} f(x) d x \pm \int_{a}^{b} g(x) d x$}
+First we'll prove the formula for "+". From the definition of the definite integral we have,
+$$
+\begin{aligned}
+\int_{a}^{b} f(x)+g(x) d x &=\lim _{n \rightarrow \infty} \sum_{i=1}^{n}\left(f\left(x_{i}^{*}\right)+g\left(x_{i}^{*}\right)\right) \Delta x \\
+&=\lim _{n \rightarrow \infty}\left(\sum_{i=1}^{n} f\left(x_{i}^{*}\right) \Delta x+\sum_{i=1}^{n} g\left(x_{i}^{*}\right) \Delta x\right) \\
+&=\lim _{n \rightarrow \infty} \sum_{i=1}^{n} f\left(x_{i}^{*}\right) \Delta x+\lim _{n \rightarrow \infty} \sum_{i=1}^{n} g\left(x_{i}^{*}\right) \Delta x \\
+&=\int_{a}^{b} f(x) d x+\int_{a}^{b} g(x) d x
+\end{aligned}
+$$
+To prove the formula for "-" we can either redo the above work with a minus sign instead of a plus sign or we can use the fact that we now know this is true with a plus and using the properties proved above as follows.
+$$
+\begin{aligned}
+\int_{a}^{b} f(x)-g(x) d x &=\int_{a}^{b} f(x)+(-g(x)) d x \\
+&=\int_{a}^{b} f(x) d x+\int_{a}^{b}(-g(x)) d x \\
+&=\int_{a}^{b} f(x) d x-\int_{a}^{b} g(x) d x
+\end{aligned}
+$$
+
+\section{$\int_{a}^{b} c d x=c(b-a), c$ is any number.}
+If we define $f(x)=c$ then from the definition of the definite integral we have,
+$$
+\begin{aligned}
+\int_{a}^{b} c d x &=\int_{a}^{b} f(x) d x \\
+&=\lim _{n \rightarrow \infty} \sum_{i=1}^{n} f\left(x_{i}^{*}\right) \Delta x \quad \Delta x=\frac{b-a}{n} \\
+&=\lim _{n \rightarrow \infty}\left(\sum_{i=1}^{n} c\right) \frac{b-a}{n} \\
+&=\lim _{n \rightarrow \infty}(c n) \frac{b-a}{n} \\
+&=\lim _{n \rightarrow \infty} c(b-a) \\
+&=c(b-a)
+\end{aligned}
+$$
+
+\section{Fundamental Theorem of Calculus, Part I}
+If $f(x)$ is continuous on $[a, b]$ then,
+$$
+g(x)=\int_{a}^{x} f(t) d t
+$$
+is continuous on $[a, b]$ and it is differentiable on $(a, b)$ and that,
+$$
+g^{\prime}(x)=f(x)
+$$
+
+\subsection{Proof}
+Suppose that $x$ and $x+h$ are in $(a, b)$. We then have,
+$$
+g(x+h)-g(x)=\int_{a}^{x+h} f(t) d t-\int_{a}^{x} f(t) d t
+$$
+Now we can rewrite the first integral and then do a little simplification as follows.
+
+$g(x+h)-g(x)=\left(\int_{a}^{x} f(t) d t+\int_{x}^{x+h} f(t) d t\right)-\int_{a}^{x} f(t) d t$ Finally, for $h \neq 0$ we get
+$$
+\frac{g(x+h)-g(x)}{h}=\frac{1}{h} \int_{x}^{x+h} f(t) d t
+$$
+Let's now assume that $h>0$ such that $x+h\in(a, b)$, then we know that $f(x)$ is continuous on $[x, x+h]$ and so by the Extreme Value Theorem we know that there are numbers $c$ and $d$ in $[x, x+h]$ so that $f(c)=m$ is the absolute minimum of $f(x)$ in $[x, x+h]$ and that $f(d)=M$ is the absolute maximum of $f(x)$ in $[x, x+h]$
+
+Now $m \leq f(x) \leq M$, so
+$$
+\int_{x}^{x+h} m d x \leq \int_{x}^{x+h} f(x) d x \leq \int_{x}^{x+h} M d x
+$$
+Thus
+$$
+m((x+h)-x) \leq \int_{x}^{x+h} f(x) d x \leq M((x+h)-x)
+$$
+$$
+m h \leq \int_{x}^{x+h} f(t) d t \leq M h
+$$
+Or,
+$$
+f(c) h \leq \int_{x}^{x+h} f(t) d t \leq f(d) h
+$$
+So,
+$$
+f(c) \leq \frac{1}{h} \int_{x}^{x+h} f(t) d t \leq f(d)
+$$
+which gives,
+$$
+f(c) \leq \frac{g(x+h)-g(x)}{h} \leq f(d)
+$$
+Similarly, if $h<0$ we arrive at exactly the same inequality above, except we use the interval $[x+h, x]$
+
+Now, if we take $h \rightarrow 0$ we also have $c \rightarrow x$ and $d \rightarrow x$ because both $c$ and $d$ are between $x$ and $x+h$. This means that we have the following two limits.
+$$
+\lim _{h \rightarrow 0} f(c)=\lim _{c \rightarrow x} f(c)=f(x)  
+ \quad \lim _{h \rightarrow 0} f(d)=\lim _{d \rightarrow x} f(d)=f(x)
+$$
+The Squeeze Theorem then tells us that,
+$$
+    \lim _{h \rightarrow 0} \frac{g(x+h)-g(x)}{h}=f(x)     \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*)
+$$
+but the left side of this is exactly the definition of the derivative of $g(x)$ and so we get that,
+$$
+g^{\prime}(x)=f(x)
+$$
+So, we've shown that $g$ is differentiable on $(a, b)$ and so $g$ is continuous on $(a,b)$
+
+Finally, if we take $x=a$ or $x=b$ we can go through a similar argument we used to get $(*)$ using one-sided limits to get the same result and this will also tell us that $g$ is continuous at $x=a$ or $x=b$ and so in fact $g(x)$ is also continuous on $[a, b]$.
+
+\section{Fundamental Theorem of Calculus, Part II}
+If $f$ is a continuous function on $[a, b]$, then
+$$
+\int_{a}^{b} f(x) d x=F(b)-F(a)
+$$
+where  $F'(x) =f(x) (F$ is any antiderivative of $f)$
+
+\subsection{Proof}
+Let $g(x)=\int_{a}^{x} f(t) d t$. By FTC Part 1, $g^{\prime}(x)=f(x)$, therefore $g$ is an antiderivative of $f$ on $[a, b]$. If $F$ is any antiderivative of $f$ on $[a, b]$ then $F' (x)=f(x)=g'(x)$ and so $F(x)-g(x)=c$ for $x\in (a,b)$ and $c$ is some constant. Now we show that $F(x)-g(x)=c$, $x \in [a,b]$
+
+Since $g$ and $F$ are continuous on $[a, b]$, we have:
+$$
+\lim _{x \to a^+} F(x)-g(x) =\lim _{x \to a^-} F(x)-g(x)=c
+$$
+Similarly,
+$$
+\lim _{x \to b^+} F(x)-g(x) =\lim _{x \to b^-} F(x)-g(x)=c
+$$
+Thus $F(x)=g(x) +c$ for all $x\in [a,b]$.\\
+We have: $F(b) = g(b) + c$ and $F(a) = g(a) + c$\\
+So
+$$
+\begin{aligned}
+F(b)-F(a) &=(g(b)+c)-(g(a)+c) \\
+&=g(b)-g(a) \\
+&=\int_{a}^{b} f(t) d t+\int_{a}^{a} f(t) d t \\
+&=\int_{a}^{b} f(t) d t+0 \\
+&=\int_{a}^{b} f(x) d x
+\end{aligned}
+$$
+Note that in the last step we used the fact that the variable used in the integral does not matter and so we could change the t's to $x$ 's.
+
+\section{Average Function Value}
+The average value of a continuous function $f(x)$ over the interval $[a, b]$ is given by,
+$$
+f_{a v g}=\frac{1}{b-a} \int_{a}^{b} f(x) d x
+$$
+
+\subsection{Proof}
+We first divide $[a, b]$ into $n$ subintervals each of length,
+$$
+\Delta x=\frac{b-a}{n}
+$$
+Then
+$$
+f_{avg} = \frac{f\left(x_{1}^{*}\right)+f\left(x_{2}^{*}\right)+\cdots+f\left(x_{n}^{*}\right)}{n} = \frac{1}{n}  \sum \limits _{i=1}^nf(x_i^*)
+$$
+Now using $\Delta x=\frac{b-a}{n}$, we get $n=\frac{b-a}{\Delta x}$ and so:
+$$
+f_{avg} =  \frac{\Delta x}{b-a}  \sum \limits _{i=1}^nf(x_i^*) = \frac{1}{b-a}  \sum \limits _{i=1}^nf(x_i^*)\Delta x
+$$
+As $n \to \infty$, we get that
+$$
+f_{avg} = \lim _{n \to \infty} \bigg(\frac{1}{b-a}  \sum \limits _{i=1}^nf(x_i^*)\Delta x\bigg ) 
+ =\frac{1}{b-a}  \lim _{n \to \infty} \bigg( \sum \limits _{i=1}^nf(x_i^*)\Delta x\bigg ) 
+$$
+$$
+\iff f_{avg}=\frac{1}{b-a}\int \limits _a^bf(x)dx
+$$
+
+\section{The Mean Value Theorem for Integrals}
+If $f(x)$ is a continuous function on $[a, b]$ then there is a number $c$ in $[a, b]$ such that,
+$$
+\int_{a}^{b} f(x) d x=f(c)(b-a) \iff f(c)=f_{avg}
+$$
+
+\subsection{Proof}
+Let's start off by defining,
+$$
+F(x)=\int_{a}^{x} f(t) d t
+$$
+Since $f(x)$ is continuous we know from the Fundamental Theorem of Calculus, Part I that $F(x)$ is continuous on $[a, b]$, differentiable on $(a, b)$ and that $F^{\prime}(x)=f(x)$.
+
+Now, from the Mean Value Theorem for Derivatives, we know that there is a number $c\in (a,b)$ such that,
+$$
+F(b)-F(a)=F^{\prime}(c)(b-a)
+$$
+However, we know that $F^{\prime}(c)=f(c)$ and,
+$$
+F(b)=\int_{a}^{b} f(t) d t=\int_{a}^{b} f(x) d x \quad F(a)=\int_{a}^{a} f(t) d t=0
+$$
+So, we then have,
+$$
+\int_{a}^{b} f(x) d x=f(c)(b-a)
+$$
+Note that $c\in (a,b)$, so MVT for Integrals needs $c\in (a,b)$ but $c\in (a,b) \Rightarrow c\in [a,b]$
+
+\section{If $f$ is an odd function, then $\int \limits _{-a}^a f(x)dx = 0$}
+First note that $\int \limits _{-a}^a f(x)dx = 
+\int \limits _{-a}^0 f(x)dx+\int \limits _{0}^a f(x)dx$\\
+Thus $\int \limits _{-a}^a f(x)dx = 0 \iff \int \limits _{-a}^0 f(x)dx =-\int \limits _{0}^a f(x)dx$.\\
+Now we solve: $\int \limits _{-a}^0 f(x)dx$: Let $u=-x$, then when $x=-a, u=a$ and $x=0, u=0$ and $\frac{du}{dx}=-1 \Rightarrow dx=-du$. Thus $\int \limits _{-a}^0 f(x)dx=\int \limits _{a}^0 f(-u)(-du)$. But $f$ is odd, so $f(-u)=-f(u)$ and thus $\int \limits _{a}^0 f(-u)(-du) =\int \limits _{a}^0 f(u)du=-\int \limits _{0}^a f(u)du=-\int \limits _{0}^a f(x)dx$
+
+which completes the proof
+
+\section{If $f$ is an even function, then $\int \limits _{-a}^a f(x)dx = 2\int \limits _{0}^a f(x)dx$}
+First note that $\int \limits _{-a}^a f(x)dx = 
+\int \limits _{-a}^0 f(x)dx+\int \limits _{0}^a f(x)dx$\\
+Thus $\int \limits _{-a}^a f(x)dx =2\int \limits _{0}^a f(x)dx \iff \int \limits _{-a}^0 f(x)dx =\int \limits _{0}^a f(x)dx$\\
+Now we solve:  $\int \limits _{-a}^0 f(x)dx$: Let $u=-x$, then when $x=-a, u=a$ and $x=0, u=0$ and $\frac{du}{dx}=-1 \Rightarrow dx=-du$. Thus $\int \limits _{-a}^0 f(x)dx=\int \limits _{a}^0 f(-u)(-du)$. But $f$ is even, so $f(-u)=f(u)$ and thus $\int \limits _{a}^0 f(-u)(-du) =-\int \limits _{a}^0 f(u)du=\int \limits _{0}^a f(u)du=\int \limits _{0}^a f(x)dx$
+
+which completes the proof
+
+
+\end{document}
