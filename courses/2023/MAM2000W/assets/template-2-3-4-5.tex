@@ -1,0 +1,1058 @@
+\documentclass{report}
+\usepackage{verbatim}
+\usepackage[english]{babel}
+\input{preamble}
+\input{macros}
+\input{letterfonts}
+\title{\Huge{MAM2000W}\\Vector Spaces}
+\author{\huge{Alex Cristaudo}}
+\date{}
+
+\usepackage{underscore}
+\begin{document}
+
+\maketitle
+\newpage% or \cleardoublepage
+% \pdfbookmark[<level>]{<title>}{<dest>}
+\pdfbookmark[section]{\contentsname}{toc}
+\tableofcontents
+\pagebreak
+
+\chapter{Vector Spaces}
+\section{Vector Spaces and Subspaces}
+\dfn{Vector Space}{
+     Given
+$F=\mathbb{R}$ or $\mathbb{C}$. Let $V$ be a
+set, and $+: V \times V \rightarrow V$
+a binary operation on $V$
+taking pair $\mathbf{u}, \mathbf{w}) \mapsto$
+$\mathbf{u}+\mathbf{w}$ and scalar
+multiplication $F \times V \rightarrow$
+$V$ taking pair $(\lambda, \mathbf{w}) \mapsto$
+$\lambda \mathbf{w}$. We call $V$
+(together with the
+above addition and
+scalar multiplication)
+a vector space (or
+linear space) over $F$ if
+the following
+conditions hold for
+each $\mathbf{u}, \mathbf{v}, \mathbf{w} \in V$ and
+each $\lambda, \mu \in F:$
+\begin{enumerate}
+    \item$\mathbf{u}+ \mathbf{v} = \mathbf{v} + \mathbf{u} $
+    \item $\mathbf{u} + (\mathbf{v} + \mathbf{w}) = ( \mathbf{u} + \mathbf{v}) + \mathbf{w} $
+    \item $ \exists \mathbf{0} \in V$ such that $\mathbf{u+0=u}$ (for each $\mathbf{u} \in V)$
+    \item $\forall \mathbf{u} \in F, \exists \mathbf{u'} \in F$ such that $\mathbf{u+u'=0}.$ (We denote $\mathbf{u'}$ with $\mathbf{-u}$. Note that $\mathbf{0}$ is the zero vector in (3) 
+    \item $ \lambda ( \mathbf{u+v}) = \lambda \mathbf{u} + \lambda \mathbf{v}$
+    \item $( \lambda + \mu ) \mathbf{u} = \lambda \mathbf{u} + \mu \mathbf{u}$
+    \item $ \lambda ( \mu \mathbf{u}) = ( \lambda \mu ) \mathbf{u}$
+    \item $1 \mathbf{u} = \mathbf{u}$ (note this is for scalar $1\in F$
+        
+\end{enumerate}
+}
+\nt{In general, vector spaces can be defined over arbitrary fields $F$. A field is a set on which addition, subtraction, multiplication and division are defined and behave as the corresponding operations on rational and real numbers do in general, vector spaces can be defined over arbitrary fields $F$. A field is a set on which addition, subtraction, multiplication and division are defined and behave as the corresponding operations on rational and real numbers do. We shall only look at vector spaces over the field of real numbers or complex numbers. The former are often called real vector spaces and the latter complex vector spaces}
+
+\newpage
+
+\thm{}{The $\mathbf{0}$ in axiom 3 is unique (and note $\mathbf{0}=\mathbf{-0}$ since $\mathbf{0}+\mathbf{0}=\mathbf{0}$)}
+\begin{myproof}
+Suppose, to the contrary, that $\mathbf{0}$ and $\mathbf{0'}$ satisfy axiom 3 and $\mathbf{0} \ne \mathbf{0'}$. Then $\mathbf{0+0'=0}$, but $\mathbf{0+0'=0'+0=0'} \implies \mathbf{0=0'}$ which is a contradiction and thus $\mathbf{0}$ must be unique
+\end{myproof} 
+
+\ex{Vector Space Examples} {
+    \begin{enumerate}
+        \item   Notice that axiom (3) requires existence of $\mathbf{0}\in V$, thus the simplest vector space is $V=\{ \mathbf{0}\}$ over $F=\mathbb{R}$ (or $\mathbb{C}$)
+        \item Sets $M_{m \times n}(\mathbb{C})$ or $M_{m \times n} (\mathbb{R})$ with component-wise addition and scalar multiplication satisfy the vector space axioms
+        \item $ \mathbb{R}^n$ for each positive integer $n$ form a real vector space under component-wise addition and scalar multiplication
+        \item Real-valued functions on a fixed domain $D \subseteq \mathbb{R} $ form a real vector space $ \mathbb{R}^D$ by defining addition $ f+g$ of two functions  $f$ and  $g$ by  $(f+g)(x)=f(x)+g(x)$ and scalar multiplication  $ \lambda f$ by $( \lambda f)(x)= \lambda f(x)$ for each $x \in D$
+        \item Let $P_n$ for each positive integer  $n$ denote the set of all polynomials in one variable with real coefficients and degree at most  $n$. For any 2 polynomials  $p=a_0 + a_1x + a_2x^2 + \ldots + a_nx_n$ and $q=b_0 + b_1x + b_2x^2 + \ldots + b_nx_n $ defining their addition and scalar multiplication coefficient-wise (we get some sense they can be 'identified' with $ \mathbb{R}^{n+1}$            
+    \end{enumerate}
+} 
+
+\thm{}{Given $F= \mathbb{R}$ or $ \mathbb{C}$. Let $V$ be a vector space over  $F$. If  $\mathbf{u } \in F$ and $ \lambda \in F$, then we have:
+\begin{enumerate}
+    \item   $0 \mathbf{u} = \mathbf{0}$ (first $0$ is scalar, second is  $\mathbf{0}$ vector
+    \item $ \lambda \mathbf{0} = \mathbf{0}$
+    \item $(-1) \mathbf{u} = \mathbf{-u}$
+    \item $ \lambda \mathbf{u} = \mathbf{0} \implies \mathbf{u} = \mathbf{0} $ or $ \lambda =0$
+\end{enumerate}
+}
+
+\begin{myproof}
+    
+    \begin{enumerate}
+        \item Using axiom (6) we have $(0+0)\mathbf{u} = 0\mathbf{u}  +0\mathbf{u} \implies 0\mathbf{u}  =0\mathbf{u}  +0\mathbf{u}  $. By axiom (4), there exists $-(0\mathbf{u})$ such that $0\mathbf{u} + (-(0\mathbf{u})) = (0\mathbf{u} + 0\mathbf{u})+(-(0\mathbf{u}))=0\mathbf{u}+(0\mathbf{u}+(-(0\mathbf{u}))) $ so we get $0\mathbf{u} = \mathbf{0}$
+        \item Using (5), we get $\lambda (\mathbf{0+0})=\lambda \mathbf{0} +\lambda \mathbf{0} $, from this we get $\lambda \mathbf{0} +\lambda \mathbf{0}  = \lambda \mathbf{0} \implies \lambda \mathbf{0} =\mathbf{0}$ (again by the existence of negative like 1)
+        \item We show that $\mathbf{u} + (-1)\mathbf{u}=\mathbf{0}$. First $\mathbf{u}=1\mathbf{u}$ by (8), so we have that $1\mathbf{u}+(-1)\mathbf{u} =$$(1+(-1))\mathbf{u}$ by (6), and $(1+(-1))\mathbf{u}=0\mathbf{u}=\mathbf{0}$ by (a). Also since the negative of a vector is unique, this is always true (no other vector can satisfy this)
+        \item We can equivalently prove that if $\lambda \mathbf{u}=\mathbf{0}$ and $\lambda \ne 0$ then $\mathbf{u}=\mathbf{0}$. So suppose $\lambda \mathbf{u}=\mathbf{0}$ and $\lambda \ne 0$. Then $\lambda ^{-1}$ exists and $\lambda ^{-1}(\lambda \mathbf{u}) = \lambda ^{-1}\mathbf{0}=\mathbf{0}$. On the other hand, $\lambda ^{-1}(\lambda \mathbf{u}) = (\lambda ^{-1}\lambda )\mathbf{u}=1\mathbf {u}=\mathbf{u}$ so $\mathbf{u}=\mathbf{0}$
+    \end{enumerate}
+
+\end{myproof}
+
+\dfn{Closure}{Let $V$ be a vector space over  $F= \mathbb{R}$ or $ \mathbb{C}$ and $S \subseteq V$. We say $S$ is:
+\begin{itemize}
+    \item Closed under addition if $ \forall \mathbf{u,v} \in V$, if $\mathbf{u,v}\in S$ then $\mathbf{u+v} \in S$
+    \item Closed under scalar multiplication if for all $\mathbf{u} \in V $ and $ \lambda \in F$, if $\mathbf{u} \in S$, then $ \lambda \mathbf{u} \in S$
+\end{itemize}
+}
+\ex{}{
+ Consider $\mathbb{R}^2$ (with component-wise addition and scalar multiplication) and let $S=\left\{(x, y) \in \mathbb{R}^2 \mid x \geq 0\right.$ and $\left.y \geq 0\right\}$ (the first quadrant in the Cartesian plane). We have that $S$ is closed under addition for if we take $\left(x_1, y_1\right),\left(x_2, y_2\right) \in S$ we must have $x_1 \geq 0$ and $x_2 \geq 0$ and thus $x_1+x_2 \geq 0$, similarly $y_1+y_2 \geq 0$ and so $\left(x_1, y_1\right)+\left(x_2, y_2\right) \in S$. However it is not closed under scalar multiplication since $(2023,2095) \in S$ but $-(2023,2095)=(-2023,-2095) \notin S$ \\
+Consider again $\mathbb{R}^2$ (with component-wise addition and scalar multiplication) and let $T=\left\{(x, y) \in \mathbb{R}^2 \mid x \geq 0\right.$ and $\left.y \geq 0\right\} \cup\left\{(x, y) \in \mathbb{R}^2 \mid x \leq 0\right.$ and $\left.y \leq 0\right\}$ (the first together with the third quadrant in the Cartesian plane). Check that $T$ is closed under scalar multiplication (you may need to consider different cases), however $T$ is not closed under addition - take $(-2,-1),(1,2) \in T$ for example.
+}
+
+\dfn{Subspaces}{A subset $S$ of a vector space  $V$ (over  $F$) is called a vector/linear subspace if:
+ \begin{itemize}
+    \item  $S$ is non-empty
+    \item  $S$ is closed under addition
+    \item  $S$ is closed under scalar multiplication
+\end{itemize}
+}
+
+\ex{}{
+    \begin{enumerate}
+        \item The trivial vector space $V=\{0\}$ has only one subspace, namely itself.
+        \item Let $V=M_{m \times n}(\mathbb{R})$ (with component-wise addition and scalar multiplication). Your sets $\mathcal{L}, \mathcal{U}$ and $\mathcal{D}$ of lower, upper and diagonal matrices, respectively are subspaces (check this).
+        \item Let $V=\mathbb{R}^n$ with component-wise addition and scalar multiplication. $\{\mathbf{0}\}$ and $V=\mathbb{R}^n$ itself are always subspaces.
+For $\mathbf{0} \neq \mathbf{v} \in \mathbb{R}^n$, let $L_{\mathbf{v}}=\left\{\mathbf{x} \in \mathbb{R}^n \mid \mathbf{x}=\lambda \mathbf{v}\right.$ for some $\left.\lambda \in \mathbb{R}\right\}$, notice that $\mathbf{0} \in L_{\mathbf{v}}$, and if $\mathbf{x}, \mathbf{y} \in L_{\mathbf{v}}$, we have that $\mathbf{x}=\lambda_1 \mathbf{v}$ and $\mathbf{y}=\lambda_2 \mathbf{v}$ and so $\mathbf{x}+\mathbf{y}=\left(\lambda_1+\lambda_2\right) \mathbf{v}$, thus $\mathbf{x}+\mathbf{y} \in L_{\mathbf{v}}$. Similarly for scalar $\mu \in \mathbb{R}$, we have $\mu \mathbf{x}=\mu\left(\lambda_1 \mathbf{v}\right)=\left(\mu \lambda_1\right) \mathbf{v}$ and so $\mu \mathbf{x} \in L_{\mathbf{v}}$, that is $L_{\mathbf{v}}$ is a subspace of $\mathbb{R}^n$ (with component-wise addition and scalar multiplication).
+$P=\left\{\left(x_1, x_2, \ldots, x_n\right) \in \mathbb{R}^n \mid a_1 x_1+a_2 x_2+\cdots+a_n x_n=0\right.$ where $\left.a_1, a_2, \ldots a_n \in \mathbb{R}\right\}$ is a subspace of $\mathbb{R}^n$ (with component-wise addition and scalar multiplication). Check this.
+Taking $n=3$, the above tells us that lines and planes through the origin are subspaces of $\mathbb{R}^3$ (with component-wise addition and scalar multiplication).
+    \item Let $D \subseteq \mathbb{R}$ and consider $V=\mathbb{R}^D$, the set of all real valued functions $f: D \rightarrow \mathbb{R}$ with domain $D$ with addition and scalar multiplication defined input-wise, that is for $f, g \in \mathbb{R}^D$ and $\lambda \in F$, $(f+g)(x)=f(x)+g(x)$ and $(\lambda f)(x)=\lambda f(x)$ for each $x \in D$.
+Consider $D \subseteq  \mathbb{R}$ such that $\pi \in D$, let $S=\left\{f \in \mathbb{R}^D \mid f(\pi)=0\right\}$, notice that the 0 constant function is in $S$ since it will maps $\pi$ to 0 . Now suppose that $f, g \in S$, and then we have that $(f+g)(\pi)=f(\pi)+g(\pi)=0+0=0$ and so $f+g \in S$, similarly for scalar $\lambda \in \mathbb{R}$ we have $(\lambda f)(\pi)=\lambda f(\pi)=\lambda \cdot 0=0$.
+Take $D=\mathbb{R}$, and let $T=\left\{f \in \mathbb{R}^{\mathbb{R}} \mid f\right.$ is differentiable and $\left.\frac{d}{d x} f+4 f=0\right\}$, Notice that the 0 constant function is in $T$ and for $f, g \in T$ we have that $f+g$ is also differentiable and $\frac{d}{d x}(f+g)+4(f+g)=$ $\frac{d}{d x} f+\frac{d}{d x} g+4 f+4 g=\left(\frac{d}{d x} f+4 f\right)+\left(\frac{d}{d x} g+4 g\right)=0+0=0$, check similarly that $T$ is closed under scalar multiplication.    
+    \end{enumerate}
+
+}
+
+\ex{Non-examples}{
+\begin{enumerate}
+    \item   Consider $\mathbb{R}^3$ with component-wise addition and scalar multiplication. The set $N=\{(x_1, x_2, x_3) \in \mathbb{R}^3 | 2x_1-100x_2+5x_3=4\} $ is not a subspace. Notice that $(0,0,0) \not\in N$, for if it were the case we would have that $0=4$. 
+    \item Consider $M_{n \times n}(\mathbb{R})$ with component-wise addition and scalar multiplication.
+The set $M=\left\{A \in M_{n \times n}(\mathbb{R}) \mid \operatorname{det}(A)=0\right\}$ is not a subspace. Notice that even though we have the zero matrix $\mathbf{0} \in M$ and that for $\lambda \in \mathbb{R}$ and $A \in M$ we have $\lambda A \in M$ since $\operatorname{det}(\lambda A)=\lambda^n \operatorname{det}(A)=\lambda^n \cdot 0=0$, $M$ is not closed under addition. Take $A$ and $B$ with coefficients given by $a_{i j}=\left\{\begin{array}{ll}1 & \text { if } i=j \text { and } 1 \leq i \leq n-1 \\ 0 & \text { otherwise. }\end{array}\right.$ and $b_{i j}= \begin{cases}1 & \text { if } i=n=j \\ 0 & \text { otherwise }\end{cases}$
+\\ Matrices $A$ and $B$ are diagonal matrices with at least one zero on the diagonal and so $\operatorname{det}(A)=0=$ $\operatorname{det}(B)$, however $A+B=I_n$ and so $\operatorname{det}(A+B)=\operatorname{det}\left(I_n\right)=1 \neq 0$.
+\end{enumerate}
+}
+\nt{
+
+Is a union two of subspaces always a subspace?
+That is, if $S_1$ and $S_2$ are subspaces of vector space $V$ (over $F$ ), is $S_1 \cup S_2$ a subspace of $V$ ? No. Consider $\mathbb{R}^2$ with component-wise addition and scalar multiplication, and take subspaces $S_1=\{(x, y) \mid x=0\}$ and $S_2=\{(x, y) \mid y=0\}$, notice that $(0,3150),(3150,0) \in S_1 \cup S_2$, however $(0,3150)+(3150,0)=(3150,3150) \notin S_1 \cup S_2$.
+}
+~\\
+\thm{}{A subspace $S$ of vector space $V$ is a vector space in its own right}
+
+\begin{myproof}
+    
+Since $S$ is non-empty, there is some $\mathbf{u}\in S$. But since $S$ is closed under scalar multiplication ($\lambda \in F$ so can be any $\lambda $ regardless of $S$), we have that $0\mathbf{u} =\mathbf{0} \in S$. We also have that $(-1)\mathbf{u}=-\mathbf{u} \in S$. The other axioms hold true because $V$ is a vector space so $\mathbf{u, v, w} \in S \implies \mathbf{u, v, w}\in V $ so the axioms hold true.
+
+
+\end{myproof}
+\nt{
+For $1 \leq k<n, \mathbb{R}^k$ is not a subspace of $\mathbb{R}^n$, note that it is not even a subset - the former is a set of $k$-tuples while the latter a set of $n$-tuples, however $\mathbb{R}^k$ can be 'identified' with a subspace of $\mathbb{R}^n$ given by $S=\left\{\left(x_1, x_2, \ldots, x_n\right) \in \mathbb{R}^n \mid x_n=x_{n-1}=\ldots=x_{k+1}=0\right\}$, that is a set of all $n$-tuples whose last $n-k$ components are 0 .
+}
+~\\
+\mprop{}{
+Let $I$ be a set and $S_i $ be a subspace of vector space $V$ (over $F$) for each $i\in I$, then $\bigcap _{i\in I}S_i $ is a subspace of $V$
+}
+\begin{myproof}
+    
+Since $\mathbf{0} \in S_i$  for each $i\in I,$  we have that $\mathbf{0} \in \bigcap _{i\in I}S_i$ . [non-empty + no $\mathbf{0}$ means no closure ]
+
+~\\
+Now if $\mathbf{u} \in \bigcap _{i\in I}S_i$ , then $\mathbf{u} \in S_i$  for each $i$. $S_i$  is a subspace, so $\lambda \mathbf{u} \in S_i$  for any $\lambda \in F$, so $\lambda \mathbf{u} \in \bigcap _{i\in I}S_i$  meaning $\bigcap _{i\in I}S_i$  is closed under scalar multiplication. Similarly if $\mathbf{u, v} \in \bigcap _{i\in I}S_i ,$  then $\mathbf{u,v} \in S_i$  and $\mathbf{u}+\mathbf{v} \in S_i \implies \mathbf{u+v} \in \bigcap _{i\in I}S_i$  so $\bigcap _{i\in I}S_i$  is closed under addition making it a subspace
+
+\end{myproof}
+
+\nt{
+
+We can rephrase subspaces as:
+
+Subspaces: A subset $S$ of a vector space $V$ (over $F$) is called a subspace if: $\\$- $\mathbf{0} \in S$ where $\mathbf{0}$ is the zero vector for vector space $V$ $\\$- $S$ is closed under addition $\\$- $S$ is closed under scalar multiplication
+}
+
+
+
+
+
+
+
+\section{Linear Combinations and Spans}
+\dfn{Span}{
+Let $V$ be a vector space over $F$ and $A \subseteq V$, then $ \text{span}(A) = $ 'smallest subspace of $V$ containing  $A$', or equivalently,  $ \text{span}(A) = \bigcap (S \subseteq V : S$ is a subspace of $V$ and  $A \subseteq S)$ [intersection of all subspaces of $V$ that contains $A$] \\ We will also define span in terms of linear combinations
+}
+~\\
+\dfn{Linear Combinations}{ 
+Let $V$ be a vector space (over $F$), then a vector $\mathbf{w}\in V $ is a linear combination of vectors $\mathbf{v_1, v_2}, ..., \mathbf{v_k} \in V$ if there exists scalars $\lambda _1, \lambda _2, ..., \lambda _k \in F$ such that $\mathbf{w} = \lambda _1\mathbf{v_1} + \lambda _2 \mathbf{v_2} + ... + \lambda_k \mathbf{v_k}$
+}
+
+\ex{}{
+Consider $\mathbb{R}^3$ with usual addition and scalar multiplication \\
+\begin{enumerate}
+    \item Vector $(3,1,4)$ is a linear combination of vectors $(1,0,0),(0,1,0)$ and $(0,0,1)$ since $(3,1,4)=3(1,0,0)+1 \cdot(0,1,0)+4(0,0,1)$
+    \item Vector $(3,1,4)$ is not a linear combination of vectors $(2,0,1)$ and $(3,0,0)$ for if it were we would have scalars $\lambda_1, \lambda_2 \in \mathbb{R}$ such that $(3,1,4)=\lambda_1(2,0,1)+\lambda_2(3,0,0)=\left(2 \lambda_1+3 \lambda_2, 0, \lambda_1\right)$, notice that the LHS has 1 as its second component and the RHS 0 as its second component and so the two cannot be equal for any $\lambda_1, \lambda_2 \in \mathbb{R}$.
+    \item Is vector $(1,4,7)$ a linear combination of vectors $(0,4,4),(2,1,5)$ and $(-1,-1,-3)$ ? This is equivalent to asking if there exists $\lambda_1, \lambda_2, \lambda_3 \in \mathbb{R}$ such that $(1,4,7)=\lambda_1(0,4,4)+\lambda_2(2,1,5)+\lambda_3(-1,-1,-3)$, that is, are there $\lambda_1, \lambda_2, \lambda_3 \in \mathbb{R}$ satisfying the following system of linear equations:
+    
+$$
+\begin{array}{r}
+2 \lambda_2-\lambda_3=1 \\
+4 \lambda_1+\lambda_2-\lambda_3=4 \\
+4 \lambda_1+5 \lambda_2-3 \lambda_3=7
+\end{array}
+$$
+$$
+\begin{aligned}
+& \left(\begin{array}{lll|l}
+0 & 2 & -1 & 1 \\
+4 & 1 & -1 & 4 \\
+4 & 5 & -3 & 7
+\end{array}\right) \stackrel{R_1 \leftrightarrow R_2}{\longrightarrow}\left(\begin{array}{ccc|c}
+4 & 1 & -1 & 4 \\
+0 & 2 & -1 & 1 \\
+4 & 5 & -3 & 7
+\end{array}\right) \\
+& \stackrel{R_3 \rightarrow R_3-R_1}{\longrightarrow}\left(\begin{array}{lll|l}
+4 & 1 & -1 & 4 \\
+0 & 2 & -1 & 1 \\
+0 & 4 & -2 & 3
+\end{array}\right) \\
+& \stackrel{R_3 \rightarrow R_3-2 R_2}{\longrightarrow}\left(\begin{array}{ccc|c}
+4 & 1 & -1 & 4 \\
+0 & 2 & -1 & 1 \\
+0 & 0 & 0 & 1
+\end{array}\right) \\
+&
+\end{aligned}
+$$
+The above linear system is inconsistent and so $(1,4,7)$ is not a linear combination of vectors $(0,4,4)$, $(2,1,5)$ and $(-1,-1,-3)$. What about $(1,4,6) ?$ Is it a linear combination of vectors $(0,4,4),(2,1,5)$ and $(-1,-1,-3) ?$
+
+\item Let $A$ be an $m \times n$ matrix and $\mathbf{v}$ an $n$-column vector, then vector $\mathbf{w}=A \mathbf{v}$ is a linear combination of columns of matrix $A$.
+Notice that if we let $\mathbf{c}_1, \mathbf{c}_2, \ldots, \mathbf{c}_n$ be columns of matrix $A$ and $\mathbf{v}=\left(\begin{array}{c}\lambda_1 \\ \lambda_2 \\ \vdots \\ \lambda_n\end{array}\right)$, then $\mathbf{w}=A \mathbf{v}=$
+$$
+\left(\mathbf{c}_1, \mathbf{c}_2, \ldots, \mathbf{c}_n\right)\left(\begin{array}{c}
+\lambda_1 \\
+\lambda_2 \\
+\vdots \\
+\lambda_n
+\end{array}\right)=\lambda_1 \mathbf{c}_1+\lambda_2 \mathbf{c}_2+\cdots+\lambda_n \mathbf{c}_n
+$$
+\end{enumerate}
+
+}
+
+
+
+\thm{Defining span in terms of linear combinations}{
+
+Let $V$ be a vector space over $F$ and $A \subseteq V$. If $A=\emptyset $ then $\text{span}(A)=\{\mathbf{0}\}$ and if $A\ne \emptyset $, then $\\ \text{span}(A)=\{\mathbf{w}\in V:\mathbf{w}=\lambda_1\mathbf{v_1} + \lambda_2\mathbf{v_2} + ... + \lambda_k\mathbf{v_k} \text{ where } \mathbf{v}_1, \mathbf{v}_2, ..., \mathbf{v}_k \in A, \lambda_1, \lambda_2, ..., \lambda_k \in \mathbb{R} \text{ and } k\in \mathbb{N}\}$
+}
+
+\begin{myproof}
+    
+If $A=\emptyset$ , then the smallest subspace of $V$ containing $A$ is the trivial subspace $\{\mathbf{0}\}$ (remember $\mathbf{0}$ must be in subspace) and so span$(A)$ = $\{\mathbf{0}\}$.
+
+Now suppose $A\ne \emptyset$ . Now we show span$(A)=\{\mathbf{w}\in V:\mathbf{w}=\lambda_1\mathbf{v_1} + \lambda_2\mathbf{v_2} + ... + \lambda_k\mathbf{v_k} \text{ where } \mathbf{v}_1, \mathbf{v}_2, ..., \mathbf{v}_k \in A, \lambda_1, \lambda_2, ..., \lambda_k \in \mathbb{R} \text{ and } k\in \mathbb{N}\}$ is the smallest subspace of $V$ containing $A$. First we show it is a subspace:
+
+Notice that $\mathbf{0}\in \text{span}(A)$, because for $\mathbf{v} \in A,$  we have that $0\mathbf{v}=\mathbf{0}\in \text{span}(A)$. Now take $\mathbf{w}, \mathbf{w'} \in \text{span}(A)$. Then we have that $\mathbf{w} = \lambda _1 \mathbf{v}_1 +\lambda _2 \mathbf{v}_2  + ... + \lambda _n \mathbf{v}_n$  and  $\\ \mathbf{w' } = \lambda _1'  \mathbf{v'}_1 +\lambda _2' \mathbf{v'}_2  + ... + \lambda _m' \mathbf{v'}_m$
+
+So $\mathbf{w+w' }=\lambda _1 \mathbf{v}_1 +\lambda _2 \mathbf{v}_2  + ... + \lambda _n \mathbf{v}_n  + \lambda _1'  \mathbf{v'}_1 +\lambda _2' \mathbf{v'}_2  + ... + \lambda _m' \mathbf{v'}_m  \in \text{span}(A)$ so span$(A)$ is closed under addition
+
+For $\mathbf{w} \in V$ and $ \mu  \in F$, we have $\mathbf{w} = \lambda _1 \mathbf{v}_1 +\lambda _2 \mathbf{v}_2  + ... + \lambda _n \mathbf{v}_n  \implies \mu \mathbf{w} =  (\mu \lambda _1 )\mathbf{v}_1 +(\mu \lambda _2) \mathbf{v}_2  + ... + (\mu \lambda _n) \mathbf{v}_n \in \text{span}(A)$ so $\text{span}(A)$ is a subspace
+
+We now show that it is the smallest subspace of $V$ containing $A$:
+
+Let $W$ be a subspace of $V$ containing $A$. That is, $A\subseteq W$. Now we show $\text{span}(A)\subseteq W$. Take $\mathbf{w} \in \text{span}(A)$, then $\mathbf{w} = \lambda _1 \mathbf{v}_1 +\lambda _2 \mathbf{v}_2  + ... + \lambda _n \mathbf{v}_n$ with $\mathbf{v_1},\mathbf{v_2},...,\mathbf{v_n}\in A\subseteq W$. Since $W$ is a subspace, we have that $\lambda _1 \mathbf{v_1}, \lambda _2 \mathbf{v_2}, ..., \lambda _n \mathbf{v_n} \in W$  and $\lambda _1 \mathbf{v}_1 +\lambda _2 \mathbf{v}_2  + ... + \lambda _n \mathbf{v}_n \in W \implies \mathbf{w} \in W$ so $\text{span}(A)\subseteq W$
+
+We then have that $\text{span}(\{ \mathbf{v_1}, \mathbf{v_2}, ..., \mathbf{v_n}\}) = \{\lambda_1 \mathbf{v_1} + \lambda_2 \mathbf{v_2} + ... + \lambda_n \mathbf{v_n} : \lambda _1, \lambda _2, ..., \lambda _n \in F=\mathbb{R}\}$
+
+\end{myproof}
+
+\nt{This definition of a subspace uses only closure under addition and scalar multiplication and should thus be the smallest vector space (containing $A$)}
+
+\ex{}{
+Consider $V=\mathbb{R}^3$ with usual addition and scalar multiplication
+\begin{enumerate}
+
+    \item $$ \begin{aligned}
+\operatorname{Span}(\{(1,0,0),(0,1,0),(0,0,1)\}) & =\left\{\lambda_1(1,0,0)+\lambda_2(0,1,0)+\lambda_3(0,0,1) \mid \lambda_1, \lambda_2, \lambda_3 \in \mathbb{R}\right\} \\
+& =\left\{\left(\lambda_1, \lambda_2, \lambda_3\right) \mid \lambda_1, \lambda_2, \lambda_3 \in \mathbb{R}\right\} \\
+& =\mathbb{R}^3
+\end{aligned}$$
+\item  Consider $V=\mathbb{R}^{\mathbb{R}}$ the set of all real-valued functions with domain $\mathbb{R}$ with usual addition and scalar multiplication, that is, if $f, g \in V$ and $\lambda \in \mathbb{R}$, then $(f+g)(x)=f(x)+g(x)$ and $(\lambda f)(x)=\lambda f(x)$.
+Let $f_0, f_1, \ldots, f_n \in V$ be given by $f_0(x)=1, f_1(x)=x, \ldots, f_n(x)=x^n$ we have that
+$$ \begin{aligned}
+\operatorname{Span}\left(\left\{f_0, f_1, \ldots, f_n\right\}\right) & =\left\{\lambda_0 f_0+\lambda_1 f_1+\ldots+\lambda_n f_n \mid \lambda_0, \lambda_1, \ldots, \lambda_n \in \mathbb{R}\right\} \\
+& =\left\{\lambda_0+\lambda_1 x+\ldots+\lambda_n x^n \mid \lambda_0, \lambda_1, \ldots, \lambda_n \in \mathbb{R}\right\} \\
+& =P_n=\text { 'subspace of polynomials of degree at most } \mathrm{n}^{\prime}
+\end{aligned} $$
+
+\item Let $P_2$ be polynomials of degree at most 2 with coefficient-wise addition and scalar multiplication. Is polynomial $p=1+x^2$ in the span of set of polynomials $p_1=1-x^2, p_2=x+x^2$ and $p_3=1+x-x^2$, that is, is $p \in \operatorname{Span}\left(\left\{p_1, p_2, p_3\right\}\right)$ ? This is equivalent to asking if there exists scalars $\lambda_1, \lambda_2, \lambda_3 \in \mathbb{R}$ such that $p=\lambda_1 p_1+\lambda_2 p_2+\lambda_3 p_3$, that is
+$$
+\begin{aligned}
+1+x^2 & =\lambda_1\left(1-x^2\right)+\lambda_2\left(x+x^2\right)+\lambda_3\left(1+x-x^2\right) \\
+& =\left(\lambda_1+\lambda_3\right)+\left(\lambda_2+\lambda_3\right) x+\left(-\lambda_1+\lambda_2-\lambda_3\right) x^2
+\end{aligned}
+$$
+and so it is a question of whether or not the system of linear equations below has a solution (complete the details).
+$$
+\begin{aligned}
+\lambda_1+\lambda_3 & =1 \\
+\lambda_2+\lambda_3 & =0 \\
+-\lambda_1+\lambda_2-\lambda_3 & =1
+\end{aligned}
+$$
+\end{enumerate}
+}
+
+\mlenma{}{
+
+Let $V$ be a vector space (over $F$). If $\mathbf{w}$ is a linear combination of vectors $\mathbf{v_1},\mathbf{v_2},...,\mathbf{v_k}$ and each $\mathbf{v_i}, 1\le i\le k$ is a linear combination of vectors $\mathbf{u_1},\mathbf{u_2},...,\mathbf{u_n}$, then $\mathbf{w}$ is a linear combination of vectors $\mathbf{u_1},\mathbf{u_2},...,\mathbf{u_n}$
+
+}
+\begin{myproof}
+    
+By assumption, we have that 
+$\mathbf{w}=\lambda _1\mathbf{v_1} + \lambda _2\mathbf{v_2} + ... + \lambda _k\mathbf{v_k}$ with $\lambda _1, \lambda _2, ..., \lambda _k \in F$ and for each $1\le i\le k,$  we have that $\mathbf{v_i} = \lambda _{i1}\mathbf{u_1} + \lambda _{i2}\mathbf{u_2} + ... + \lambda _{in}\mathbf{u_n}$, so we get that:
+
+$$
+\begin{aligned}
+    \mathbf{w} & = \lambda _1 (\lambda _{11}\mathbf{u_1} + \lambda _{12}\mathbf{u_2} + ... + \lambda _{1n}\mathbf{u_n}) \\
+& +  \lambda _2(\lambda _{21}\mathbf{u_1} + \lambda _{22}\mathbf{u_2} + ... +  \lambda _{2n}\mathbf{u_n}) \\
+& + \ldots \\
+& +  \lambda _k (\lambda _{k1}\mathbf{u_1} + \lambda _{k2}\mathbf{u_2} + ... + \lambda _{kn}\mathbf{u_n}) \\ 
+& = (\lambda _1 \lambda _{11} + \lambda _2 \lambda _{21} + ... + \lambda _k \lambda _{k1}) \mathbf{v_1} \\
+& + (\lambda _1 \lambda _{12} + \lambda _2 \lambda _{22} + ... + \lambda _k \lambda _{k2}) \mathbf{v_2}  \\
+& +  ... \\
+& + (\lambda _1 \lambda _{1n} + \lambda _2 \lambda _{2n} + ... + \lambda _k \lambda _{kn}) \mathbf{v_n} 
+\end{aligned}
+$$
+
+Thus $\mathbf{w}$ is a linear combination of $\mathbf{u_1},\mathbf{u_2},...,\mathbf{u_n}$
+\end{myproof}
+
+
+\section{Properties of Span}
+
+
+\mprop{}{
+
+Let $V$ be a vector space (over $F$) and $A,B$ subsets of $V$, then: 
+\begin{enumerate}
+    \item $A\subseteq \text{span}(A)$
+    \item If $A\subseteq B$, then $\text{span}(A)\subseteq \text{span}(B)$ 
+    \item $\text{span}(\text{span}(A))=\text{span}(A)$
+\end{enumerate}
+}
+
+\begin{myproof}
+    ~\\
+    \begin{enumerate}
+        \item Suppose $\mathbf{a}\in A$. Then since $\mathbf{a}=1\mathbf{a}$, we get that $\mathbf{a}\in \text{span}(A)$
+        \item Suppose $A\subseteq B$ and $\mathbf{a}\in \text{span}(A)$. Then $\mathbf{a} = \lambda_1\mathbf{v_1} + \lambda_2\mathbf{v_2} + ... + \lambda_n\mathbf{v_n}$ for $1\le i\le n, \lambda _i \in F$ and $\mathbf{v_i}\in A$. Since each $\mathbf{v_i}\in A, $ we get $\mathbf{v_i} \in B$ and thus $\mathbf{a}\in \text{span}(B) \implies \text{span}(A) \subseteq \text{span}(B)$ 
+        \item From (1), we get that $\text{span}(A) \subseteq \text{span}(\text{span}(A))$, so we now have to show that $\text{span}(\text{span}(A)) \subseteq \text{span}(A) $. Now if $\mathbf{a} \in \text{span}(\text{span}(A))$, then by the previous Lemma, we get $\mathbf{a} \in \text{span}(A)$
+            \nt{Vectors $\mathbf{u}_1, \mathbf{u}_2, \ldots, \mathbf{u}_n$ are the vectors part of $A$, not necessarily the vectors used to make  $\mathbf{a}$ (the lambdas determine that)}
+    \end{enumerate}
+\end{myproof}
+
+
+\section{Linear Dependence and Linear Independence}
+\dfn{Linear (in)dependence}{Let $V$ be a vector space (over  $F$), then:
+\begin{enumerate}
+    \item Vectors $\mathbf{v}_1, \mathbf{v}_2, \cdots, \mathbf{v}_{k}$ are said to be linearly dependent if there exists scalars $ \lambda_1, \lambda_2, \cdots, \lambda_{k}$ 
+
+     such that $ \lambda_1 \mathbf{v}_1 + \lambda _2 \mathbf{v}_2 + \cdots + \lambda_{k}\mathbf{v}_{k} = \mathbf{0}$ and at least one $ \lambda _i, 1 \le i \le k$ is non-zero   
+     
+ \item Vectors $\mathbf{v_1}, \mathbf{v_2}, ..., \mathbf{v_k}$ are said to be linearly independent if whenever $\lambda_1\mathbf{v_1} +  \lambda_2\mathbf{v_2} + ...+ \lambda _k  \mathbf{v_k} = 0$, we have $\lambda _1 = \lambda _2 = ... = \lambda _k = 0$. So $\lambda_1\mathbf{v_1} +  \lambda_2\mathbf{v_2} + ...+ \lambda _k  \mathbf{v_k} = 0 \implies \lambda _1 = \lambda _2 = ... = \lambda _k = 0$
+\end{enumerate}
+}
+
+\ex{Linear (in)dependence}{
+    \begin{enumerate}
+        \item  Consider $V=\mathbb{R}^3$ with usual addition and scalar multiplication
+\begin{itemize}
+    \item  Vectors $(1,2,5),(0,3,1),(1,5,6)$ are linearly dependant since we have $(1,5,6)-(1,2,5)-(0,3,1)=(0,0,0)$
+    \item  Vectors $(1,0,0),(0,1,0),(0,0,1)$ are linearly independent for if we have $\lambda_1(1,0,0)+\lambda_2(0,1,0)+\lambda_3(0,0,1)=(0,0,0)$, then $\left(\lambda_1, \lambda_2, \lambda_3\right)=(0,0,0)$, and so $\lambda_1=\lambda_2=\lambda_3=0$.
+\end{itemize}
+\item  Let $P_3$ denote the set of all polynomials with degree of at most 3 , are polynomials $p_1=1+x^2$, $p_2=1-x^2+2 x^3$ and $p_3=1-x$ linearly dependant?
+This is equivalent to asking if there exists scalars $\lambda_1, \lambda_2, \lambda_3 \in \mathbb{R}$ with at least one scalar non-zero such that $\lambda_1 p_1+\lambda_2 p_2+\lambda_3 p_3=0$, that is, $\lambda_1\left(1+x^2\right)+\lambda_2\left(1-x^2+2 x^3\right)+\lambda_3(1-x)=0$, equivalently,
+$\left(\lambda_1+\lambda_2+\lambda_3\right)-\lambda_3 x+\left(\lambda_1-\lambda_2\right) x^2+2 \lambda_2 x^3=0$. We then have the following linear system
+$$
+\begin{aligned}
+\lambda_1+\lambda_2+\lambda_3 & =0 \\
+-\lambda_3 & =0 \\
+\lambda_1-\lambda_2 & =0 \\
+2 \lambda_2 & =0
+\end{aligned}
+$$
+from which we get $\lambda_1=\lambda_2=\lambda_3=0$ and so $p_1, p_2$ and $p_3$ are not linearly dependant.
+    \end{enumerate}
+
+}
+
+\thm{}{
+
+Let $V$ be a vector space (over $F$), then: 
+
+\begin{itemize}
+    \item Vectors $\mathbf{v_1}, \mathbf{v_2}, ..., \mathbf{v_k}$ are linearly dependent if and only if at least one of these vectors can be written as a linear combination of the other vectors 
+    \item Vectors $\mathbf{v_1}, \mathbf{v_2}, ..., \mathbf{v_k}$ are linearly independent if and only if none of these vectors can be written as a linear combination of the other vectors
+\end{itemize}
+
+}
+
+\begin{myproof}
+~\\    
+\begin{itemize}
+    \item Suppose $\mathbf{v_1}, \mathbf{v_2}, ..., \mathbf{v_k}$ are linearly dependent. Then there exists $\lambda _1 , \lambda _2 , ..., \lambda _k $ such that at least one $\lambda _i , 1\le i\le k$ is non-zero. Now suppose, without loss of generality, that $\lambda _1 \ne 0$, then from $\lambda _1 \mathbf{v_1} + \lambda _2 \mathbf{v_2} + ... + \lambda _k \mathbf{v_k} = \mathbf{0}$, we get $\mathbf{v_1} = -\frac{\lambda _2}{\lambda_1}\mathbf{v_2} -\frac{\lambda _3}{\lambda_1}\mathbf{v_3}-...-\frac{\lambda _k}{\lambda_1} \mathbf{v_k}$ meaning $\mathbf{v_1}$ is a linear combination of vectors $\mathbf{v_2}, \mathbf{v_3}, ..., \mathbf{v_k}$. Conversely, suppose (without loss of generality) that $\mathbf{v_1}$ is a linear combination of $\mathbf{v_2}, \mathbf{v_3}, ..., \mathbf{v_k}$. Then $\mathbf{v_1} = \lambda _2\mathbf{v_2} + {\lambda _3}\mathbf{v_3}+...+{\lambda _k}\mathbf{v_k}$. But then $-\mathbf{v_1} + \lambda _2\mathbf{v_2} + {\lambda _3}\mathbf{v_3}+...+{\lambda _k}\mathbf{v_k} = \mathbf{0}$ making vectors $\mathbf{v_1},\mathbf{v_2}, \mathbf{v_3}, ..., \mathbf{v_k}$ linearly dependent ($\mathbf{v_1}$ has non-zero scalar) 
+    \item To prove that if vectors $\mathbf{v_1}, \mathbf{v_2}, ..., \mathbf{v_k}$ are linearly independent, then none of each of these vectors is a linear combination of the other vectors, we can equivalently show that if at least one of these vectors is a linear combination of the other vectors, then $\mathbf{v_1}, \mathbf{v_2}, ..., \mathbf{v_k}$ are linearly dependent. But we showed this in (1). Similarly, the converse is proven in (1) by proving the contrapositive
+\end{itemize}
+\end{myproof}
+
+
+If we are working in the vector space $\mathbb{R}^n$ with usual addition and scalar multiplication, there is an easy criterion that sometimes helps:
+
+
+\mlenma{}{A homogeneous system of $n$ linear equations with $k$ unknowns always has a non-trivial solution if $k>n$}
+\begin{myproof}
+    
+The linear system being homogeneous means it has at least one solution and is thus consistent. Now, since it has $n$ equations, its associated augmented matrix in row echelon form will have at most $n$ pivots and at least $k-n$ free variables since $k>n$ and so there will always be a non-trivial solution
+\end{myproof}
+
+\nt{If we have more unknowns than equations in a homogeneous system}
+
+\thm{}{
+
+If $\mathbf{v_1}, \mathbf{v_2}, ..., \mathbf{v_k}$ are vectors in $\mathbb{R}^n$ and $k>n$, then vectors $\mathbf{v_1}, \mathbf{v_2}, ..., \mathbf{v_k}$ are linearly dependent
+}
+\begin{myproof}
+    
+Let $\lambda _1 \mathbf{v_1} + \lambda _2 \mathbf{v_2} + ... + \lambda _k \mathbf{v_k}=\mathbf{0}$ and
+
+$\mathbf{v_1}=(a_{11}, a_{12}, ..., a_{1n})$
+
+$\mathbf{v_2}=(a_{21}, a_{22}, ..., a_{2n})$
+
+$\ \vdots \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \vdots$
+
+$\mathbf{v_k}=(a_{k1}, a_{k2}, ..., a_{kn})$
+
+Then from the first equation we get the system of equations:
+
+$a_{11}\lambda _1 + a_{21}\lambda _2 + ... + a_{k1}\lambda _k = 0$
+
+$a_{12}\lambda _1 + a_{22}\lambda _2 + ... + a_{k2}\lambda _k = 0$
+
+$\ \vdots \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \  \ \ \ \ \ \ \vdots$
+
+$a_{1n}\lambda _1 + a_{2n}\lambda _2 + ... + a_{kn}\lambda _k = 0$
+
+But since $k>n$, using the previous lemme we have that $\mathbf{v_1}, \mathbf{v_2}, ..., \mathbf{v_k}$ are linearly dependent
+
+\end{myproof}
+\ex{Using this theorem}{
+In $\mathbb{R}^3$ with usual addition and scalar multiplication, vectors $(\pi , 1, 2), (4,5,100), (2070, 1, 0)$ and $(10,1,3)$ are linearly dependent since they are 4 vectors in $\mathbb{R}^3$
+}
+\thm{}{
+Let $\mathbf{v_1}, \mathbf{v_2}, ..., \mathbf{v_n}$ be vectors in $\mathbb{R}^n$ and $A$ be the $n\times n$ matrix obtained by making vectors $\mathbf{v_1}, \mathbf{v_2}, ..., \mathbf{v_n}$ its columns in respective order, then vectors $\mathbf{v_1}, \mathbf{v_2}, ..., \mathbf{v_n}$ are linearly independent if and only if $\det (A) \ne 0$
+}
+
+\begin{myproof}
+    
+Let $\lambda _1, \lambda _2, ..., \lambda _n$ be scalars such that $\lambda _1\mathbf{v_1} + \lambda _2\mathbf{v_2} + ... + \lambda _n\mathbf{v_n}=\mathbf{0}$ and let $\mathbf{x} = \begin{pmatrix} \lambda _1 \\ \lambda _2 \\ \vdots \\ \lambda _n \end{pmatrix}$
+
+Notice that $A\mathbf{x}=\lambda _1\mathbf{v_1} + \lambda _2\mathbf{v_2} + ... + \lambda _n\mathbf{v_n}$ and so $A\mathbf{x}=\mathbf{0}$ has only one solution if and only if $A$ is non-singular if and only if $A$ is invertible if and only if $\det (A)\ne 0$
+
+Example: Vectors $\left(\begin{array}{l}1 \\ 0 \\ 0\end{array}\right),\left(\begin{array}{c}5050 \\ 2 \\ 0\end{array}\right)$ and $\left(\begin{array}{l}3 \\ 1 \\ 2\end{array}\right)$ are linearly independent in usual $\mathbb{R}^3$ since
+$$
+\operatorname{det}\left(\begin{array}{ccc}
+1 & 5050 & 3 \\
+0 & 2 & 1 \\
+0 & 0 & 2
+\end{array}\right)=4 \neq 0
+$$
+\end{myproof}
+
+\nt{
+We can assume $ \lambda_1 \mathbf{v}_1 + \lambda _2 \mathbf{v}_2 + \cdots + \lambda_{n}\mathbf{v}_{n} = \mathbf{0}$, because we don’t assume the values of $\lambda$  so it could be that $\lambda _i = 0$ for all $i$ or some $\lambda _i \ne 0$
+}
+
+\section{Basis and Dimension}
+\dfn{}{
+Let $V$ be a vector space. Vectors $\mathbf{v_1}, \mathbf{v_2}, ..., \mathbf{v_n}$ are said to form a basis for $V$ if: $\\$(1): $\mathbf{v_1}, \mathbf{v_2}, ..., \mathbf{v_n}$ are linearly independent $\\$(2): $\text{span}(\{\mathbf{v_1}, \mathbf{v_2}, ...,\mathbf{v_n}\})=V$ (they span the vector space)
+}
+
+\ex{Basis}{
+
+\begin{itemize}
+    \item Vectors $(1,0,0),(0,1,0)$ and $(0,0,1)$ form a basis for $\mathbb{R}^3$ (called the standard basis for $\left.\mathbb{R}^3\right)$. In previous lecture notes we have seen that those vectors are linearly independent and $\operatorname{span}(\{(1,0,0),(0,1,0),(0,0,1)\})=\mathbb{R}^3$.
+    \item Vectors $(1,0,0),(5050,2,0)$ and $(3,1,2)$ also form a basis for $\mathbb{R}^3$. They are linearly independent (see very first example) and to check that they span $\mathbb{R}^3$ we check that for each $\left(x_1, x_2, x_3\right) \in \mathbb{R}^3$ there exists $\lambda_1, \lambda_2$ and $\lambda_3$ such that $\lambda_1(1,0,0)+\lambda_2(5050,2,0)+\lambda_3(3,1,2)=\left(x_1, x_2, x_3\right)$.
+
+$$
+\left(\begin{array}{ccc|c}
+1 & 5050 & 3 & x_1 \\
+0 & 2 & 1 & x_2 \\
+0 & 0 & 2 & x_3
+\end{array}\right)
+$$
+Notice that the above system is already in triangular form and so the solution exists for each $\left(x_1, x_2, x_3\right) \in \mathbb{R}^3$.
+
+\item Vectors $(1, \pi, 7),(3,2,9),(1,2,100)$ and $(30,40,9)$ do not form a basis for $\mathbb{R}^3$. These are 4 vectors in $\mathbb{R}^3$ and so linearly dependant.
+\item  Consider $P_2$ the set of polynomials of at most degree 2 (with coeffiecient-wise addition and scalar multiplication).
+Polynomials $1, x$, and $x^2$ form a basis for $P_2$ (quick to check).
+
+Consider $M_{2 \times 2}(\mathbb{R})$ the set of $2 \times 2$ matrices (with component-wise addition and scalar multiplication).
+Matrices $M_1=\left(\begin{array}{ll}1 & 0 \\ 0 & 0\end{array}\right), M_2=\left(\begin{array}{ll}0 & 1 \\ 0 & 0\end{array}\right), M_3=\left(\begin{array}{ll}0 & 0 \\ 1 & 0\end{array}\right)$ and $M_4=\left(\begin{array}{ll}0 & 0 \\ 0 & 1\end{array}\right)$ form a basis for
+\end{itemize}
+}
+
+\thm{}{
+Let $V$ be a vector space (over $F$), $\mathbf{v_1}, \mathbf{v_2}, ..., \mathbf{v_k} \in V$ and $S$ a subspace of $V$ such that 
+
+$\text{span}(\{\mathbf{v_1},\mathbf{v_2},...,\mathbf{v_k},\})=S$. If vectors $\mathbf{v_1},\mathbf{v_2},...,\mathbf{v_k}$ are linearly independent, then $\mathbf{v_1},\mathbf{v_2},...,\mathbf{v_k}$ form a basis for $S$
+}
+
+\begin{myproof}
+    
+This follows from the fact that $S$ is a vector space in its own right and $\text{span}(\{\mathbf{v_1},\mathbf{v_2},...,\mathbf{v_k},\})=S$ and $\mathbf{v_1},\mathbf{v_2},...,\mathbf{v_k}$ are linearly independent
+\end{myproof}
+\ex{}{
+In $\mathbb{R}^3$ (with usual addition and scalar multiplication), \\
+$P= \mathrm{span}\left( \{ (2,0,1), (1,2,3) \} \right) $ is the plane through the origin containing vectors $(2,0,1)$ and  $(1,2,3)$. Note that  $(2,0,1)$ is not a scalar multiple of  $(1,2,3)$ and so  $(2,0,1)$ and  $(1,2,3)$ are linearly independent and thus form a basis for  $P$
+
+}
+
+\thm{}{
+
+Let $V$ be a vector space (over $F$), $\mathbf{v_1}, \mathbf{v_2}, ..., \mathbf{v_n} $ a basis for $V$ and $\mathbf{w} \in V$, then $\mathbf{w}$ can be expressed as a linear combination of $\mathbf{v_1}, \mathbf{v_2}, ..., \mathbf{v_n} $ in a unique way
+}
+
+\begin{myproof}
+    Since $\bold{w}\in V=\text{span}(\{\bold{v_1}, \bold{v_2}, ..., \bold{v_n} \})$, we have that $\bold{w}$ is a linear combination of $\bold{v_1}, \bold{v_2}, ..., \bold{v_n} $. Now if $\bold{w}=\lambda _1 \bold{v_1} + \lambda _2\bold{v_2} + ... + \lambda _n \bold{v_n}$ and $\bold{w}=\mu _1 \bold{v_1} + \mu _2\bold{v_2} + ... + \mu _n \bold{v_n}$ (for $\lambda _i, \mu _i \in F, 1\le i\le n$), we have that $\bold{0} = (\lambda _1 - \mu _1)\bold{v}_1 + (\lambda _2 - \mu _2)\bold{v}_2 + ... + (\lambda _n - \mu _n)\bold{v}_n$. Since $\bold{v_1}, \bold{v_2}, ..., \bold{v_n} $ are linearly independent, we get that $\lambda _1-\mu_1=\lambda _2-\mu_2=...=\lambda _n-\mu_n=0 \implies \lambda _1=\mu _1, \lambda _2=\mu _2, ..., \lambda _n=\mu_n$ so $\bold{w}$ is a linear combination of $\bold{v_1}, \bold{v_2}, ..., \bold{v_n} $ in a unique way
+\end{myproof}
+
+\dfn{Coordinate Vector}{
+Let $V$ be a vector space (over $F$) and $\bold{v_1}, \bold{v_2}, ..., \bold{v_n} $ a basis for $V$. If $\bold{w} = \lambda_1\bold{v_1}+\lambda_2 \bold{v_2}+ ...+ \lambda_n\bold{v_n} $, then the $n$-tuple $(\lambda_1, \lambda_2, ..., \lambda_n)$ is called the coordinate vector of $\bold{w}$ relative to basis $\bold{v_1}, \bold{v_2}, ..., \bold{v_n} $
+}
+
+\ex{}{
+    \begin{enumerate}
+        \item Take usual $P_2$, then polynomial  $p=5-x^2$ has coordinate  $(5,0,-1)$ relative to basis  $1,x,x^2$
+        \item Take  $M_{2 \times 2}(\mathbb{R})$, then matrix $A = \begin{pmatrix}
+            5  &  2 \\ 4  & 2
+        \end{pmatrix}$ has coordinate $(5,2,4,2)$ relative to basis  $\begin{pmatrix}
+            1  & 0 \\ 0  & 0
+        \end{pmatrix}, \begin{pmatrix}
+            0 & 1 \\ 0  & 0
+        \end{pmatrix}, \begin{pmatrix}
+            0 & 0 \\ 1  & 0
+        \end{pmatrix}, \begin{pmatrix}
+            0 & 0 \\ 0  & 1
+        \end{pmatrix}$ but coordinate $(5,2,2,4)$ relative to basis $\begin{pmatrix}
+            1  & 0 \\ 0  & 0
+        \end{pmatrix}, \begin{pmatrix}
+            0 & 1 \\ 0  & 0
+        \end{pmatrix}, \begin{pmatrix}
+            0 & 0 \\ 0  & 1
+        \end{pmatrix}, \begin{pmatrix}
+            0 & 0 \\ 1 & 0
+        \end{pmatrix} $ so the order of the basis elements is important
+    \end{enumerate}
+}
+
+\nt{
+    
+Notice given $\mathbf{w}$ and basis $ \mathbf{v}_1, \mathbf{v}_2, \cdots, \mathbf{v}_{n}$, finding coordinate $( \lambda_1, \lambda_2, \cdots, \lambda_{n}$) often reduces to solving linear systems arising from $\mathbf{w} = \lambda_1 \mathbf{v}_1 + \lambda _2 \mathbf{v}_2 + \cdots + \lambda_{n}\mathbf{v}_{n}$
+}
+
+\thm{}{
+Let $V$ be a vector space (over  $F$) and  $ \mathbf{v}_1, \mathbf{v}_2, \cdots, \mathbf{v}_{n}$ a basis for $V$, then:
+ \begin{itemize}
+    \item If $ \mathbf{u}_1, \mathbf{u}_2, \cdots, \mathbf{u}_{k}$ are vectors such that $k>n$, then $ \mathbf{u}_1, \mathbf{u}_2, \cdots, \mathbf{u}_{k}$ are linearly dependent
+    \item No vectors fewer than $n$ can span  $V$
+\end{itemize}
+}
+
+\begin{myproof}
+    ~ \\
+    \begin{itemize}
+        \item Let $T=\{\bold{u_1}, \bold{u_2}, ..., \bold{u_k}\}$ be any set of $k$ vectors in $V$ with $k>n$. We want to show that $T$ is linearly dependent. Since we know $S$ is a basis for $V$, we know that each $\bold{u_i}$ can be expressed as a linear combination of the vectors in $S$. This means that for each $i, 1\le i\le k$, we can find scalars $\lambda _{i1}, \lambda _{i2}, ..., \lambda _{in}$ such that (1)
+
+$\bold{u_1} = \lambda _{11}\bold{v_1} + \lambda _{12}\bold{v_2} + ... + \lambda _{1n}\bold{v_n}$
+
+$\bold{u_2} = \lambda _{21}\bold{v_1} + \lambda _{22}\bold{v_2} + ... + \lambda _{2n}\bold{v_n}$
+
+$\ \ \ \vdots  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \vdots$
+
+$\bold{u_k} = \lambda _{k1}\bold{v_1} + \lambda _{k2}\bold{v_2} + ... + \lambda _{kn}\bold{v_n}$
+
+To show $T$ is linearly dependent, we must find scalars $\mu _1, \mu _2 , ..., \mu _k$ with some $\mu _i, 1\le i\le k$ non-zero, such that $\mu_1\bold{u_1} + \mu_2\bold{u_2} + ... + \mu_k\bold{u_k} = \bold{0}$. Using equations (1), we get:
+
+$(\mu _1\lambda_{11} + \mu _2\lambda_{21} + ... + \mu _k\lambda_{k1})\bold{u_1}$
+
+$+ \ (\mu _1\lambda_{12} + \mu _2\lambda_{22} + ... + \mu _k\lambda_{k2})\bold{u_2}$$\\$$\ \vdots$
+
+$+ \ (\mu _1\lambda_{1n} + \mu _2\lambda_{2n} + ... + \mu _k\lambda_{kn})\bold{u_n} = \bold{0}$. 
+
+Since $\bold{u_i}$s form a basis, each coefficient above must be 0. Thus we must find $\mu _1, \mu _2, ..., \mu _k$ not all 0 to satisfy:
+
+$\mu _1\lambda_{11} + \mu _2\lambda_{21} + ... + \mu _k\lambda_{k1} = 0$
+
+$\mu _1\lambda_{12} + \mu _2\lambda_{22} + ... + \mu _k\lambda_{k2} = 0$
+
+$\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \vdots$ 
+
+$\mu _1\lambda_{1n} + \mu _2\lambda_{2n} + ... + \mu _k\lambda_{kn} = 0$
+
+This is a homogeneous system of $n$ equations in $k$ unknowns with $k>n$, so it has non-trivial solutions 
+
+
+
+\item Let $T=\{\bold{u_1}, \bold{u_2}, ..., \bold{u_k}\}$ be a set of vectors in $V$ with $k<n$, We want to show that $T$ does not span $V$. Suppose, to the contrary, $T$ does span $V$. Since $T$ does span $V$, we get that: (1)
+
+$\bold{v_1} = \lambda _{11} \bold{u_1} + \lambda _{12} \bold{u_2} + ... + \lambda _{1k} \bold{u_k}$
+
+$\bold{v_2} = \lambda _{21} \bold{u_1} + \lambda _{22} \bold{u_2} + ... + \lambda _{2k} \bold{u_k}$
+
+$\ \ \ \ \vdots$ 
+
+$\bold{v_n} = \lambda _{n1} \bold{u_1} + \lambda _{n2} \bold{u_2} + ... + \lambda _{nk} \bold{u_k}$
+
+To get a contradiction, we will show that there are scalars $\mu _1, \mu _2, ..., \mu _n$ not all zero such that 
+
+$\sum \limits _{i=1}^n \mu _i\bold{v_i} = \bold{0}$
+
+This will contradict the linear independence the $\bold{v_i}$’s. Using (1), we get:
+
+$\sum \limits _{i=1}^n \mu _i\bold{v_i}  = \sum \limits _{i=1}^n \mu _i \bigg (\sum \limits _{j=1}^{k} \lambda _{ij}\bold{v_{j}}\bigg ) = \sum \limits _{j=1}^k \bigg (\sum \limits _{i=1}^{n} \lambda _{ij}\mu _i\bigg )\bold{v_j}$
+
+This is $\bold{0}$ if we can find $\mu _1, \mu _2, ..., \mu _n$ such that $\sum \limits _{i=1}^n \lambda _{ij}\mu _i = 0$ for $j=1,2,...,k$. This requirement gives us a homogeneous system of $k$ equations in the $n$ unknowns $\mu _i, 1\le i\le n$ with $k<n$ and thus a non-trivial solution exists 
+    \end{itemize}
+\end{myproof}
+
+
+
+\thm{}{
+Let $V$ be a vector space (over $F$). If $\bold{v_1}, \bold{v_2}, ..., \bold{v_n}$ and $\bold{v'_1}, \bold{v'_2}, ..., \bold{v'_m}$ are both bases for $V$, then $m=n$
+}
+
+\begin{myproof}
+    
+    Let $\bold{v_1}, \bold{v_2}, ..., \bold{v_n}$ and $\bold{v'_1}, \bold{v'_2}, ..., \bold{v'_m}$ both be bases for $V$. Suppose $m\ne n$, then either $m>n$ or $m<n$ and by the previous theorem one of the lists of vectors will either be linearly dependent or not span $V$ giving a contradiction
+
+\end{myproof}
+
+\nt{
+The previous theorem tells us that all bases of a vector space $V$ have the same number of elements
+and so we have the following definition
+}
+
+\dfn{Dimension}{
+Let $V$ be a vector space (over $F$) and $\bold{v_1}, \bold{v_2}, ..., \bold{v_n}$ a basis for $V$, then by dimension of $V$, we mean the number of basis elements, that is, $\dim (V)=n$
+}
+
+
+\ex{}{
+\begin{enumerate}
+    \item Consider usual $\mathbb{R}^n$, then $\dim (\mathbb{R}^n) = n$, use standard basis $(1,0,\ldots,0),(0,1,\ldots,0),\ldots,(0,0,\ldots,1)$
+    \item Consider usual $P_n$, then  $\dim (P_n)=n+1$, use basis  $1,x,\ldots,x^n$
+    \item Consider $M_{m \times n}(\mathbb{R})$, then $\dim (M_{m \times n}(\mathbb{R})) = mn$
+\end{enumerate}
+}
+
+\thm{}{
+Let $V$ be a vector space (over $F$).
+    \begin{itemize}
+        \item If $\bold{v_1}, \bold{v_2}, ..., \bold{v_n}$ are linearly independent and $\bold{v}\in V$ is not in $\text{span}(\bold{v_1}, \bold{v_2}, ..., \bold{v_n})$, then vectors $\bold{v_1}, \bold{v_2}, ..., \bold{v_n}, \bold{v}$ are linearly independent 
+        \item If $\bold{v_i}$ for $1\le i \le n$ is a linear combination of the other vectors, then $\text{span}(\{\bold{v_1}, \bold{v_2}, ..., \bold{v_{i-1}, \bold{v_{i+1}}, ..., \bold{v_n}}\})=\text{span}(\{\bold{v_1}, \bold{v_2}, ..., \bold{v_{n}\}} )$
+    \end{itemize}
+
+}
+
+\begin{myproof}
+    \begin{itemize}
+        \item We suppose to the contrary that $\bold{v_1}, \bold{v_2}, ..., \bold{v_n}, \bold{v}$ are linearly dependent, thus there exists scalars $\lambda _1, \lambda _2, ..., \lambda _n, \lambda _{n+1} \in F $ such that $\lambda _1\bold{v_1} + \lambda _2\bold{v_2} + \lambda _n\bold{v_n} + \lambda _{n+1}\bold{v} = \bold{0}$. Notice that $\lambda _{n+1} \ne 0$ (if $\lambda _{n+1} = 0$ we would have that $\bold{v_1}, \bold{v_2}, ..., \bold{v_n}$ are linearly dependent) (finish)
+        \item Notice that $\text{span}(\{\bold{v_1}, \bold{v_2}, ..., \bold{v_{i-1}}, \bold{v_{i+1}}, \bold{v_n}\}) \subseteq \text{span}(\{\bold{v_1}, \bold{v_2}, ..., \bold{v_n}\}) $. If $\bold{v} \in \text{span}(\bold{v_1}, \bold{v_2}, ...,  \bold{v_n})$ and with $\bold{v_i}$ for $1\le i \le n$ a linear combination of other vectors, we have $ \mathbf{v}_i = \lambda_1 \mathbf{v}_1 + \lambda _2 \mathbf{v}_2 + \cdots + \lambda_{i-1} \mathbf{v}_{i-1} + \lambda_{i+1} \mathbf{v}_{i+1} + \ldots +  \lambda_{n}\mathbf{v}_{n}$, so $\mathbf{v}_i \in \mathrm{span}\left( \mathbf{v}_1, \mathbf{v}_2, \ldots, \mathbf{v}_{i-1}, \mathbf{v}_{i+1}, \ldots, \mathbf{v}_n \right) $ so $\text{span}(\{\bold{v_1}, \bold{v_2}, ..., \bold{v_n}\}) \subseteq \text{span}(\{\bold{v_1}, \bold{v_2}, ..., \bold{v_{i-1}}, \bold{v_{i+1}}, \bold{v_n}\}) \implies  \text{span}(\{\bold{v_1}, \bold{v_2}, ..., \bold{v_n}\}) =  \text{span}(\{\bold{v_1}, \bold{v_2}, ..., \mathbf{v}_{i-1},\mathbf{v}_{i+1}, \ldots, \bold{v_n}\}) $ 
+    \end{itemize}
+\end{myproof}
+\nt{This is sometimes called the "plus/minus" theorem} 
+
+\ex{}{
+    \begin{itemize}
+        \item  Suppose we have a set $S$ of two linearly independent vectors
+in $\mathbb{R}^3$. They span a plane through the origin; if we now enlarge S by adding a vector
+not in the span of $S$, the resulting set of vectors is still linearly independent and it now spans $\mathbb{R}^3$
+\item If $S$ is a set of three non-collinear vectors (i.e. they don’t all lie along the same
+line) in $\mathbb{R}^3$
+that do lie in a common plane, then the three vectors span the plane.
+However, if we remove one of the vectors that is in the span of the other two, the
+remaining set of two vectors will still span the same plane.
+    \end{itemize}
+}
+
+\thm{}{
+    If $V$ is an  $n$-dimensional space and if  $S$ is a set in  $V$ with exactly  $n$ vectors, then  $S$ is a basis for  $V$ if either  $S$ spans  $V$ or  $S$ is linearly independent
+}
+
+\begin{myproof}
+    Suppose first that $S$ is linearly independent. We wish to show that $S$ spans  $V$, so suppose to the contrary, that it does not. Then there is some vector  $\mathbf{v} \in V$ not spanned by $S$. But then we have that  $S \cup \{\mathbf{v}\} $ is still linearly independent. But this is a contradiction (linearly independent but more vectors than dimension). Thus $S$ must span  $V$ and forms a basis for  $V$
+    \\ Now suppose  $S$ spans  $V$ but, to the contrary, is not linearly independent. Then there is some vector  $\mathbf{v}$ which is a linear combination of other vectors in $S$. But then we get that  $S-\{\mathbf{v}\}$ spans $V$. But  $S-\{\mathbf{v}\}$ has $n-1$ vectors, which is a contradiction and thus the vectors must be linearly independent
+\end{myproof}
+
+\ex{}{
+    \begin{itemize}
+        \item  The set $S=\{\left( -3,7), (5,5) \right) \} \in \mathbb{R}^2$ has 2 linearly independent vectors, and since $\mathbb{R}^2$ is two dimensional, $S$ is a basis for  $\mathbb{R}^2$
+        \item The first two vectors of $T =\{(2, 0, -1),(4, 0, 7),(-1, 1, 4)\}$ span the $xz$-plane.
+(y component is 0 and they are linearly independent). The third vector does not lie in this plane. Thus $T$ is a linearly independent
+set in the three-dimensional space $\mathbb{R}^3$. It must therefore be a basis for $\mathbb{R}^3$
+    \end{itemize}
+}
+
+\thm{}{
+Let $S$ be a set of vectors in a finite-dimensional vector space  $V$
+  \begin{itemize}
+    \item If $ \mathrm{span}(S)=V$ but $S$ is not a basis for  $V$, then  $S$ can be reduced to a basis for  $V$ by removing appropriately some vectors from  $S$
+    \item If  $S$ is linearly independent but is not a basis for  $V$, then  $S$ can be enlarged to form a basis for  $V$ by adding appropriate vectors to  $S$
+\end{itemize}
+}
+
+\begin{myproof}
+    \begin{itemize}
+        \item If $S$ spans  $V$ but is not a basis, we must have that  $S$ is linearly dependent. Hence  $\exists \mathbf{v}\in S$ that is a linear combination of the other vectors in $S$. It follows that  $S-\{\mathbf{v}\}$ still spans $V$. If this is a basis for  $V$, we are done, otherwise we continue this process until we get a basis for  $V$
+        \item We must have that  $S$ does not span $V$. So there must exist some  $\mathbf{v} \in V$ not spanned by $S$. But then  $S \cup  \{\mathbf{v}\}$ is linearly independent. If this spans $V$, we are done otherwise we continue this process until we span  $V$, and thus have a basis for  $V$
+
+    \end{itemize}
+\end{myproof}
+
+
+\ex{}{
+    Let $S = \bigg \{ \begin{pmatrix}
+            1  \\  0 \\ 1
+    \end{pmatrix}, \begin{pmatrix}
+            0  \\  1  \\ 3
+    \end{pmatrix}, \begin{pmatrix}
+            -2  \\  3  \\ 8
+    \end{pmatrix}, \begin{pmatrix}
+            1  \\  1  \\ 1
+    \end{pmatrix} \bigg \}$. Then clearly $S$ cannot be linearly independent (4 vectors in $\mathbb{R}^3$) but if $S$ spans  $\mathbb{R}^3$ then we can remove one vector to get a basis for $\mathbb{R}^3$ so we check that $S$ spans  $\mathbb{R}^3$. Let $(a,b,c) \in \mathbb{R}^3$. We seek $ \lambda _1, \lambda _2, \lambda _3, \lambda _4$ such that $ \lambda _1 \begin{pmatrix} 1  \\ 0 \\ 1 \end{pmatrix} + \ldots + \lambda _4 \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix} = \begin{pmatrix} a \\ b \\ c \end{pmatrix} $ \\
+    The associated augmented matrix is:
+    $\begin{pmatrix}
+        1  &  0  & -2  & 1  & \bigm|  &  a \\ 0  & 1  & 3 & 1 & \bigm| &  b \\ 1 & 3 & 8 & 1 & \bigm| &  c 
+        \end{pmatrix} \longrightarrow \begin{pmatrix} 1  & 0 & -2 & 1 & \bigm|  & a \\ 0 & 1 & 3 & 1 & \bigm|  & b \\ 0 & 0 & 1 & -3 & \bigm|  &  c-a-3b  \end{pmatrix}$ 
+        \\ which shows 2 things. We can solve for $ \lambda _1, \lambda _2, \lambda _3, \lambda _4$ so $S$ spans  $\mathbb{R}^3$. Secondly, $ \lambda _4$ is free, so for $a=b=c=0$, we get $ \lambda _4 = 1$ and obtain a linear combination of the original 4 vectors which is the zero vector. The last vector is thus a linear combination of the first 3, so removing it forms a basis for $\mathbb{R}^3$
+}
+We now look at how an infinite-dimensional vector space can be defined
+
+\dfn{}{
+Let $V$ be a vector space and  $S$ a (possibly infinite) subset of  $V$.
+ \begin{itemize}
+    \item We say that $S$ spans  $V$ if every element of  $V$ can be written as a finite  linear combination of elements in  $S$
+    \item We say that  $S$ is linearly independent if every finite subset of  $S$ is linearly independent
+    \item We say that  $S$ is a basis for  $V$ if it is linearly independent and spans  $V$
+\end{itemize}
+}
+
+\ex{}{
+    \begin{itemize}
+        \item The vector space $P$ of all polynomials in  $x$ is an infinite-dimensional vector space. The set  $S=\{x^n : n=0,1,2,3,\ldots\}$ is an infinite subset of $P$. It can be checked that  $S$ spans  $P$ and is linearly independent and is therefore a basis for  $P$
+        \item If $V$ is a vector space containing non-zero vector  $\mathbf{v}$, then the set $\{ \mathbf{v}\}$ is linearly independent. If $ \mathrm{span}\left(\{\mathbf{v}\}  \right) \neq V $, we can enlarge $\{\mathbf{v}\}$ one vector at a time to create new linearly independent sets. The process will stop if we span $V$ and if it does not stop, then  $V$ is infinite dimensional
+    \end{itemize}
+
+}
+
+\nt{Every infinite-dimensional vector space has a basis (the proof relies on some sophisticated set theory)}
+
+\section{Subspaces associated with a Matrix}
+\dfn{Null Space}{Definition: Let $A$ be an $m\times n$ matrix, then the set $\{\mathbf{x}:A\mathbf{x}=\mathbf{0}\}$ is called the null space of matrix $A$, denoted by $NS(A)$}
+\nt{The null space of $A$ can also be referred to as the kernel of $A$. If $A$ is a real matrix, then  $NS(A) \subseteq \mathbb{R}^n$ but if $A$ is complex, then  $NS(A) \subseteq \mathbb{C}^n$}
+
+\ex{}{
+\begin{itemize}
+    \item To find the null space of matrix $A = \begin{pmatrix} 1  &  2 \\ 0  &  3 \end{pmatrix} $, we must find the set of vectors $\mathbf{x} = \begin{pmatrix}  x_1 \\ x_2 \end{pmatrix} $ such that $A \mathbf{x} = \mathbf{0}$. Thus we need: \\ 
+    \begin{center} 
+        $\begin{aligned}    
+    x_1 + 2x_2  & =0 \\
+    3x_2  & =0
+\end{aligned}$ 
+\end{center} 
+from which we can see that $x_1=x_2=0$ so $NS(A)=\{\mathbf{0}\}$
+
+\item To find the null space of matrix $A = \begin{pmatrix} 1  &  2 \\ 4  &  8 \end{pmatrix} $, we must find the set of vectors $\mathbf{x} = \begin{pmatrix}  x_1 \\ x_2 \end{pmatrix} $ such that $A \mathbf{x} = \mathbf{0}$. Thus we need: \\ 
+    \begin{center} 
+        $\begin{aligned}    
+    x_1 + 2x_2  & =0 \\
+    4x_1+8x_2  & =0
+\end{aligned}$ 
+\end{center} 
+For $x_2 = \lambda  \implies x_1=-2 \lambda  \implies NS(A) = \{\mathbf{x} = \lambda \begin{pmatrix} -2 \\ 1 \end{pmatrix} : \lambda \in \mathbb{R} \}$. The set of all points in $NS(A)$ is a straight line through the origin in the direction of the vector  $\begin{pmatrix} -2 \\ 1 \end{pmatrix} $ 
+\item For $C = \begin{pmatrix} 0  & 0 \\ 0 &  0 \end{pmatrix} $ is the zero matrix, $C \mathbf{x}=\mathbf{0}$ for every $\mathbf{x} \in \mathbb{R}^2$ so $NS(C)=\mathbb{R}^2$
+\end{itemize}
+}
+
+\thm{}{
+    Let $A$ be an  $m \times n $ matrix, then $NS(A)$ is a subspace of  $ \mathbb{R}^n$
+
+}
+\begin{myproof}
+    Note that $\mathbf{0} \in NS(A)$ and if $\mathbf{x,y} \in NS(A)$, then we have that $A \mathbf{x}=\mathbf{0} $ and $A \mathbf{y}=\mathbf{0}$ so $A(\mathbf{x+y}) = A\mathbf{x} + A\mathbf{y}=\mathbf{0+0}=\mathbf{0}$
+    so $\mathbf{x+y} \in NS(A)$. Similarly, if $ \lambda \in \mathbb{R}, $ we have that $A( \lambda  \mathbf{x}) = \lambda  (A \mathbf{x})= \lambda \mathbf{0} = \mathbf{0}$, that is, $ \lambda  \mathbf{x}\in NS(A)$
+    
+\end{myproof}
+
+\nt{
+It is clear from this that the set of solutions of a homogeneous system of equations form a vector space. This is sometimes referred to as the solution space of the system of equations. The solutions of a non-homogeneous system does not need to form a vector space
+}
+
+\dfn{Nullity}{Let $A$ be an  $m \times n$ matrix, then the dimensions of $NS(A)$ is called the nullity of $A$ and is denoted by  $\mathrm{Nullity} (A) $}{}
+
+\ex{}{Given matrix $Z = \begin{pmatrix}
+    1 & -2  & 0  &  0  & 3 \\
+    2 & -5  & -3  & -2  & 6 \\
+    0  &  5  & 15  & 10 & 0 \\
+
+    2 & 6 & 18 & 8 & 6
+\end{pmatrix}$, find the basis and nullity of $NS(Z) $ \\
+$U=\begin{pmatrix}
+    1 & -2 & 0 & 0 & 3\\
+    0 & -1 & -3 & -2 & 0\\
+    0 & 0 & -12 & -12 & 0\\
+    0 & 0 & 0 & 0 & 0 
+\end{pmatrix}$
+is row echelon form of matrix $Z$
+
+Solutions to $A\mathbf{x} = \mathbf{0}$ are the same as the solutions to $U\mathbf{x}=\mathbf{0}$
+
+Let $x_5 = \lambda, x_4 = \mu \implies x_3 = -\mu, x_2 = \mu, x_1 = 2\mu - 3 \lambda$
+
+So $\begin{pmatrix} x_1 \\ x_2 \\ x_3 \\ x_4 \\ x_5 \end{pmatrix} = \lambda \begin{pmatrix} -3 \\ 0 \\ 0 \\ 0 \\ 1 \end{pmatrix} + \mu \begin{pmatrix} 2 \\ 1 \\ -1 \\ 1 \\ 0 \end{pmatrix}$
+
+We then have that $\begin{pmatrix} -3 \\ 0 \\ 0 \\ 0 \\ 1 \end{pmatrix}$ and $\begin{pmatrix} 2 \\ 1 \\ -1 \\ 1 \\ 0 \end{pmatrix}$ form a basis for $NS(Z)$ (are linearly independent)
+
+Dimension: $\dim (NS(Z))=2$ [Notice that $\dim (NS(Z))$ is the same as the number of free variables]
+}
+
+\thm{}{If $U$ is a matrix in row echelon form, then  $\dim (NS(U))$ is the number of free variables in the equation  $U \mathbf{x} = \mathbf{0}$}
+\begin{myproof}
+    The proof for this is omitted, but using the example,  it is clear that the vectors obtained by the method in the example spans
+the null space. To see that they will always be linearly independent, note that there
+is a vector corresponding to each free variable, and that this vector has a 1 in the
+position corresponding to the free variable, while all the other vectors will have a 0
+in this position.
+\end{myproof}
+
+\dfn{Row Space and Column Space}{
+
+ Let  $m \times n$ matrix 
+  $A  =
+   \begin{pmatrix} 
+
+    a_{11} & a_{12} & \cdots & a_{1n}\\
+    a_{21} & a_{22} & \cdots & a_{2n}\\
+    \vdots & \vdots & \ddots & \vdots\\
+    a_{m1} & a_{m2} & \cdots & a_{mn}\\
+\end{pmatrix} $ 
+\\ The vectors  
+
+
+\begin{center}
+\[
+\begin{aligned}
+    \mathbf{r}_1 & = (a_{11}, a_{12}, \ldots, a_{1n}) \\
+    \mathbf{r}_2 & = (a_{21}, a_{22}, \ldots, a_{2n}) \\
+    \vdots  & \ \ \ \ \ \ \ \vdots \\
+    \mathbf{r}_m & = (a_{m1}, a_{m2}, \ldots, a_{mn})
+\end{aligned}
+\]
+\end{center} 
+in $\mathbb{R}^n$ are the row vectors of $A$. The vectors \\  
+\begin{center}
+$
+\mathbf{c}_1 = \begin{pmatrix} a_{11} \\ a_{21} \\ \vdots \\ a_{m1} \end{pmatrix}, \mathbf{c}_2 = \begin{pmatrix} a_{12} \\ a_{22} \\ \vdots \\ a_{m2} \end{pmatrix}, \ldots,\mathbf{c}_n = \begin{pmatrix} a_{1n} \\ a_{2n} \\ \vdots \\ a_{mn} \end{pmatrix}  
+$
+\end{center} 
+in $\mathbb{R}^m$ are called the column vectors of $A$ 
+
+    \begin{enumerate}
+        \item  $\text{span}(\{\mathbf{r}_1, \mathbf{r}_2, \ldots, \mathbf{r}_m \}$ is a subspace of $\mathbb{R}^n$ called the row space of $A$, denoted by  $RS(A)$
+
+        \item  $\text{span}(\{\mathbf{c}_1, \mathbf{c}_2, \ldots, \mathbf{c}_n \}$ is a subspace of  $\mathbb{R}^m$ called the column space of $A$, denoted by  $CS(A)$
+
+
+    \end{enumerate}
+}
+
+
+\mlenma{}{Every elementary row operation does not change the row space}
+\begin{myproof}
+    Check for each elementary row operation
+    \begin{itemize}
+        \item $R_i \leftrightarrow R_j$: Suppose $\mathbf{r}_1, \mathbf{r}_2, \ldots, \mathbf{r}_{i-1}, \mathbf{r}_i, \mathbf{r}_{i+1}, \ldots, \mathbf{r}_{j-1}, \mathbf{r}_j, \ldots, \mathbf{r}_{j+1}, \ldots, \mathbf{r}_n$ are the rows of the original matrix (WLOG, assume $i \le j$).  But after interchanging rows, we get the rows are: \\
+            $\mathbf{r}_1, \mathbf{r}_2, \ldots, \mathbf{r}_{i-1}, \mathbf{r}_j, \mathbf{r}_{i+1}, \ldots, \mathbf{r}_{j-1}, \mathbf{r}_i, \mathbf{r}_{j+1}, \ldots, \mathbf{r}_n$. But this is the same same set of vectors (the order does not matter), so the row space is the same
+    
+        \item $R_i \rightarrow \lambda R_i$.  Suppose $\mathbf{r}_1, \mathbf{r}_2, \ldots, \mathbf{r}_i, \ldots, \mathbf{r}_{n}$ are the rows of the original matrix. The new rows are: $\mathbf{r}_1, \mathbf{r}_2, \ldots, \lambda \mathbf{r}_i, \ldots, \mathbf{r}_{n}$. If $A$ is the original matrix and  $A'$ the new matrix, we get: \\
+            First suppose $\mathbf{v} \in RS(A) \implies \mathbf{v} = \lambda_1 \mathbf{r}_1 + \lambda _2 \mathbf{r}_2 + \cdots + \lambda _{i} \mathbf{r}_i + \ldots + \lambda_{n}\mathbf{r}_{n} \implies \lambda_1 \mathbf{r}_1 + \lambda _2 \mathbf{r}_2 + \cdots + 1(\lambda _{i} \mathbf{r}_i) + \ldots + \lambda_{n}\mathbf{r}_{n}$ so $\mathbf{v} \in RS\left( A'  \right) $. Now if $\mathbf{u} \in RS(A')$, then $\mathbf{u} = \mu_1 \mathbf{r_1} +  \mu_2 \mathbf{r}_2 +  \cdots + \mu_i ( \lambda_i \mathbf{r}_i) + \ldots +  \mu_{n} \mathbf{r}_n = \mu_1 \mathbf{r_1} +  \mu_2 \mathbf{r}_2 +  \cdots + (\mu_i  \lambda_i) \mathbf{r}_i + \ldots +  \mu_{n} \mathbf{r}_n $ and $ \mu _i \lambda _i \in F$ so $\mathbf{u} \in RS(A)$ and thus $RS(A) = RS(A')$
+
+        \item $R_i \rightarrow R_i + \lambda  R_j$.  Suppose $\mathbf{r}_1, \mathbf{r}_2, \ldots, \mathbf{r}_i, \ldots, \mathbf{r}_{n}$ are the rows of the original matrix. The new rows are: $\mathbf{r}_1, \mathbf{r}_2, \ldots,  (\mathbf{r}_i+ \lambda \mathbf{r}_j), \ldots, \mathbf{r}_{n}$. If $A$ is the original matrix and  $A'$ the new matrix, we get: \\
+            If $\mathbf{v} \in \mathrm{span}(A),$ then $ \mathbf{v} = \mu_1 \mathbf{r}_1 + \ldots + \mu _i \mathbf{r}_i + \ldots + \mu _j \mathbf{r}_j + \ldots + \mu _n \mathbf{r}_n$ (WLOG, assume $i \le j$). But then, we have that $\mathbf{v} = \mu_1 \mathbf{r}_1 + \ldots + \mu _i (\mathbf{r}_i + \lambda \mathbf{r}_j) + \ldots + (\mu _j - \lambda \mu _i) \mathbf{r}_j + \ldots + \mu _n \mathbf{r}_n$ so $\mathbf{v} \in \mathrm{span}(A')$. Now if $\mathbf{w} \in \mathrm{span}\left( A' \right) \implies \mathbf{w} = \mu_1 \mathbf{r}_1 + \mu_2 \mathbf{r}_2 + \cdots + \mu_{i}(\mathbf{r}_{i} + \lambda \mathbf{r}_j) + \ldots + \mu _j \mathbf{r}_j + \ldots + \mu _n \mathbf{r}_n = \mu_1 \mathbf{r}_1 + \mu_2 \mathbf{r}_2 + \cdots + \mu_{i}\mathbf{r}_{i} +  \ldots + (\mu _j+ \mu _i \lambda ) \mathbf{r}_j + \ldots + \mu _n \mathbf{r}_n \implies \mathbf{w} \in \mathrm{span}(A) \implies \mathrm{span}(A) = \mathrm{span}(A')$ 
+    \end{itemize}
+
+\end{myproof}
+
+\thm{}{Let $U$ be a row echelon form of $m \times n$ matrix $A$, then  $RS(A)=RS(U)$}
+\begin{myproof}
+    This follows from the previous lemma
+\end{myproof}
+
+\ex{}{
+$U=\begin{pmatrix} 1 & -2 & 0 & 0 & 3\\ 0 & -1 & -3 & -2 & 0\\ 0 & 0 & -12 & -12 & 0\\ 0 & 0 & 0 & 0 & 0 \end{pmatrix}$ from $Z=\begin{pmatrix} 1 & -2 & 0 & 0 & 3\\ 2 & -5 & -3 & -2 & 6\\ 0 & 5 & 15 & 10 & 0\\ 2 & 6 & 18 & 8 & 6 \end{pmatrix}$. \\ We have that $\begin{pmatrix} 1 & -2 & 0 & 0 & 3 \end{pmatrix}$, $\begin{pmatrix} 0 & -1 & -3 & -2 & 0 \end{pmatrix}$, $\begin{pmatrix} 0 & 0 & -12 & -12 & 0 \end{pmatrix}$ are linearly independent and thus form a basis for $RS(U)=RS(A)$ and so $\dim (RS(A))=3$ [same as number of dependent variables]
+\\ 
+Row operations may change the column space
+$\text{Consider } B=\begin{pmatrix} 1 & -2 \\  100 & -200 \end{pmatrix} \to U=\begin{pmatrix} 1 & -2 \\  0 & 0 \end{pmatrix} \\ 
+CS(B)=\text{span} \bigg \{ \begin{pmatrix} 1 \\ 100 \end{pmatrix} \bigg \}$ but $CS(U)= \mathrm{span} \bigg \{ \begin{pmatrix} 1 \\ 0 \end{pmatrix} \bigg \} $. 
+
+
+}
+
+\thm{}{
+The non-zero rows of matrix $U$ in row echelon form are linearly independent and form a basis for  $RS(U)$ so the dimension of  $RS(U)$ is exactly the number of non-zero rows in  $U$, or equivalently, the number of pivots of  $U$ or equally well, the number of dependent variables in the equation  $U \mathbf{x} = \mathbf{0}$
+}
+
+\begin{myproof}
+    No proof is provided but some justification is that the "staircase" pattern of the row echelon matrix
+forces the non-zero rows to be linearly independent
+\end{myproof}
+
+
+\ex{}{
+    Let $A = \begin{pmatrix} 1  & -2 & 0 & 0 & 3 \\ 2 & -5 & -3 & -2 & 6 \\ 0  & 5 & 15 & 10 & 0 \\ 2  & 5 & 15 & 10 & 0 \end{pmatrix} \longrightarrow U=\begin{pmatrix} 1  & -2 & 0 & 0 & 3 \\ 0 & -1 & -3 & -2 & 0 \\ 0 & 0 & -12 & -12 & 0 \\ 0 & 0 & 0 & 0 & 0 \end{pmatrix} $. Find the basis for $RS(A)$. A basis for  $RS(U) = RS(A) $ is  $\{ (1,-2,0,0,3), (0,-1,-3,-2,0),(0,0,-12,-12,0) \}$ and $\dim RS(A) = 3$. 
+}
+
+\ex{}{
+Suppose we are asked to find a basis for the subspace of $\mathbb{R}^5$ spanned by the set of vectors: \\
+\begin{center}
+\[
+    \bigg \{  \begin{pmatrix}  1 \\ -2 \\ 0 \\ 0 \\ 3 \end{pmatrix}, \begin{pmatrix} 2 \\ -5 \\ -3 \\ -2 \\ 6 \end{pmatrix}, \begin{pmatrix} 0 \\ 5 \\ 15 \\ 10 \\ 0 \end{pmatrix}, \begin{pmatrix} 2 \\ 6 \\ 18 \\ 8 \\ 6 \end{pmatrix}        \bigg \}
+\]
+
+\end{center}
+These vectors are the rows of the example above written as column vectors, so the answer is 
+\begin{center}
+\[
+    \bigg \{ \begin{pmatrix} 1 \\ -2 \\ 0 \\ 0 \\ 3 \end{pmatrix}, \begin{pmatrix} 0 \\ -1 \\ -3 \\ -2 \\ 0 \end{pmatrix}, \begin{pmatrix} 0 \\ 0 \\ -12 \\ -12 \\ 0 \end{pmatrix}     \bigg \}
+\]
+This gives a way of computing bases for spans (by using matrices with the vectors as the rows)
+\end{center}
+}
+
+\thm{}{Let $A$ and  $B$ be row equivalent matrices, then: \\
+\begin{enumerate}
+    \item Columns of $A$ are linearly independent  if and only if columns of $B$ are linearly independent
+    \item Some vectors from columns of $A$ form a basis for $CS(A)$ if and only if the corresponding columns in $B$ form a basis for $CS(B)$
+\end{enumerate}
+}
+
+\begin{myproof}
+    \begin{enumerate}
+        \item If we wish to check that the columns of $A$ are linearly independent, we are trying to show that  $A \mathbf{x} = \mathbf{0}$ has no non-trivial solutions (otherwise if some column is a linear combination of the others, there are elementary row operations to make that column all 0's, but then we have at least one free variable). But we know that if $A$ is row equivalent to  $B$, then the solutions for  $A \mathbf{x} = \mathbf{0}$ has exactly the same solutions to $B \mathbf{x} = \mathbf{0}$. So we know that $B \mathbf{x} = \mathbf{0}$ has only the trivial solution
+        \item (a) holds for any subset of the columns of $A$ and the corresponding subsets of the columns of  $B$. This is enough to prove the result (exercises give hints to complete proof for this)
+    \end{enumerate}
+\end{myproof}
+
+\ex{}{
+ Let $A = \begin{pmatrix} 1  & -2 & 0 & 0 & 3 \\ 2 & -5 & -3 & -2 & 6 \\ 0  & 5 & 15 & 10 & 0 \\ 2  & 5 & 15 & 10 & 0 \end{pmatrix} \longrightarrow U=\begin{pmatrix} 1  & -2 & 0 & 0 & 3 \\ 0 & -1 & -3 & -2 & 0 \\ 0 & 0 & -12 & -12 & 0 \\ 0 & 0 & 0 & 0 & 0 \end{pmatrix} $. Find the column space of $A$
+ \\ the first 3 columns contain the pivots so they form the basis for  $CS(U)$. The corresponding columns of  $A$ are  $\begin{pmatrix} 1 \\ 2 \\ 0 \\ 2 \end{pmatrix}, \begin{pmatrix} -2 \\ -5 \\ 5 \\ 6 \end{pmatrix}, \begin{pmatrix} 0 \\ -3 \\ 15 \\ 18 \end{pmatrix}$ so they form a basis for $CS(A)$
+}
+
+We can use this method to find column spaces and use this to find special bases for row spaces:
+\ex{}{
+We show that we can find a basis for the row space of 
+\begin{center}
+ $A = \begin{pmatrix} 1  & -2 & 0 & 0 & 3 \\ 2 & -5 & -3 & -2 & 6 \\ 0  & 5 & 15 & 10 & 0 \\ 2  & 5 & 15 & 10 & 0 \end{pmatrix}$
+\end{center}
+consisting entirely of rows of $A$ \\
+We will work with the columns of  $A^T$. We get that the row echelon form of  $A^T$ is:
+\begin{center}
+\[
+W = \begin{pmatrix} 1  & 2 & 0 & 2 \\ 0 & -1 & 5 & 10 \\ 0 & 0 & 0 & -12 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \end{pmatrix} 
+\]
+\end{center}
+So columns $1,2,4$ contain pivots and thus form a basis for the column space of  $A^T$ and thus rows  $1,2,4$ form a basis for  $RS(A)$
+
+}
+
+\thm{}{
+Let $A$ be any  $m \times n$ matrix. Then: 
+\begin{center}
+    $\dim CS(A) = \dim RS(A)$
+\end{center}
+}
+\begin{myproof}
+    Let $U$ be the row echelon form of  $A$. The dimension of  $RS(A)$ is the number of rows containing pivots of $U$, but the dimension of  $CS(A)$ is the number of columns containing pivots of  $U$ which is the same
+\end{myproof}
+
+\dfn{}{Let $A$ be a matrix. The dimension of  $RS(A)$ or  $CS(A)$ is called the rank and is denoted my  $\mathrm{Rank}\left( A \right) $}
+
+\thm{}{Let $A$ be a matrix. Then  $ \mathrm{Rank}(A) = \mathrm{Rank}(A^T)$}
+\begin{myproof}
+    $ \mathrm{Rank}(A) \dim RS(A) = \dim CS(A^T) = \mathrm{Rank}(A^T)$
+\end{myproof}
+\thm{}{If $A$ is a matrix with  $n$ columns, then
+    \begin{center}
+    $ \mathrm{Rank}(A) + \mathrm{Nullity}(A) = n$
+    \end{center}
+}
+
+\begin{myproof}
+    Let $U$ be the row echelon form of  $A$. We know that  $NS(A)=NS(U)$ and  $RS(A)=RS(U)$ and that $\dim NS(U)$ is the number of free variables in the equation  $U \mathbf{x}=\mathbf{0}$. We also know that $\dim RS(U)$ is the number of pivots in  $U$ which is equivalent to the number of dependent variables in the equation $U \mathbf{x} = \mathbf{0}$. But the total number of variables in $U \mathbf{x} = \mathbf{0}$ is the number of columns of $U$ which is the same as the number of columns of  $A$ which is  $n$. So we have:
+    \begin{center}
+         $n = \dim NS(U) + \dim RS(U) = \dim NS(A) + \dim RS(A) = \mathrm{Nullity}(A) + \mathrm{Rank}(A)$
+    \end{center}
+\end{myproof}
+
+\ex{}{
+Let us find bases for and dimensions of $RS(A), CS(A)$ and  $NS(A)$, where:
+\begin{center} $
+    A = \begin{pmatrix} 3 & 2 & -4 & 1 & 5 \\ 6 & 4 & -7 & 3 & 1 \\ -3 & -2 & 6 & 1 & 2 \\ 9 & 6 & -11 & 4 & 6 \end{pmatrix} \to U= \begin{pmatrix} 3 & 2 & -4 & 1 & 5 \\ 0 & 0 & 1 & 1 & -9 \\ 0 & 0 & 0 & 0 & 25 \\ 0 & 0 & 0 & 0 & 0 \end{pmatrix}    
+$ \end{center}
+We thus have 3 pivots, so rank of $A$ is 3 and thus the nullity must be 2 \\
+The non-zero rows of $U$ must be a basis for  $RS(A)$, so it has basis $\{ (3,2,-4,1,5), \left( 0,0,1,1,-9 \right), \left( 0,0,0,0,25 \right) \}$
+\\ The columns of $U$ which contain pivots are columns 1,3 and 5. Thus the corresponding columns of  $A$ form a basis for  $CS(A)$ and they are: $\begin{pmatrix} 3 \\ 6 \\ -3 \\ 9 \end{pmatrix}, \begin{pmatrix} -4 \\ -7 \\ 6 \\ -11 \end{pmatrix}, \begin{pmatrix} 5 \\ 1 \\ 2 \\ 6 \end{pmatrix}$ 
+\\ Finally, to find the basis for $NS(A)$, we solve  $U\mathbf{x}=\mathbf{0}$ which means we need to solve:
+\begin{center}
+\[
+    \begin{aligned}
+        3x_1+2x_2-4x_3+x_4+5x_5 & = 0 \\
+        x_3+x_4-9x_5 & = 0 \\
+        25x_5 & = 0
+    \end{aligned}
+\]
+\end{center}
+This gives solutions $\mathbf{x} = s \begin{pmatrix} -\frac{2}{3} \\ 1 \\ 0 \\ 0 \\ 0 \end{pmatrix} + t \begin{pmatrix} -\frac{5}{3} \\ 0 \\ -1 \\ 1 \\ 0 \end{pmatrix} $
+\\ (as expected, nullity is 2) and thus the basis for $NS(A)$ is $\bigg \{ \begin{pmatrix} -\frac{2}{3} \\ 1 \\ 0 \\ 0 \\ 0 \end{pmatrix}, \begin{pmatrix} -\frac{5}{3} \\ 0 \\ -1 \\ 1 \\ 0 \end{pmatrix} \bigg \}$
+}
+
+
+\thm{}{Let $A$ be an  $n \times n$ matrix (square). Then the following are equivalent:
+\begin{enumerate}
+    \item $A$ is invertible
+    \item  $NS(A) = \{ \mathbf{0}\}$
+    \item $\dim NS(A) = 0$ (The nullity of $A$ is $0$)
+    \item $ \mathrm{Rank}(A) = n$
+    \item $\dim CS(A)=n$
+    \item $\dim RS(A)=n$
+    \item The columns of  $A$ are linearly independent
+    \item The rows of  $A$ are linearly independent
+    \item  $\det (A) \ne 0$
+\end{enumerate}
+}
+
+\begin{myproof}
+    We know that $(1)$ and  $(2)$ are equivalent, and the others follow from all the results prove
+\end{myproof}
+
+\nt{This only holds for square matrices}
+
+
+
+\section{Vector Space Exercises}
+
+
+\end{document}
+
